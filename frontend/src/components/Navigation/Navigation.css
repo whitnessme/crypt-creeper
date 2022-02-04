@@ -1,0 +1,19 @@
+nav {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+.nav-link {
+    padding: 5px;
+    margin: 2px;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: pink;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
