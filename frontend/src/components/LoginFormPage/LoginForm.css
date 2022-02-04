@@ -3,7 +3,7 @@
     justify-content: center;
 }
 
-.loginform {
+.loginform, .signup-form {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
     flex-direction: column;
@@ -30,5 +30,5 @@ button {
     border: 1px solid rgb(214, 139, 139);
     border-radius: 5px;
     padding: 5px;
-    width: 50px;
+    /* width: 50px; */
 }
