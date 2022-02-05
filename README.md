@@ -33,4 +33,4 @@ This is my clone of HipCamp, but for those interested in staying in supernatural
 
 ### Database Schema
 
-![Crypt Seeker Diagram](https://github.com/whitnessme/crypt-seeker/blob/fa8fd30e73e6ff0453c1f6e7a7a4761f15c93636/frontend/public/images/diagram_CS_solo_react.png)
+![Crypt Seeker Diagram](https://github.com/whitnessme/crypt-seeker/blob/8165e1a4586eea112e5940e6f242fa23e1320bd6/frontend/public/images/diagram_CS_solo_react.png)
