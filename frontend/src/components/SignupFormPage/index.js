@@ -25,6 +25,7 @@ function SignupFormPage({ typeId }) {
 
   useEffect(() => {
     if (typeId === "1") setCompany("n/a")
+    if (typeId === "2") setCompany("")
   }, [])
 
   if (sessionUser) return <Redirect to="/" />;
