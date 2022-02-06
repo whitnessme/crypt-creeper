@@ -27,6 +27,23 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 256],
         },
       },
+      userTypeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "UserTypes" }
+      },
+      firstName: {
+        type: DataTypes.STRING(30),
+        allowNull: false
+      },
+      lastName: {
+        type: DataTypes.STRING(30),
+        allowNull: false
+      },
+      company: {
+        type: DataTypes.STRING(75),
+        allowNull: false
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
@@ -38,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+          exclude: ["hashedPassword", "email", "userTypeId", "firstName", "lastName", "company", "createdAt", "updatedAt"],
         },
       },
       scopes: {
@@ -57,8 +74,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   
   User.prototype.toSafeObject = function() {
-    const { id, username, email } = this;
-    return { id, username, email };
+    const { id, username, userTypeId, email, firstName, lastName, company } = this;
+    return { id, username, userTypeId, email, firstName, lastName, company };
   };
   
   User.prototype.validatePassword = function (password) {
@@ -89,6 +106,10 @@ module.exports = (sequelize, DataTypes) => {
     const user = await User.create({
       username,
       email,
+      userTypeId,
+      firstName,
+      lastName,
+      company,
       hashedPassword
     });
     return await User.scope('currentUser').findByPk(user.id);

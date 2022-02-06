@@ -21,7 +21,7 @@ This is my clone of HipCamp, but for those interested in staying in supernatural
     * `"proxy": "http://localhost:5000"`
 
 7. Create database, migrate, and seed models with script:
-    * `npm db:setup`
+    * `npm run db:setup`
     
 8. Start backend server
     * `npm start`

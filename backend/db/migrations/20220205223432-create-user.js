@@ -17,6 +17,23 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      userTypeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "UserTypes" }
+      },
+      firstName: {
+        type: Sequelize.STRING(30),
+        allowNull: false
+      },
+      lastName: {
+        type: Sequelize.STRING(30),
+        allowNull: false
+      },
+      company: {
+        type: Sequelize.STRING(75),
+        allowNull: false
+      },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
         allowNull: false
