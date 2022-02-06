@@ -17,8 +17,11 @@ function App() {
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>           
-            <Route path="/signup">
-              <SignupFormPage />
+            <Route path="/signup" >
+              <SignupFormPage typeId="1" />
+            </Route>
+            <Route path="/host/signup" >
+              <SignupFormPage typeId="2" />
             </Route>
           </Switch>
         )}
