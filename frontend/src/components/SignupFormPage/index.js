@@ -26,7 +26,8 @@ function SignupFormPage({ typeId }) {
   useEffect(() => {
     if (typeId === "1") setCompany("n/a")
     if (typeId === "2") setCompany("")
-  }, [])
+    setErrors([])
+  }, [typeId])
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -43,7 +44,10 @@ function SignupFormPage({ typeId }) {
       return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, company, typeId: parseInt(typeId, 10) }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) {
+            if (data.errors)
+            setErrors(data.errors);
+          }
         });
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
@@ -66,7 +70,7 @@ function SignupFormPage({ typeId }) {
           value={username}
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
-          required
+          // required
         />
         
         <input
@@ -74,7 +78,6 @@ function SignupFormPage({ typeId }) {
           value={firstName}
           placeholder="First Name"
           onChange={(e) => setFirstName(e.target.value)}
-          required
         />
       
         <input
@@ -82,7 +85,6 @@ function SignupFormPage({ typeId }) {
           value={lastName}
           placeholder="Last Name"
           onChange={(e) => setLastName(e.target.value)}
-          required
         />
 
       {typeId === "2" &&
@@ -91,7 +93,6 @@ function SignupFormPage({ typeId }) {
             placeholder="Company"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
-            required
           />
       }
 
@@ -100,7 +101,7 @@ function SignupFormPage({ typeId }) {
           value={email}
           placeholder="Email address"
           onChange={(e) => setEmail(e.target.value)}
-          required
+          // required
         />
 
         <input
@@ -109,7 +110,7 @@ function SignupFormPage({ typeId }) {
           placeholder="Create a Password"
           onClick={() => setShowConfirm(true)}
           onChange={(e) => setPassword(e.target.value)}
-          required
+          // required
         />
         
         {showConfirm &&
@@ -118,7 +119,7 @@ function SignupFormPage({ typeId }) {
         value={confirmPassword}
         placeholder="Confirm Password"
         onChange={(e) => setConfirmPassword(e.target.value)}
-        required
+        // required
         />
       }
 
