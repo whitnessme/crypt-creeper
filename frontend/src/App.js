@@ -18,10 +18,10 @@ function App() {
         {isLoaded && (
           <Switch>           
             <Route path="/signup" >
-              <SignupFormPage typeId="1" />
+              <SignupFormPage userTypeId="1" />
             </Route>
             <Route path="/host/signup" >
-              <SignupFormPage typeId="2" />
+              <SignupFormPage userTypeId="2" />
             </Route>
           </Switch>
         )}

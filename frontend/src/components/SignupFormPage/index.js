@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 
-function SignupFormPage({ typeId }) {
+function SignupFormPage({ userTypeId }) {
 
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -24,16 +24,16 @@ function SignupFormPage({ typeId }) {
   let title;
 
   useEffect(() => {
-    if (typeId === "1") setCompany("n/a")
-    if (typeId === "2") setCompany("")
+    if (userTypeId === "1") setCompany("n/a")
+    if (userTypeId === "2") setCompany("")
     setErrors([])
-  }, [typeId])
+  }, [userTypeId])
 
   if (sessionUser) return <Redirect to="/" />;
 
-  if (typeId === "1") {
+  if (userTypeId === "1") {
     title = "Join CryptSeeker"
-  } else if (typeId === "2") {
+  } else if (userTypeId === "2") {
     title = "Let Seekers stay at your Crypt!"
   }
 
@@ -41,7 +41,8 @@ function SignupFormPage({ typeId }) {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, company, typeId: parseInt(typeId, 10) }))
+      console.log(parseInt(userTypeId, 10))
+      return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, company, userTypeId: parseInt(userTypeId, 10) }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
@@ -87,7 +88,7 @@ function SignupFormPage({ typeId }) {
           onChange={(e) => setLastName(e.target.value)}
         />
 
-      {typeId === "2" &&
+      {userTypeId === "2" &&
           <input
             type="text"
             placeholder="Company"
@@ -108,8 +109,11 @@ function SignupFormPage({ typeId }) {
           type="password"
           value={password}
           placeholder="Create a Password"
-          onClick={() => setShowConfirm(true)}
-          onChange={(e) => setPassword(e.target.value)}
+          // onClick={() => setShowConfirm(true)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            setShowConfirm(true)
+          }}
           // required
         />
         
