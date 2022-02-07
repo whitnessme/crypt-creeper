@@ -38,7 +38,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Haunt.associate = function(models) {
-    Haunt.belongsTo(models.User, { foreignKey: 'userId' })
+    Haunt.belongsTo(models.User, { foreignKey: 'userId' });
+
+    const colMapping = {
+      through: 'hauntCryptids',
+      otherKey: 'cryptidId',
+      foreignKey: 'hauntId'
+    }
+    Haunt.belongsToMany(models.Cryptid, colMapping);
   };
   return Haunt;
 };
