@@ -1,19 +1,44 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Haunt = sequelize.define('Haunt', {
-    userId: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    city: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: "Users" }
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     state: DataTypes.STRING,
     zipcode: DataTypes.INTEGER,
-    country: DataTypes.STRING,
-    closeLandmark: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    summary: DataTypes.TEXT
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    closeLandmark: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    summary: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   }, {});
   Haunt.associate = function(models) {
-    // associations can be defined here
+    Haunt.belongsTo(models.User, { foreignKey: 'userId' })
   };
   return Haunt;
 };

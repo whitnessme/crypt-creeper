@@ -30,6 +30,15 @@ module.exports = {
         lastName: 'Host',
         company: "Haunted Hotels Inc.",
         hashedPassword: bcrypt.hashSync('password3')
+      },
+      {
+        email: 'user3@user.io',
+        username: 'FauxUser03',
+        userTypeId: 2,
+        firstName: 'Faux',
+        lastName: 'Hostess',
+        company: "Spooky Campsites",
+        hashedPassword: bcrypt.hashSync('password4')
       }
     ], {});
   },
