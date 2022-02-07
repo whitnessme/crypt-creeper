@@ -8,11 +8,15 @@ function LandingPage() {
 
     // need to update URLS for images
     let url = "https://wallpaperaccess.com/full/1228567.jpg"
-
+console.log(threeWide1)
     return (
         <div className="home-div">
-            <h1>Visit the Unknown!</h1>
-            <h2>Uncover mysterious haunts--crypts, coves, manors, lakes, and forests--with known supernatural inhabitants and rich histories.</h2>
+            <header>
+                <h1>Visit the Unexplained!</h1>
+                <div className="h2-container">
+                    <h2>Uncover and book haunt locations with known supernatural inhabitants and rich histories.</h2>
+                </div>
+            </header>
             <div className="lone">
             <ImageBlock url={url} classNames='wide tall' />
             </div>

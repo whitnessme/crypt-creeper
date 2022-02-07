@@ -26,6 +26,7 @@ export const threeWide1 = [
         "hauntId": '3',
         'caption0Class': 'large-header',
         'caption1Class' : 'small-text',
+        'buttonText': null
     },
 
     {
@@ -34,6 +35,7 @@ export const threeWide1 = [
         "hauntId": '4',
         'caption0Class': 'large-header',
         'caption1Class' : 'small-text',
+        'buttonText': null
     },
 
     {
@@ -42,5 +44,6 @@ export const threeWide1 = [
         "hauntId": '5',
         'caption0Class': 'large-header',
         'caption1Class' : 'small-text',
+        'buttonText': null
     }
 ]
