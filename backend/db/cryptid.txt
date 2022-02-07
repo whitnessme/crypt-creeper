@@ -1,0 +1,30 @@
+Cryptids:
+
+{ name: '', icon: ''},
+
+{ name: 'Honey Island Swamp Monster', icon:  ''[ape-like humanoid]},
+{ name: 'Rougaru', icon: ''[werewolf like cursed person]},
+{ name: 'Momo', icon:  ''[ape-like humanoid]},
+{ name: 'Ozark Howler', icon: ''[bear sized canine]},
+{ name: 'Ghosts', icon: ''},
+{ name: 'Raytown Ray', icon: ''[sea monster]},
+{ name: 'Bigfoot', icon: ''[ape-like humanoid]},
+{ name: 'Boggy Creek Monster', icon: ''[ape-like humanoid]},
+{ name: 'Champ', icon: ''[sea monster]},
+{ name: 'Vampires', icon: ''},
+{ name: 'Werewolves', icon: ''},
+{ name: 'Demons', icon: ''},
+{ name: 'Chimeras', icon: ''},
+{ name: 'Zombies', icon: ''},
+{ name: 'Aliens', icon: ''},
+{ name: 'Unidentified Creatures', icon: ''},
+{ name: 'Mothman', icon: ''},
+{ name: 'Yeti', icon: ''},
+{ name: 'Chupacabra', icon: ''},
+{ name: 'Wendigo', icon: ''},
+{ name: 'Jersey Devil', icon: ''},
+{ name: 'Loch Ness Monster', icon: ''},
+{ name: 'Thunderbirds', icon: ''},
+
+
+npx sequelize model:generate --name Haunt --attributes "userId:integer, name:string, address:string, city:string, state:string, zipcode:integer, country:string, closeLandmark:string, price:integer, summary:text" 
