@@ -32,3 +32,6 @@ npx sequelize model:generate --name Cryptid --attributes "name:string, icon:stri
 npx sequelize model:generate --name AreaFeatures --attributes "name:string, icon:string"
 npx sequelize model:generate --name Essentials --attributes "name:string, icon:string"
 npx sequelize model:generate --name Amenities --attributes "name:string, icon:string"
+
+
+npx sequelize model:generate --name hauntAmenityFeature --attributes "hauntId:integer, amenityId:integer"

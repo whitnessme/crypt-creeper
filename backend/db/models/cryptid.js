@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Cryptid.associate = function(models) {
 
-    Cryptid.belongsToMany(models.Haunt, { through: 'hauntCryptid'});
+    Cryptid.belongsToMany(models.Haunt, { through: 'hauntCryptids', otherKey: 'hauntId', foreignKey: 'cryptidId'});
   };
   return Cryptid;
 };

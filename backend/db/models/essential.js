@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Essential.associate = function(models) {
-    Essential.belongsToMany(models.Haunt, { through: 'hauntEssential' });
+    Essential.belongsToMany(models.Haunt, { through: 'hauntEssentials', otherKey: 'hauntId', foreignKey: 'essentialId' });
   };
   return Essential;
 };

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   AreaFeature.associate = function(models) {
-    AreaFeature.belongsToMany(models.Haunt, { through: 'hauntAreaFeature' });
+    AreaFeature.belongsToMany(models.Haunt, { through: 'hauntAreaFeatures', otherKey: 'hauntId', foreignKey: 'areaFeatureId' });
   };
   return AreaFeature;
 };

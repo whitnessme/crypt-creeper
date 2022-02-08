@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Amenity.associate = function(models) {
-    Amenity.belongsToMany(models.Haunt, { through: 'hauntAmenity' });
+    Amenity.belongsToMany(models.Haunt, { through: 'hauntAmenities', otherKey: 'hauntId', foreignKey: 'amenityId' });
   };
   return Amenity;
 };
