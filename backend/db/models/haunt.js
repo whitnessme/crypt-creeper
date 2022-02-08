@@ -40,12 +40,10 @@ module.exports = (sequelize, DataTypes) => {
   Haunt.associate = function(models) {
     Haunt.belongsTo(models.User, { foreignKey: 'userId' });
 
-    const colMapping = {
-      through: 'hauntCryptids',
-      otherKey: 'cryptidId',
-      foreignKey: 'hauntId'
-    }
-    Haunt.belongsToMany(models.Cryptid, colMapping);
+    Haunt.belongsToMany(models.Cryptid, { through: 'hauntCryptid' });
+    Haunt.belongsToMany(models.Essential, { through: 'hauntEssential' });
+    Haunt.belongsToMany(models.AreaFeature, { through: 'hauntAreaFeature' });
+    Haunt.belongsToMany(models.Amenity, { through: 'hauntAmenity' });
   };
   return Haunt;
 };

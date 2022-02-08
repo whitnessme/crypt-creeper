@@ -29,3 +29,6 @@ Cryptids:
 
 npx sequelize model:generate --name Haunt --attributes "userId:integer, name:string, address:string, city:string, state:string, zipcode:integer, country:string, closeLandmark:string, price:integer, summary:text" 
 npx sequelize model:generate --name Cryptid --attributes "name:string, icon:string"
+npx sequelize model:generate --name AreaFeatures --attributes "name:string, icon:string"
+npx sequelize model:generate --name Essentials --attributes "name:string, icon:string"
+npx sequelize model:generate --name Amenities --attributes "name:string, icon:string"

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Cryptid = sequelize.define('Cryptid', {
+  const Essential = sequelize.define('Essential', {
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -10,9 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {});
-  Cryptid.associate = function(models) {
-
-    Cryptid.belongsToMany(models.Haunt, { through: 'hauntCryptid'});
+  Essential.associate = function(models) {
+    Essential.belongsToMany(models.Haunt, { through: 'hauntEssential' });
   };
-  return Cryptid;
+  return Essential;
 };
