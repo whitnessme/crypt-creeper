@@ -10,11 +10,19 @@ module.exports = {
       },
       hauntId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Haunts',
+          key: 'id'
+        }
       },
       essentialId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Essentials',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('hauntAmenityFeatures', {
+    return queryInterface.createTable('hauntAmenity', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,23 +10,33 @@ module.exports = {
       },
       hauntId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Haunts',
+          key: 'id'
+        }
       },
       amenityId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Amenities',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('hauntAmenityFeatures');
+    return queryInterface.dropTable('hauntAmenity');
   }
 };

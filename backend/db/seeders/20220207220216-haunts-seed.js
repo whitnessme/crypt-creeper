@@ -94,7 +94,7 @@ module.exports = {
           closeLandmark: "Middle of Nowhere",
           price: 100,
           summary:
-            "Located near the center of the small town of Fouke, AK, this unique experience will give you the chance to stay in the heart  of the Boggy Creek Monsters territory. Explore the hometown of this amazing creature and support the special themed restaurants and businesses while you look for creature during the day! And remember to lock your door at night.",
+            "Located near the center of the small town of Fouke, AK, this unique experience will give you the chance to stay in the heart  of the Boggy Creek Monsters territory. Explore the hometown of this amazing creature and support the special themed restaurants and businesses while you look for creature during the day! And remember to lock your door at night. Location of The Legend of Boggy Creek, a 1972 American docudrama horror film.",
         },
         {
           userId: 4,

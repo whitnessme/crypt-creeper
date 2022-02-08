@@ -13,8 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   Cryptid.associate = function(models) {
 
     const columnMapping = {
-      through: 'hauntCryptids',
-      otherKey: 'hauntId',
+      through: {model: hauntCryptids},
       foreignKey: 'cryptidId'
     }
 

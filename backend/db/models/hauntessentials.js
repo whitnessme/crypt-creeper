@@ -3,11 +3,19 @@ module.exports = (sequelize, DataTypes) => {
   const hauntEssentials = sequelize.define('hauntEssentials', {
     hauntId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Haunts',
+        key: 'id'
+      }
     },
     essentialId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Essentials',
+        key: 'id'
+      }
     }
   }, {});
   hauntEssentials.associate = function(models) {

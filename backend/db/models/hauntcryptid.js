@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const hauntAmenities = sequelize.define('hauntAmenities', {
+  const hauntCryptid = sequelize.define('hauntCryptid', {
     hauntId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    amenityId: {
+    cryptidId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Amenities',
+        model: 'Cryptids',
         key: 'id'
       }
     }
   }, {});
-  hauntAmenities.associate = function(models) {
+  hauntCryptid.associate = function(models) {
     // associations can be defined here
   };
-  return hauntAmenities;
+  return hauntCryptid;
 };

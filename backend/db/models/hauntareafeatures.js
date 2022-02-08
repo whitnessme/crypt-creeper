@@ -3,11 +3,19 @@ module.exports = (sequelize, DataTypes) => {
   const hauntAreaFeatures = sequelize.define('hauntAreaFeatures', {
     hauntId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Haunts',
+        key: 'id'
+      }
     },
     areaFeatureId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'AreaFeatures',
+        key: 'id'
+      }
     }
   }, {});
   hauntAreaFeatures.associate = function(models) {
