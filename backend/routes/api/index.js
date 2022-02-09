@@ -9,9 +9,9 @@ router.use('/users', usersRouter);
 
 router.use('/haunts', hauntsRouter);
 
-// router.post('/test', (req, res) => {
-//   res.json({ requestBody: req.body });
-// });
+router.get('/test', (req, res) => {
+  res.send('HELLO?');
+});
 
   
 module.exports = router;

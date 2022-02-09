@@ -7,17 +7,20 @@ const router = express.Router();
 
 // Get all Haunts & Images with that id
 router.get('/', asyncHandler(async function (req, res) {
-    return Haunt.findAll({ include: Image })
+    const haunts = await Haunt.findAll({ include: Image })
+    res.send(haunts)
 }));
 
 // Get specific Haunt
 router.get('/:hauntId', asyncHandler(async function (req, res) {
-    return Haunt.findByPk(req.params.hauntId)
+    const haunts = await Haunt.findByPk(req.params.hauntId);
+    res.json(haunts)
 }));
 
 // Create New Haunt
 
 router.post("/", validateHaunt, asyncHandler(async function(req, res) {
+    console.log(req)
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
     const haunt = await Haunt.create({
         userId,
@@ -31,7 +34,7 @@ router.post("/", validateHaunt, asyncHandler(async function(req, res) {
         price,
         summary
     });
-    return res.json(haunt)
+    res.json(haunt)
 }))
 
 // Update Specific Haunt
@@ -52,7 +55,7 @@ asyncHandler(async (req, res) => {
         summary
     }, {where: req.params.hauntId});
 
-    return res.json(updated)
+    res.json(updated)
 }))
 
 // Delete a specific Haunt
