@@ -1,7 +1,7 @@
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('./utils');
+const { handleValidationErrors } = require('../../utils/validation.js');
 
-export const validateHaunt = [
+const validateHaunt = [
     check('name')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a name'),
@@ -27,7 +27,9 @@ export const validateHaunt = [
         .exists({ checkFalsy: true })
         .withMessage('Please provide a summary')
         .bail()
-        .split(" ").isLength({ min: 10 })
-        .withMessage('Please provide a summary of at least 10 words'),
+        .isLength({ min: 80 })
+        .withMessage('Please provide a summary of at least 80 characters'),
     handleValidationErrors
-]
+];
+
+module.exports = validateHaunt;

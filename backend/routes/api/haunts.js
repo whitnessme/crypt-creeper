@@ -16,7 +16,8 @@ router.get('/:hauntId', asyncHandler(async function (req, res) {
 }));
 
 // Create New Haunt
-router.post('/', validateHaunt, asyncHandler(async function(req, res) {
+
+router.post("/", validateHaunt, asyncHandler(async function(req, res) {
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
     const haunt = await Haunt.create({
         userId,
@@ -34,7 +35,8 @@ router.post('/', validateHaunt, asyncHandler(async function(req, res) {
 }))
 
 // Update Specific Haunt
-router.put('/:hauntId', validateHaunt, asyncHandler(async function(req, res) {
+router.put('/:hauntId', validateHaunt,
+asyncHandler(async (req, res) => {
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
 
     const updated = await Haunt.update({
@@ -62,3 +64,5 @@ router.delete('/:hauntId', asyncHandler(async function(req, res) {
     return res.json('Successfully Deleted ', req.params.hauntId)
 
 }))
+
+module.exports = router;

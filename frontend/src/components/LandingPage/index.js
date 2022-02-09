@@ -8,7 +8,7 @@ function LandingPage() {
 
     // need to update URLS for images
     let url = "https://wallpaperaccess.com/full/1228567.jpg"
-console.log(threeWide1)
+// console.log(threeWide1)
     return (
         <div className="home-div">
             <header>

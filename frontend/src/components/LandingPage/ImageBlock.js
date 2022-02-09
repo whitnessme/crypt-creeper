@@ -3,7 +3,7 @@ import ImageBlockCaption from "./ImageBlockCaption";
 
 function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class }) {
     let history = useHistory();
-    console.log('Hmm', hauntId, buttonText, caption)
+    // console.log('Hmm', hauntId, buttonText, caption)
     const redirect = () => {
         history.push(`/haunts/${hauntId}`)
     }

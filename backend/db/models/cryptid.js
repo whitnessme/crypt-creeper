@@ -1,5 +1,4 @@
 'use strict';
-const hauntCryptids = require('./hauntcryptids')
 
 module.exports = (sequelize, DataTypes) => {
   const Cryptid = sequelize.define('Cryptid', {
@@ -15,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Cryptid.associate = function(models) {
 
     const columnMapping = {
-      through: { model: hauntCryptids },
+      through: 'hauntCryptids',
       otherKey: 'hauntId',
       foreignKey: 'cryptidId'
     }
