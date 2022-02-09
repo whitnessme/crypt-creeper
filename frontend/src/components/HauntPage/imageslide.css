@@ -1,0 +1,31 @@
+.slide-container {
+    width: 100vw;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    /* overflow: hidden; */
+    text-align: center;
+}
+
+.img-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    transition: left 2s;
+    -webkit-transition: left 2s;
+}
+
+.slide-img {
+    margin: 0px;
+    padding: 0px;
+    /* float: left; */
+}
+
+.slide-button-container {
+    top: -20px;
+    position: absolute
+}
+
+.slide-button {
+    display: inline-block;
+}

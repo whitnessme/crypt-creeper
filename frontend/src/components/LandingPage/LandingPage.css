@@ -31,8 +31,18 @@ p {
 
 .image-block {
     display: inline-flex;
+    /* position: absolute; */
     flex-direction: column;
     justify-content: center;
+    transition: 0.3s ease-in-out;
+    border-radius: 24px;
+}
+
+.image-block:hover {
+    /* -webkit-transform: translateY(-2px); */
+    /* animation: block-move 1s ease-in; */
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 5px -5px rgba(128, 128, 128, 0.61);
 }
 
 .wide {
@@ -41,6 +51,7 @@ p {
 
 .lone {
     display: block;
+    position: relative;
     width: 100%;
     margin-bottom: 50px;
 }
@@ -60,11 +71,15 @@ header + .lone > div {
 .img-container {
     width: 100%;
     height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 24px 24px 0px 0px;
 }
 
 .block-row {
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

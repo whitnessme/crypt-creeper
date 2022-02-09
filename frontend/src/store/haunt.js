@@ -18,29 +18,29 @@ export const loadHaunts = haunts => {
     return {
         type: LOAD_HAUNTS,
         haunts
-    }
-}
+    };
+};
 
 export const loadOneHaunt = oneHaunt => {
     return {
         type: LOAD_ONE_HAUNT,
         oneHaunt
-    }
-}
+    };
+};
 
 export const update = updatedHaunt => {
     return {
         type: UPDATE_HAUNT,
         updatedHaunt
-    }
-} 
+    };
+};
 
 export const removeHaunt = removedHaunt => {
     return {
         type: DELETE_HAUNT,
         removedHaunt
-    }
-}
+    };
+};
 
 // export const removeHauntFeatures = features => {
 //     return {
@@ -58,15 +58,15 @@ export const getHaunts = () => async (dispatch, getState) => {
         dispatch(loadHaunts(haunts))
     }
     return res;
-}
+};
 
 export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
     const res = await fetch(`/api/haunts/${hauntId}`);
     if (res.ok) {
         const haunt = await res.json()
         dispatch(loadOneHaunt(haunt))
-    }
-}
+    };
+};
 
 export const createNewHaunt = (payload) => async (dispatch, getState) => {
     const res = await csrfFetch('/api/haunts', {
@@ -77,7 +77,7 @@ export const createNewHaunt = (payload) => async (dispatch, getState) => {
     if (res.ok) {
         const newHaunt = await res.json()
         dispatch(createHaunt(newHaunt))
-    }
+    };
 };
 
 export const updateHaunt = (payload, hauntId) => async (dispatch) => {
@@ -136,7 +136,7 @@ const hauntReducer = (state = initialState, action) => {
             return newState;
         default:
             return state;
-    }
-}
+    };
+};
 
 export default hauntReducer;

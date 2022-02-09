@@ -7,7 +7,7 @@ import './LandingPage.css'
 function LandingPage() {
 
     // need to update URLS for images
-    let url = "https://wallpaperaccess.com/full/1228567.jpg"
+    let url = "https://media.cntraveler.com/photos/57ec02078300776b0f420a13/3:2/w_2046,h_1364,c_limit/haunted-forests-black-forest-germany-GettyImages-467120271.jpg"
 // console.log(threeWide1)
     return (
         <div className="home-div">

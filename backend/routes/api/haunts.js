@@ -1,19 +1,27 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const validateHaunt = require('../validations/haunt')
-const { Haunt, Image } = require('../../db/models')
+const { Haunt, Image, Cryptid, AreaFeature, Essential, Amenity } = require('../../db/models')
 
 const router = express.Router();
 
 // Get all Haunts & Images with that id
 router.get('/', asyncHandler(async function (req, res) {
-    const haunts = await Haunt.findAll({ include: Image })
+    const haunts = await Haunt.findAll({include: [
+        {model: Image}
+    ]})
     res.send(haunts)
 }));
 
 // Get specific Haunt
 router.get('/:hauntId', asyncHandler(async function (req, res) {
-    const haunts = await Haunt.findByPk(req.params.hauntId);
+    const haunts = await Haunt.findByPk(req.params.hauntId, {include: [
+        {model: Image},
+        {model: Cryptid},
+        {model: AreaFeature},
+        {model: Essential},
+        {model: Amenity},
+    ]});
     res.json(haunts)
 }));
 
