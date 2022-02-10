@@ -7,12 +7,12 @@ import './LandingPage.css'
 function LandingPage() {
 
     // need to update URLS for images
-    let url = "https://wallpaperaccess.com/full/1228567.jpg"
-console.log(threeWide1)
+    let url = "https://media.cntraveler.com/photos/57ec02078300776b0f420a13/3:2/w_2046,h_1364,c_limit/haunted-forests-black-forest-germany-GettyImages-467120271.jpg"
+// console.log(threeWide1)
     return (
         <div className="home-div">
             <header>
-                <h1>Visit the Unexplained!</h1>
+                <h1 className="home-h1">Visit the Unexplained!</h1>
                 <div className="h2-container">
                     <h2>Uncover and book haunt locations with known supernatural inhabitants and rich histories.</h2>
                 </div>

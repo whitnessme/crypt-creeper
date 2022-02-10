@@ -34,4 +34,4 @@ npx sequelize model:generate --name Essentials --attributes "name:string, icon:s
 npx sequelize model:generate --name Amenities --attributes "name:string, icon:string"
 
 
-npx sequelize model:generate --name hauntAmenityFeature --attributes "hauntId:integer, amenityId:integer"
+npx sequelize model:generate --name hauntAmenitiesFeature --attributes "hauntId:integer, amenityId:integer"
