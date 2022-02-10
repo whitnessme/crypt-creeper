@@ -1,6 +1,7 @@
 "use strict";
 const bcrypt = require('bcryptjs');
 const { Validator } = require('sequelize');
+const { UserType } = require('../models')
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -55,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "userTypeId", "createdAt", "updatedAt"],
+          exclude: ["hashedPassword", "email", "userTypeId", "UserType", "createdAt", "updatedAt"],
         },
       },
       scopes: {
@@ -78,8 +79,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   
   User.prototype.toSafeObject = function() {
-    const { id, username, userTypeId, email, firstName, lastName, company } = this;
-    return { id, username, userTypeId, email, firstName, lastName, company };
+    const { id, username, userTypeId, UserType, email, firstName, lastName, company } = this;
+    return { id, username, userTypeId, UserType, email, firstName, lastName, company };
   };
   
   User.prototype.validatePassword = function (password) {
@@ -87,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   
   User.getCurrentUserById = async function (id) {
-    return await User.scope('currentUser').findByPk(id);
+    return await User.scope('currentUser').findByPk(id, {include: [{model: UserType}]});
   };
   
   User.login = async function ({ credential, password }) {
@@ -101,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
     if (user && user.validatePassword(password)) {
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.scope('currentUser').findByPk(user.id, {include: [{model: UserType}]});
     }
   };
   

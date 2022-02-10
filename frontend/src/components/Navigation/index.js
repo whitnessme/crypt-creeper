@@ -8,19 +8,18 @@ import logo from "../../images/cryptseeker-logo.png";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-  console.log(sessionUser);
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <>
         <li>
-          <NavLink className="nav-link" exact to="/trips/:userId">
+          <NavLink className="nav-link" exact to={`/trips/${sessionUser.id}`}>
             Trips
           </NavLink>
         </li>
         {sessionUser.userTypeId === 2 && (
           <li>
-            <NavLink className="nav-link" to="/listings/:userId">
+            <NavLink className="nav-link" to={`/listings/${sessionUser.id}`}>
               Listings
             </NavLink>
           </li>
