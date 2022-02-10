@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage'
 import * as sessionActions from "./store/session";
 import HauntPage from "./components/HauntPage";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path='/haunts/:hauntId'>
               <HauntPage />
+            </Route>
+            <Route path='/haunts'>
+
             </Route>
           </Switch>
         )}

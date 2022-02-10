@@ -5,6 +5,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import './index.css';
 import App from './App';
 import { ModalProvider } from './context/Modal';
+import { ScrollToTop } from './utils';
 
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
@@ -25,7 +26,9 @@ function Root() {
     <ReduxProvider store={store}>
       <ModalProvider>
       <BrowserRouter>
+      <ScrollToTop>
         <App />
+      </ScrollToTop>
       </BrowserRouter>
       </ModalProvider>
     </ReduxProvider>

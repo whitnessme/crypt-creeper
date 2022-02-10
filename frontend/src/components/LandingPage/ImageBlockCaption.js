@@ -23,7 +23,7 @@ const ImageBlockCaption = ({
           <p className={caption0Class}>{caption[0]}</p>
           <div className="block-button-container">
             <p className={caption1Class}>{caption[1]}</p>
-            <NavLink to={`/haunts/${hauntId}`} className="block-button">
+            <NavLink exact to={`/haunts/${hauntId}`} className="block-button">
               {buttonText}
             </NavLink>
           </div>
