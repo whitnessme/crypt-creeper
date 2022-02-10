@@ -4,7 +4,7 @@ import './imageslide.css'
 function ImageSlide({hauntId, haunt}) {
     let images = haunt[0].Images
     
-    console.log(haunt, images)
+    // console.log(haunt, images)
     return (
         <div className='slide-container'>
             <div className='slide-img-container'>
@@ -14,10 +14,10 @@ function ImageSlide({hauntId, haunt}) {
             </div>
             <div className='slide-button-container'>
                <div className='slide-button-prev'>
-               <i class="fa-solid fa-circle-chevron-left"></i>
+               <i className="fa-solid fa-circle-chevron-left"></i>
                </div>
                <div className='slide-button-next'>
-               <i class="fa-solid fa-circle-chevron-right"></i>
+               <i className="fa-solid fa-circle-chevron-right"></i>
                </div>
             </div>
         </div>

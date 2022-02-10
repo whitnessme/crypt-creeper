@@ -8,9 +8,9 @@ function HauntHeader ({ haunt, hauntId }) {
             <div className="haunt-header">
                 <div className="location-header-div">
                     <span>{info.country}</span>
-                    <i class="fa-solid fa-angle-right"></i>
+                    <i className="fa-solid fa-angle-right"></i>
                     <span>{info.state}</span>
-                    <i class="fa-solid fa-angle-right"></i>
+                    <i className="fa-solid fa-angle-right"></i>
                     <span>{info.city}</span>
                 </div>
                 <div className="haunt-title">
