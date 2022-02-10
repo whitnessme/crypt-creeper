@@ -19,10 +19,8 @@ function Listings () {
 
 
     useEffect(() => {
-        dispatch(getHauntsbyHostId(sessionUser.id))
+       dispatch(getHauntsbyHostId(sessionUser.id))
 }, [dispatch])
-
-    console.log(haunts)
 
     let lastInitial = sessionUser.lastName.slice(0,1)
 
@@ -35,7 +33,8 @@ function Listings () {
     }
 
     return (
-        <div className='listings-page-container'>
+        <>
+            <div className='listings-page-container'>
             <div className='user-left-col'>
                 <div className='name-icon-div'>
                     <i className="fa-solid fa-skull user-profile"></i>
@@ -63,13 +62,30 @@ function Listings () {
                         </li>
                     </ul>
                 </div>
-                <div className='listings-blocks-div'>
-                    {haunts.map((haunt) => {
-                        <ImageBlock />
-                    })}
+        {haunts &&
+                <div className='listings-haunts-div'>
+                    {haunts.map((haunt) => (
+                        <>
+                        {console.log(haunt.url)}
+                        <ImageBlock
+                        key={`listing-${haunt.id}`}
+                        classNames='user-view-haunts'
+                        url={haunt.url}
+                        hauntId={haunt.hauntId}
+                        caption={[haunt.name, `In ${haunt.city}, ${haunt.state}`]}
+                        buttonText='Listing Page'
+                        hauntId={haunt.hauntId}
+                        caption0Class='listing-title'
+                        caption1Class='listing-location'
+                        listing={true}
+                        />
+                        </>
+                    ))}
                 </div>
+                }
             </div>
         </div>
+        </>
     )
 }
 

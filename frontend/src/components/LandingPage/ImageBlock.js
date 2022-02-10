@@ -1,11 +1,19 @@
 import { useHistory} from 'react-router-dom';
 import ImageBlockCaption from "./ImageBlockCaption";
 
-function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class }) {
+function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing }) {
     let history = useHistory();
     // console.log('Hmm', hauntId, buttonText, caption)
-    const redirect = () => {
-        history.push(`/haunts/${hauntId}`)
+    let redirect;
+    
+    if(listing) {
+        redirect = () => {
+            history.push(`/listings/host/${hauntId}`)
+        }
+    } else {
+        redirect = () => {
+            history.push(`/haunts/${hauntId}`)
+        }
     }
 
     return (
