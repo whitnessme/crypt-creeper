@@ -12,7 +12,7 @@ function LandingPage() {
     return (
         <div className="home-div">
             <header>
-                <h1>Visit the Unexplained!</h1>
+                <h1 className="home-h1">Visit the Unexplained!</h1>
                 <div className="h2-container">
                     <h2>Uncover and book haunt locations with known supernatural inhabitants and rich histories.</h2>
                 </div>

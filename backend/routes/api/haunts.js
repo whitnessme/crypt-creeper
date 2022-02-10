@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const validateHaunt = require('../validations/haunt')
-const { Haunt, Image, Cryptid, AreaFeature, Essential, Amenity } = require('../../db/models')
+const { Haunt, Image, Cryptid, AreaFeature, Essential, Amenity, User } = require('../../db/models')
 
 const router = express.Router();
 
@@ -21,6 +21,7 @@ router.get('/:hauntId', asyncHandler(async function (req, res) {
         {model: AreaFeature},
         {model: Essential},
         {model: Amenity},
+        {model: User}
     ]});
     res.json(haunts)
 }));
