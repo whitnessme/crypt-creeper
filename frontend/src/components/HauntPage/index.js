@@ -17,7 +17,7 @@ function HauntPage() {
         Object.values(state.haunt.entries)
     ))
     // console.log('hello?', window.store.getState())
-
+// console.log('MAIN', haunt)
     useEffect(() => {
             dispatch(getOneHaunt(hauntId))
     }, [dispatch])
@@ -25,6 +25,7 @@ function HauntPage() {
     if(!haunt.length) {
         return null
     }
+    // console.log(window.state)
 
     return (
         <div className="haunt-div">

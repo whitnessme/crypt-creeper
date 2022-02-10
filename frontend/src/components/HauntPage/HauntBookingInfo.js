@@ -1,9 +1,11 @@
-function HauntBookingInfo (haunt, hauntId) {
-    let info = window.store.getState().haunt.entries[1]
+function HauntBookingInfo ({haunt, hauntId}) {
+    if(!haunt) return null
     
+    let info = haunt[0].AreaFeatures
     const findOccupancy = () => {
-        let features = Object.values(info.AreaFeatures)
-        let occupancy = features.filter((feature) => feature.name.includes('adults'))
+        let features = Object.values(info)
+        let occupancy = features.filter((feature) => feature.name.includes('adults') || feature.name.includes('guests'))
+        // console.log(occupancy[0].name)
         return occupancy[0].name
     }
 
@@ -34,7 +36,7 @@ function HauntBookingInfo (haunt, hauntId) {
     return (
         <div className="haunt-booking-info-container">
             <div className="haunt-price-top">
-                <h2>${info.price}</h2>
+                <h2>${haunt[0].price}</h2>
                 <span>per night {`(${numOfGuests})`}</span>
             </div>
             <div className="book-dates-buttons-container">
@@ -47,10 +49,10 @@ function HauntBookingInfo (haunt, hauntId) {
                     <p>Select date</p>
                 </span>
             </div>
-            <label for='guests'>Guests</label>
+            <label>Guests</label>
             <select name='guests' className="guests-select-dropdown">
                 {numOptions.map(option => (
-                    <option value={option}>{option}</option>
+                    <option key={option} value={option}>{option}</option>
                 ))}
             </select>
             <p>2 nights minimum stay</p>
