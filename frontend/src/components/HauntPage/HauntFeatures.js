@@ -9,8 +9,8 @@ function HauntFeatures ({haunt, hauntId}) {
         <>
         <div className="haunt-features-container">
             {[area, ess, amenity].map((info) => (
-                <>
-                    <div key={`feature-${count}`} className={`${count}-features-div`}>
+                <div key={`feature-${count}`}>
+                    <div  className={`${count}-features-div`}>
                         <h3>{title[count]}</h3>
                     {info.map(option => (
                         <div key={`each${option.id}`}>
@@ -22,7 +22,7 @@ function HauntFeatures ({haunt, hauntId}) {
                     <div style={{display: 'hidden'}}>
                         {count++}
                     </div>
-                </>
+                </div>
             ))}
         </div>
         </>
