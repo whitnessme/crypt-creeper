@@ -20,7 +20,7 @@ function HauntPage() {
 // console.log('MAIN', haunt)
     useEffect(() => {
             dispatch(getOneHaunt(hauntId))
-    }, [dispatch])
+    }, [dispatch, hauntId])
 
     if(!haunt.length) {
         return null

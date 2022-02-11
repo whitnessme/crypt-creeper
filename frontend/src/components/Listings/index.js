@@ -14,10 +14,8 @@ function Listings () {
         Object.values(state.haunt.entries)
     ))
 
-    let state = window.store.getState()
-    let sessionUser = state.session.user
-
-
+    const sessionUser = useSelector((state) => state.session.user)
+    
     useEffect(() => {
        dispatch(getHauntsbyHostId(sessionUser.id))
 }, [dispatch])
@@ -27,6 +25,10 @@ function Listings () {
     // const { hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class }    
 
     if(!haunts.length) return null
+
+    if(!sessionUser) {
+        history.push(`/`)
+    }
 
     if (sessionUser.userTypeId === 1) {
         history.push(`/host/signup`)
@@ -66,11 +68,11 @@ function Listings () {
                 <div className='listings-haunts-div'>
                     {haunts.map((haunt) => (
                         <>
-                        {console.log(haunt.url)}
+                        {console.log(haunt.Images[0].url)}
                         <ImageBlock
                         key={`listing-${haunt.id}`}
-                        classNames='user-view-haunts'
-                        url={haunt.url}
+                        classNames='user-view-haunts lone'
+                        url={haunt.Images[0].url}
                         hauntId={haunt.hauntId}
                         caption={[haunt.name, `In ${haunt.city}, ${haunt.state}`]}
                         buttonText='Listing Page'
