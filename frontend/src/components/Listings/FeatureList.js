@@ -9,16 +9,16 @@ function FeatureList({name, feature, featureState, setFeatureState}) {
       setFeatureState([...featureState, { name: "", icon: "" }]);
       setInputField([{name: '', icon: ''}])
     };
+ return null
+  // return (
+  //   <div className={`feature-input-div ${name}`}>
 
-  return (
-    <div className={`feature-input-div ${name}`}>
-
-      <input onChange={handleAddClick} type="text" key={feature.name} value={feature.name}>
-        {feature.name}
-      </input>
-      <button className="add-feature">Add</button>
-    </div>
-  );
+  //     <input onChange={handleAddClick} type="text" key={feature.name} value={feature.name}>
+  //       {feature.name}
+  //     </input>
+  //     <button className="add-feature">Add</button>
+  //   </div>
+  // );
 }
 
 export default FeatureList;

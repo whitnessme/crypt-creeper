@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FeatureList from "./FeatureList";
+import './feature.css'
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
 function EditFeaturesForm({ selectedHaunt }) {
@@ -7,15 +8,18 @@ function EditFeaturesForm({ selectedHaunt }) {
   const [essentials, setEssentials] = useState(selectedHaunt.Essentials);
   const [amentities, setAmentities] = useState(selectedHaunt.Amentities);
 
+  console.log(areaIcons[0])
+
   return (
     <div className="all-features-div">
       <div className="area-features-div">
         <>
           <div className="icons-list">
-            areaIcons.map(option => (
-            <div dangerouslySetInnerHTML={{__html: option.icon}}></div>
-          </div>        
-            ))
+            {areaIcons[0].map(option => (
+            <div key={option} dangerouslySetInnerHTML={{__html: option}}>
+            </div>        
+            ))}
+            </div>
           {areaFeatures.map((feature) => (
             <FeatureList
               name={'areaFeature'}
