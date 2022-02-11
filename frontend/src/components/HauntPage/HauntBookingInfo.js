@@ -5,7 +5,7 @@ function HauntBookingInfo ({haunt, hauntId}) {
     const findOccupancy = () => {
         let features = Object.values(info)
         let occupancy = features.filter((feature) => feature.name.includes('adults') || feature.name.includes('guests'))
-        // console.log(occupancy[0].name)
+
         return occupancy[0].name
     }
 

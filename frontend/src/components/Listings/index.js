@@ -69,7 +69,6 @@ function Listings () {
                 <div className='listings-haunts-div'>
                     {haunts?.map((haunt) => (
                         <>
-                        {console.log('helllllo', haunt.id)}
                         <ImageBlock
                         key={`listing-${haunt?.name}`}
                         classNames='user-view-haunts'

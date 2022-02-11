@@ -3,7 +3,6 @@ import ImageBlockCaption from "./ImageBlockCaption";
 
 function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing }) {
     let history = useHistory();
-    // console.log('Hmm', hauntId, buttonText, caption)
     let redirect;
     let relativeLink;
     if(listing) {
@@ -17,7 +16,6 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
             history.push(`/haunts/${hauntId}`)
         }
     }
-    console.log(relativeLink)
 
     return (
         <div className={`image-block ${classNames}`}>
@@ -45,6 +43,7 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
                 caption0Class={caption0Class}
                 caption1Class={caption1Class}
                 relativeLink={relativeLink}
+                listing={listing}
                 />
             </>
             }

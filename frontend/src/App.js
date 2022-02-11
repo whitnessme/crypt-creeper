@@ -35,9 +35,6 @@ function App() {
             <Route path='/listings/:userId'>
               <Listings />
             </Route>
-            <Route path='/listings/host/:hauntId'>
-              <EditListingForm />
-            </Route>
           </Switch>
         )}
       </>

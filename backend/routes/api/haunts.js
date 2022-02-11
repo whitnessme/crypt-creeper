@@ -45,7 +45,6 @@ router.get('/:hauntId', asyncHandler(async function (req, res) {
 // Create New Haunt
 
 router.post("/", validateHaunt, asyncHandler(async function(req, res) {
-    console.log(req)
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
     const haunt = await Haunt.create({
         userId,

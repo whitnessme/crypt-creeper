@@ -41,7 +41,6 @@ function SignupFormPage({ userTypeId }) {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      // console.log(parseInt(userTypeId, 10))
       return dispatch(sessionActions.signup({ email, username, password, firstName, lastName, company, userTypeId: parseInt(userTypeId, 10) }))
         .catch(async (res) => {
           const data = await res.json();

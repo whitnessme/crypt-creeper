@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import ListingEditModal from "../Listings/ListingEditModal";
 
 const ImageBlockCaption = ({
   caption,
@@ -7,11 +8,11 @@ const ImageBlockCaption = ({
   buttonText,
   buttonLink,
   hauntId,
-  relativeLink
+  relativeLink,
+  listing
 }) => {
 
-  // console.log(hauntId)
-
+  console.log(listing)
   return (
     <div className="block-info-container">
 {/* No button */}
@@ -26,9 +27,14 @@ const ImageBlockCaption = ({
           <p className={caption0Class}>{caption[0]}</p>
           <div className="block-button-container">
             <p className={caption1Class}>{caption[1]}</p>
-            <NavLink exact to={relativeLink} className="block-button">
+            {listing ? 
+             <ListingEditModal hauntId={hauntId} />
+             :
+             <NavLink exact to={relativeLink} className="block-button">
               {buttonText}
             </NavLink>
+            }
+
           </div>
         </>
       )}
