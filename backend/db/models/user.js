@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   
   User.getCurrentUserById = async function (id) {
-    return await User.scope('currentUser').findByPk(id, {include: [{model: UserType}]});
+    return await User.scope('currentUser').findByPk(id);
   };
   
   User.login = async function ({ credential, password }) {
@@ -102,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
     if (user && user.validatePassword(password)) {
-      return await User.scope('currentUser').findByPk(user.id, {include: [{model: UserType}]});
+      return await User.scope('currentUser').findByPk(user.id);
     }
   };
   

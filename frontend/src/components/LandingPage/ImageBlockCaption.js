@@ -7,8 +7,11 @@ const ImageBlockCaption = ({
   buttonText,
   buttonLink,
   hauntId,
-  redirect
+  relativeLink
 }) => {
+
+  // console.log(hauntId)
+
   return (
     <div className="block-info-container">
 {/* No button */}
@@ -23,7 +26,7 @@ const ImageBlockCaption = ({
           <p className={caption0Class}>{caption[0]}</p>
           <div className="block-button-container">
             <p className={caption1Class}>{caption[1]}</p>
-            <NavLink exact to={`/haunts/${hauntId}`} className="block-button">
+            <NavLink exact to={relativeLink} className="block-button">
               {buttonText}
             </NavLink>
           </div>

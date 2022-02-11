@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect  } from 'react';
 
 import { getHauntsbyHostId } from '../../store/haunt'
+import './listing.css'
 
 function Listings () {
     let history = useHistory();
@@ -13,12 +14,12 @@ function Listings () {
     const haunts = useSelector(state => (
         Object.values(state.haunt.entries)
     ))
-
-    const sessionUser = useSelector((state) => state.session.user)
     
+    const sessionUser = useSelector((state) => state.session.user)
+
     useEffect(() => {
        dispatch(getHauntsbyHostId(sessionUser.id))
-}, [dispatch])
+}, [dispatch, ])
 
     let lastInitial = sessionUser.lastName.slice(0,1)
 
@@ -51,7 +52,7 @@ function Listings () {
                 <div className='listing-nav'>
                     <ul className='listing-nav-links'>
                         <li>
-                            <p className='num'>0</p>
+                            <p className='num'>{haunts?.length}</p>
                             <p className='listing-nav-title'>Listings</p>
                         </li>
                         <li>
@@ -66,17 +67,16 @@ function Listings () {
                 </div>
         {haunts &&
                 <div className='listings-haunts-div'>
-                    {haunts.map((haunt) => (
+                    {haunts?.map((haunt) => (
                         <>
-                        {console.log(haunt.Images[0].url)}
+                        {console.log('helllllo', haunt.id)}
                         <ImageBlock
-                        key={`listing-${haunt.id}`}
-                        classNames='user-view-haunts lone'
-                        url={haunt.Images[0].url}
-                        hauntId={haunt.hauntId}
-                        caption={[haunt.name, `In ${haunt.city}, ${haunt.state}`]}
-                        buttonText='Listing Page'
-                        hauntId={haunt.hauntId}
+                        key={`listing-${haunt?.name}`}
+                        classNames='user-view-haunts'
+                        url={haunt?.Images[0].url}
+                        hauntId={haunt.id}
+                        caption={[haunt?.name, `In ${haunt?.city}, ${haunt.state}`]}
+                        buttonText='Edit Listing'
                         caption0Class='listing-title'
                         caption1Class='listing-location'
                         listing={true}

@@ -1,3 +1,7 @@
+h1, h2, h3, p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 nav {
     display: flex;
     justify-content: flex-end;
@@ -15,5 +19,5 @@ ul {
     box-sizing: border-box;
     border-radius: 5px;
     background-color: pink;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
