@@ -59,7 +59,7 @@ function Navigation({ isLoaded }) {
       <ul className="right-nav">
         <li>
           <NavLink className="dungeon-icon" exact to="/haunts">
-            <i class="fa-solid fa-dungeon"></i>
+            <i className="fa-solid fa-dungeon"></i>
           </NavLink>
         </li>
         {isLoaded && sessionLinks}

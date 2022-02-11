@@ -14,7 +14,7 @@ function ListingEditModal ({hauntId}) {
         <div className="edit-delete-buttons">
           <button className="edit-button" onClick={() => setShowModal(true)}>EDIT</button>
           <button className="delete-button" onClick={handleDelete}>
-            <i class="fa-solid fa-trash-can"></i>
+            <i className="fa-solid fa-trash-can"></i>
             </button>
         </div>
           {showModal && (
