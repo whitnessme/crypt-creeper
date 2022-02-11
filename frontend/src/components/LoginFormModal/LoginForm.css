@@ -1,5 +1,5 @@
 
-.loginform, .signup-form {
+.loginform, .signup-form, .edit-listing-form {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
     flex-direction: column;
@@ -10,8 +10,11 @@
 .form-container {
     display: flex;
     justify-content: center;
-    height: 50vh;
+    height: auto;
+    /* max-height: 80vh; */
+    overflow-wrap: normal;
     width: 30vw;
+    padding: 20px;
 }
 
 h2, h5 {
@@ -23,8 +26,11 @@ label {
     display: block;
 }
 
-input {
+input, select, textarea {
+    border: 1px solid rgba(128, 128, 128, 0.445);
     margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 button {

@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const CREATE_HAUNT = 'haunt/createHaunt';
 const LOAD_HAUNTS = 'haunt/loadHaunts';
+const LOAD_HAUNTS_BY_HOST = 'haunt/loadHauntsbyHost';
 const LOAD_ONE_HAUNT = 'haunt/loadOneHaunt'
 const UPDATE_HAUNT = 'haunt/update'
 const DELETE_HAUNT = 'haunt/removeHaunt'
@@ -18,6 +19,13 @@ export const loadHaunts = haunts => {
     return {
         type: LOAD_HAUNTS,
         haunts
+    };
+};
+
+export const loadHauntsbyHost = hostHaunts => {
+    return {
+        type: LOAD_HAUNTS_BY_HOST,
+        hostHaunts
     };
 };
 
@@ -58,6 +66,14 @@ export const getHaunts = () => async (dispatch, getState) => {
         dispatch(loadHaunts(haunts))
     }
     return res;
+};
+
+export const getHauntsbyHostId = (userId) => async (dispatch, getState) => {
+    const res = await fetch(`/api/haunts/host/${userId}`);
+    if (res.ok) {
+        const hostHaunts = await res.json()
+        dispatch(loadHauntsbyHost(hostHaunts))
+    }
 };
 
 export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
@@ -115,6 +131,12 @@ const hauntReducer = (state = initialState, action) => {
             newState = {...state}
             entries = {}
             action.haunts.forEach(haunt => entries[haunt.id] = haunt)
+            newState.entries = entries;
+            return newState;
+        case LOAD_HAUNTS_BY_HOST:
+            newState = {...state}
+            entries = {}
+            action.hostHaunts.forEach(haunt => entries[haunt.id] = haunt)
             newState.entries = entries;
             return newState;
         case LOAD_ONE_HAUNT:

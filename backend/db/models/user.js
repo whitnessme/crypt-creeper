@@ -1,6 +1,7 @@
 "use strict";
 const bcrypt = require('bcryptjs');
 const { Validator } = require('sequelize');
+const { UserType } = require('../models')
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -55,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "userTypeId", "createdAt", "updatedAt"],
+          exclude: ["hashedPassword", "email", "userTypeId", "UserType", "createdAt", "updatedAt"],
         },
       },
       scopes: {
@@ -78,8 +79,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   
   User.prototype.toSafeObject = function() {
-    const { id, username, userTypeId, email, firstName, lastName, company } = this;
-    return { id, username, userTypeId, email, firstName, lastName, company };
+    const { id, username, userTypeId, UserType, email, firstName, lastName, company } = this;
+    return { id, username, userTypeId, UserType, email, firstName, lastName, company };
   };
   
   User.prototype.validatePassword = function (password) {

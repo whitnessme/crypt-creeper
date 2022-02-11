@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from './components/LandingPage'
 import * as sessionActions from "./store/session";
 import HauntPage from "./components/HauntPage";
+import Listings from "./components/Listings";
 
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
   return (
       <>
         <Navigation isLoaded={isLoaded} />
@@ -32,8 +32,8 @@ function App() {
             <Route path='/haunts/:hauntId'>
               <HauntPage />
             </Route>
-            <Route path='/haunts'>
-
+            <Route path='/listings/:userId'>
+              <Listings />
             </Route>
           </Switch>
         )}

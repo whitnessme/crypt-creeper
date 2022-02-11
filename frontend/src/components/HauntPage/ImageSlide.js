@@ -4,7 +4,6 @@ import './imageslide.css'
 function ImageSlide({hauntId, haunt}) {
     let images = haunt[0].Images
     
-    // console.log(haunt, images)
     return (
         <div className='slide-container'>
             <div className='slide-img-container'>

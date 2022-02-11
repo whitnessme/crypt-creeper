@@ -10,7 +10,23 @@ router.get('/', asyncHandler(async function (req, res) {
     const haunts = await Haunt.findAll({include: [
         {model: Image}
     ]})
-    res.send(haunts)
+    res.json(haunts)
+}));
+
+// Get all Haunts from a certain host
+router.get('/host/:userId', asyncHandler(async function (req, res) {
+    const haunts = await Haunt.findAll({
+        where: {
+            userId: req.params.userId
+        },
+        include: [
+        {model: Image},
+        {model: Cryptid},
+        {model: AreaFeature},
+        {model: Essential},
+        {model: Amenity}
+    ]})
+    res.json(haunts)
 }));
 
 // Get specific Haunt
@@ -29,7 +45,6 @@ router.get('/:hauntId', asyncHandler(async function (req, res) {
 // Create New Haunt
 
 router.post("/", validateHaunt, asyncHandler(async function(req, res) {
-    console.log(req)
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
     const haunt = await Haunt.create({
         userId,

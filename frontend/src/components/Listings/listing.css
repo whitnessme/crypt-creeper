@@ -1,0 +1,122 @@
+.listings-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 85%;
+    margin: auto;
+}
+
+.listings-right-div {
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    width: 700px;
+}
+
+.user-left-col {
+    display: block;
+    box-sizing: border-box;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    border: 1px solid rgba(128, 128, 128, 0.473);
+    padding: 20px;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.listings-haunts-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    
+}
+
+.listing-nav-links {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    align-items: flex-start;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.342);
+}
+
+.listing-nav-links > li > p.num {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.listing-nav-title {
+    font-size: 20px;
+}
+
+.coming-soon {
+    color: rgba(255, 0, 0, 0.356);
+    font-size: small;
+    transition: .5s;
+}
+
+.coming-soon:hover{
+    color: red
+}
+
+.user-view-haunts {
+    position:relative;
+    height: 400px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.user-view-haunts > .block-info-container {
+    display: inline-flex;
+    flex-direction: column;
+    background-color: rgb(98, 185, 149);
+    border-radius:  0px 0px 24px 24px;
+    padding: 10px;
+}
+
+.user-view-haunts > .block-info-container > .block-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    margin: 5px;
+}
+
+.user-view-haunts > div > p {
+    text-align: left;
+}
+
+.user-view-haunts > .img-container {
+    background-position: top;
+}
+
+.listing-title, .num {
+    font-size: 20px;
+}
+
+.user-profile {
+    font-size: 50px;
+    height: 80px;
+    width: 104px;
+    padding-top: 24px;
+    background-color: rgb(98, 185, 149);
+    border-radius: 50%;
+}
+
+check-icon  {
+    display: inline;
+}
+
+textarea {
+    height: 150px;
+    width: 280px;
+    padding: 10px;
+}
