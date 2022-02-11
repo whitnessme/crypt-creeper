@@ -43,6 +43,8 @@
     padding: 0px;
     align-items: flex-start;
     margin-top: 0px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.342);
 }
 
 .listing-nav-links > li > p.num {
