@@ -12,13 +12,13 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-        <li>
+        <li className="nav-button">
           <NavLink className="nav-link" exact to={`/trips/${sessionUser.id}`}>
             Trips
           </NavLink>
         </li>
         {sessionUser.userTypeId === 2 && (
-          <li>
+          <li className="nav-button">
             <NavLink className="nav-link" to={`/listings/${sessionUser.id}`}>
               Listings
             </NavLink>
@@ -33,12 +33,12 @@ function Navigation({ isLoaded }) {
         <li>
           <LoginFormModal />
         </li>
-        <li>
+        <li className="nav-button">
           <NavLink className="nav-link" to="/signup">
             Sign Up
           </NavLink>
         </li>
-        <li>
+        <li className="nav-button">
           <NavLink className="host-signup-button" to="/host/signup">
             Start Hosting
           </NavLink>
@@ -58,8 +58,8 @@ function Navigation({ isLoaded }) {
       </ul>
       <ul className="right-nav">
         <li>
-          <NavLink className="nav-link" exact to="/haunts">
-            Near me
+          <NavLink className="dungeon-icon" exact to="/haunts">
+            <i class="fa-solid fa-dungeon"></i>
           </NavLink>
         </li>
         {isLoaded && sessionLinks}

@@ -10,6 +10,19 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const demoHost = e => {
+    // e.preventDefault();
+    setCredential('user3@user.io');
+    setPassword('password4');
+    handleSubmit();
+  }
+
+  const demoUser = e => {
+    // e.preventDefault();
+    setCredential('DougDemoDome');
+    setPassword('password');
+    handleSubmit();
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +64,11 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        <div className="login-buttons">
+        <button onClick={demoUser} className="demo">Demo User</button>
         <button type="submit">Log In</button>
+        <button onClick={demoHost} className="demo">Demo Host</button>
+        </div>
       </form>
     </div>
   );

@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .form-container {
@@ -36,8 +37,28 @@ input, select, textarea {
 button {
     all: unset;
     text-align: center;
-    border: 1px solid rgb(98, 185, 149);
+    color: rgb(98, 185, 149);
+    background-color: rgb(238, 230, 230);
     border-radius: 5px;
     padding: 5px;
+    margin: 5px;
+    transition: .5s;
     /* width: 50px; */
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.login-buttons > .demo {
+    font-size: small;
+    color: white;
+    background-color: rgba(98, 185, 149, 0.527)
 }

@@ -179,7 +179,7 @@ function ListingEditForm({ hauntId }) {
 
           {showFeatures ? (
               <>
-                <EditFeaturesForm />
+                <EditFeaturesForm selectedHaunt={selectedHaunt} />
                 <button className="hide-button" onClick={() => setShowFeatures(false)}>Hide</button>
               </>
           ) : (
