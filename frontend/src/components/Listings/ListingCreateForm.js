@@ -1,10 +1,11 @@
-import React, { useEffect, useState  } from "react";
+import React, { useState  } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { useHistory} from 'react-router-dom';
 import { usStates } from "./info-listing";
 import EditFeaturesForm from "./EditFeaturesForm";
 
-import { createHaunt, getHauntsbyHostId } from '../../store/haunt'
+import { createNewHaunt, getHauntsbyHostId } from '../../store/haunt'
+import { useEffect } from "react";
 
 function ListingEditForm({ setShowModal }) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function ListingEditForm({ setShowModal }) {
 //   const haunts = useSelector((state) => state.haunt.entries);
 //   let selectedHaunt = haunts[hauntId];
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(['default']);
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
@@ -41,18 +42,27 @@ function ListingEditForm({ setShowModal }) {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('United States');
   const [closeLandmark, setCloseLandmark] = useState('');
   const [price, setPrice] = useState('');
   const [summary, setSummary] = useState('');
 
 const handleSubmit = (e) => {
   e.preventDefault();
-const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
-  dispatch(createHaunt(payload))
-  dispatch(getHauntsbyHostId(sessionUser?.id))
-  history.push(`/listings/${sessionUser.id}`)
-  setShowModal(false)
+  setErrors([]);
+    const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
+  dispatch(createNewHaunt(payload))
+  .catch(async (res) => {
+    const data = await res.json();
+    if (data && data.errors) {
+      if (data.errors)
+      setErrors(data.errors);
+    }});
+    if (!errors.length) {
+        dispatch(getHauntsbyHostId(sessionUser?.id))
+        history.push(`/listings/${sessionUser.id}`)
+        setShowModal(false)
+    }
 }
 
 
@@ -64,10 +74,11 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
             <i className="fa-solid fa-dungeon haunts-icon"></i>
           </div>
           <h2>Create a New Haunt Listing!</h2>
-            <div className="add-help" style={{color:'transparent', margin:'0px'}}>Add features with edit button after submitting!
+            <div className="add-help" style={{color:'transparent', margin:'0px', fontStyle: 'italic'}}>Add features with edit button after submitting!
             </div>
-          {errors.length > 0 && (
-            <ul className="error-list">
+          {errors != 'default' && (
+            <ul className="create-errors error-list">
+                <button onClick={() => setErrors('default')} className="error-x">X</button>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}

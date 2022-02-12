@@ -37,9 +37,10 @@ function Listings() {
         <div className="user-left-col">
             <div className="name-icon-div">
               <i className="fa-solid fa-skull user-profile"></i>
+              {sessionUser &&
               <h3>
                 {sessionUser?.firstName} {lastInitial}.
-              </h3>
+              </h3>}
               <div>
                 <i className="fa-solid fa-square-check host-check-icon"></i>
                 <p>Host</p>
@@ -73,7 +74,7 @@ function Listings() {
                   <ImageBlock
                     key={`listing-${haunt?.id}`}
                     classNames="user-view-haunts"
-                    url={haunt?.Images[0].url}
+                    url={haunt.Images && haunt?.Images[0]?.url}
                     hauntId={haunt?.id}
                     caption={[
                       haunt?.name,

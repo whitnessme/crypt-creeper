@@ -90,9 +90,11 @@ export const createNewHaunt = (payload) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     })
+    console.log(res)
     if (res.ok) {
         const newHaunt = await res.json()
         dispatch(createHaunt(newHaunt))
+        return newHaunt;
     };
 };
 

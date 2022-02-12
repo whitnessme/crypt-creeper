@@ -14,7 +14,7 @@ function ListingEditForm({ hauntId, setShowModal }) {
   const haunts = useSelector((state) => state.haunt.entries);
   let selectedHaunt = haunts[hauntId];
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(['default']);
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
@@ -52,9 +52,17 @@ const handleSubmit = (e) => {
   e.preventDefault();
 const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
   dispatch(updateHaunt(payload, selectedHaunt.id))
-  dispatch(getHauntsbyHostId(sessionUser?.id))
-  history.push(`/listings/${sessionUser.id}`)
-  setShowModal(false)
+  .catch(async (res) => {
+    const data = await res.json();
+    if (data && data.errors) {
+      if (data.errors)
+      setErrors(data.errors);
+    }});
+    if (!errors.length) {
+        dispatch(getHauntsbyHostId(sessionUser?.id))
+        history.push(`/listings/${sessionUser.id}`)
+        setShowModal(false)
+    }
 }
 
 
@@ -64,8 +72,9 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
         <form onSubmit={handleSubmit} className="edit-listing-form">
           <h2>Edit</h2>
           <h5>{selectedHaunt?.name}</h5>
-          {errors.length > 0 && (
+          {errors != 'default' && (
             <ul className="error-list">
+              <button onClick={() => setErrors('default')} className="error-x">X</button>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
@@ -175,13 +184,11 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
 
           {showSum ? (
             <>
-              <label>
-                Summary:
+              <p>Summary:</p>
                 <textarea
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
                 />
-              </label>
               <button className="hide-button" onClick={() => setShowSum(false)}>Hide</button>
             </>
           ) : (
