@@ -2,4 +2,18 @@ const countries = ['Afghanistan', 'Åland Islands', 'Albania', 'Algeria', 'Ameri
 
 const usStates = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", "Connecticut", "District of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
 
-module.exports = { usStates };
+const areaHouseIconList = ['<i class="fa-solid fa-house"></i>', '<i class="fa-solid fa-building"></i>', '<i class="fa-solid fa-campground"></i>', '<i class="fa-solid fa-caravan"></i>', '<i class="fa-solid fa-hotel"></i>', '<i class="fa-solid fa-dungeon"></i>', '<i class="fa-solid fa-church"></i>', '<i class="fa-solid fa-school"></i>', '<i class="fa-solid fa-hospital"></i>', '<i class="fa-solid fa-igloo"></i>', '<i class="fa-solid fa-city"></i>', '<i class="fa-solid fa-shop-slash"></i>', '<i class="fa-solid fa-bed"></i>', '<i class="fa-solid fa-moon"></i>', '<i class="fa-solid fa-slash"></i>']
+const areaGuestsIconList = ['<i class="fa-solid fa-users"></i>', '<i class="fa-solid fa-user-plus"></i>', '<i class="fa-solid fa-user"></i>']
+
+const essentialBathroomIconList = ['<i class="fa-solid fa-toilet-paper"></i>', '<i class="fa-solid fa-toilet-paper-slash"></i>', '<i class="fa-solid fa-restroom"></i>']
+const essentialAnimalIconList = ['<i class="fa-solid fa-dog"></i>', '<i class="fa-solid fa-cat"></i>', '<i class="fa-solid fa-paw"></i>', '<i class="fa-solid fa-dragon"></i>']
+const essentialOtherIconList = ['<i class="fa-solid fa-star"></i>', '<i class="fa-solid fa-kit-medical"></i>', '<i class="fa-solid fa-bandage"></i>', '<i class="fa-solid fa-ship"></i>', '<i class="fa-solid fa-sailboat"></i>', '<i class="fa-solid fa-location-arrow"></i>', '<i class="fa-solid fa-ear-listen"></i>', '<i class="fa-solid fa-video"></i>', '<i class="fa-solid fa-fire-flame-curved"></i>', '<i class="fa-solid fa-cake-candles"></i>', '<i class="fa-solid fa-baseball"></i>', '<i class="fa-solid fa-hand-sparkles"></i>', '<i class="fa-solid fa-train"></i>', '<i class="fa-solid fa-slash"></i>', ]
+
+const amenityWaterIconList = ['<i class="fa-solid fa-droplet"></i>', '<i class="fa-solid fa-droplet-slash"></i>', '<i class="fa-solid fa-faucet"></i>', '<i class="fa-solid fa-water"></i>', '<i class="fa-solid fa-shower"></i>', '<i class="fa-solid fa-bath"></i>', '<i class="fa-solid fa-sink"></i>', '<i class="fa-solid fa-burger"></i>', '<i class="fa-solid fa-bone"></i>', '<i class="fa-solid fa-utensils"></i>', '<i class="fa-solid fa-mug-hot"></i>', '<i class="fa-solid fa-blender"></i>']
+const amenityOtherIconList = ['<i class="fa-solid fa-ghost"></i>', '<i class="fa-solid fa-skull"></i>', '<i class="fa-solid fa-book-skull"></i>', '<i class="fa-solid fa-person-hiking"></i>', '<i class="fa-solid fa-ban"></i>', '<i class="fa-solid fa-mountain"></i>', '<i class="fa-solid fa-vest"></i>', '<i class="fa-solid fa-map"></i>', '<i class="fa-solid fa-fish"></i>', '<i class="fa-solid fa-fire-extinguisher"></i>', '<i class="fa-solid fa-shoe-prints"></i>', '<i class="fa-solid fa-store"></i>', '<i class="fa-solid fa-star"></i>', '<i class="fa-solid fa-fire"></i>']
+
+const amenitiesIcons = [amenityWaterIconList, amenityOtherIconList];
+const areaIcons = [areaHouseIconList, areaGuestsIconList];
+const essentialIcons = [essentialBathroomIconList, essentialAnimalIconList, essentialOtherIconList]
+
+module.exports = { usStates, amenitiesIcons, areaIcons, essentialIcons };

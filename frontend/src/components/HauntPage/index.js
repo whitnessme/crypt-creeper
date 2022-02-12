@@ -19,21 +19,19 @@ function HauntPage() {
 
     useEffect(() => {
             dispatch(getOneHaunt(hauntId))
-    }, [dispatch, hauntId])
-
-    if(!haunt.length) {
-        return null
-    }
-
+        }, [dispatch, hauntId])
+    
 
     return (
+        <>
         <div className="haunt-div">
             <ImageSlide haunt={haunt} hauntId={hauntId} />
             <HauntHeader haunt={haunt} hauntId={hauntId} />
             <HauntBookingInfo haunt={haunt} hauntId={hauntId} />
             <HauntFeatures haunt={haunt} hauntId={hauntId} />
         </div>
-    );
+        </>
+        );
 };
 
 export default HauntPage;

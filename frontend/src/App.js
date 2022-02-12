@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage'
 import * as sessionActions from "./store/session";
 import HauntPage from "./components/HauntPage";
 import Listings from "./components/Listings";
+import HauntsList from "./components/HauntsList";
 
 
 function App() {
@@ -29,8 +30,11 @@ function App() {
             <Route path="/host/signup" >
               <SignupFormPage userTypeId="2" />
             </Route>
-            <Route path='/haunts/:hauntId'>
+            <Route exact path='/haunts/:hauntId'>
               <HauntPage />
+            </Route>
+            <Route exact path='/haunts'>
+              <HauntsList />
             </Route>
             <Route path='/listings/:userId'>
               <Listings />

@@ -25,10 +25,44 @@ ul {
     text-decoration: none;
     box-sizing: border-box;
     border-radius: 5px;
-    background-color: pink;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    background-color: rgb(238, 230, 230);
+    color: rgb(98, 185, 149);
+    /* transition: .5s; */
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* .nav-link:hover {
+    box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.233);
+} */
+
+.nav-button {
+    transition: .5s;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
 }
 
 .main-logo {
     width: 250px;
+}
+
+.haunts-icon {
+    padding-bottom: 5px;
+    font-size: 25px;
+    color: rgb(98, 185, 149);
+    transition: 1s;
+}
+
+.dungeon-icon {
+    padding: 10px;
+    text-align: center;
+}
+
+.haunts-icon:hover {
+    transform: translateY(-2px);
+}
+
+.haunts-icon:hover + .add-help {
+    color:rgb(98, 185, 149)
 }

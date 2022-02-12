@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const validateHaunt = require('../validations/haunt')
-const { Haunt, Image, Cryptid, AreaFeature, Essential, Amenity, User } = require('../../db/models')
+const { Haunt, Image, Review, Cryptid, AreaFeature, Essential, Amenity, Booking, User, hauntAmenities, hauntAreaFeatures, hauntCryptids, hauntEssentials } = require('../../db/models')
 
 const router = express.Router();
 
@@ -77,7 +77,9 @@ asyncHandler(async (req, res) => {
         closeLandmark,
         price,
         summary
-    }, {where: req.params.hauntId});
+    }, {where: {
+        id: req.params.hauntId
+    }});
 
     res.json(updated)
 }))
@@ -86,9 +88,20 @@ asyncHandler(async (req, res) => {
 
 router.delete('/:hauntId', asyncHandler(async function(req, res) {
     const haunt = await Haunt.findByPk(req.params.hauntId);
+    const areaJoin = await hauntAreaFeatures.findAll({where: {hauntId: haunt.id}})
+    const amenJoin = await hauntAmenities.findAll({where: {hauntId: haunt.id}})
+    const essJoin = await hauntEssentials.findAll({where: {hauntId: haunt.id}})
+    const cryJoin = await hauntCryptids.findAll({where: {hauntId: haunt.id}})
+    const images = await Image.findAll({where: {hauntId: haunt.id}})
+    const bookings = await Booking.findAll({where: {hauntId: haunt.id}})
+    const reviews = await Review.findAll({where: {hauntId: haunt.id}})
+ 
+    const combine = [...areaJoin, ...amenJoin, ...essJoin, ...cryJoin, ...images, ...bookings, ...reviews]
+    
+    combine.forEach(i => i.destroy())
     haunt.destroy();
 
-    return res.json('Successfully Deleted ', req.params.hauntId)
+    res.json()
 
 }))
 

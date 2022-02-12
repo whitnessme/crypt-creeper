@@ -1,18 +1,19 @@
-import React, { useEffect, useState  } from "react";
+import React, { useState  } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { useHistory} from 'react-router-dom';
 import { usStates } from "./info-listing";
 import EditFeaturesForm from "./EditFeaturesForm";
 
-import { updateHaunt, getHauntsbyHostId } from '../../store/haunt'
+import { createNewHaunt, getHauntsbyHostId } from '../../store/haunt'
+import { useEffect } from "react";
 
-function ListingEditForm({ hauntId, setShowModal }) {
+function ListingEditForm({ setShowModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
-  const haunts = useSelector((state) => state.haunt.entries);
-  let selectedHaunt = haunts[hauntId];
+//   const haunts = useSelector((state) => state.haunt.entries);
+//   let selectedHaunt = haunts[hauntId];
 
   const [errors, setErrors] = useState(['default']);
   const [showInfo, setShowInfo] = useState(false);
@@ -36,22 +37,21 @@ function ListingEditForm({ hauntId, setShowModal }) {
       setShowFeatures(true);
   }
 
-  const [name, setName] = useState(selectedHaunt.name);
-  const [address, setAddress] = useState(selectedHaunt.address);
-  const [city, setCity] = useState(selectedHaunt.city);
-  const [state, setState] = useState(selectedHaunt.state);
-  const [zipcode, setZipcode] = useState(selectedHaunt.zipcode);
-  const [country, setCountry] = useState(selectedHaunt.country);
-  const [closeLandmark, setCloseLandmark] = useState(
-    selectedHaunt.closeLandmark
-  );
-  const [price, setPrice] = useState(selectedHaunt.price);
-  const [summary, setSummary] = useState(selectedHaunt.summary);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [country, setCountry] = useState('United States');
+  const [closeLandmark, setCloseLandmark] = useState('');
+  const [price, setPrice] = useState('');
+  const [summary, setSummary] = useState('');
 
 const handleSubmit = (e) => {
   e.preventDefault();
-const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
-  dispatch(updateHaunt(payload, selectedHaunt.id))
+  setErrors([]);
+    const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
+  dispatch(createNewHaunt(payload))
   .catch(async (res) => {
     const data = await res.json();
     if (data && data.errors) {
@@ -70,11 +70,15 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
     <>
       <div className="form-container">
         <form onSubmit={handleSubmit} className="edit-listing-form">
-          <h2>Edit</h2>
-          <h5>{selectedHaunt?.name}</h5>
+          <div className="dungeon-icon">
+            <i className="fa-solid fa-dungeon haunts-icon"></i>
+          </div>
+          <h2>Create a New Haunt Listing!</h2>
+            <div className="add-help" style={{color:'transparent', margin:'0px', fontStyle: 'italic'}}>Add features with edit button after submitting!
+            </div>
           {errors != 'default' && (
-            <ul className="error-list">
-              <button onClick={() => setErrors('default')} className="error-x">X</button>
+            <ul className="create-errors error-list">
+                <button onClick={() => setErrors('default')} className="error-x">X</button>
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
@@ -178,37 +182,39 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
             </>
           ) : (
             <>
-              <button className="show-button" onClick={showInfoHideOthers}>Edit Information</button>
+              <button className="show-button" onClick={showInfoHideOthers}>Add Information</button>
             </>
           )}
 
           {showSum ? (
             <>
-              <p>Summary:</p>
+              <label>
+                Summary:
                 <textarea
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
                 />
+              </label>
               <button className="hide-button" onClick={() => setShowSum(false)}>Hide</button>
             </>
           ) : (
             <>
-              <button className="show-button" onClick={showSumHideOthers}>Edit Summary</button>
+              <button className="show-button" onClick={showSumHideOthers}>Add Summary</button>
             </>
           )}
 
-          {showFeatures ? (
+          {/* {showFeatures ? (
               <>
-                <EditFeaturesForm selectedHaunt={selectedHaunt} />
+                <EditFeaturesForm />
                 <button className="hide-button" onClick={() => setShowFeatures(false)}>Hide</button>
               </>
           ) : (
               <>
-                <button className="show-button" onClick={showFeaturesHideOthers}>Edit Features</button>
+                <button className="show-button" onClick={showFeaturesHideOthers}>Add Features</button>
               </>
           )
-        }
-        <button className="edit-haunt-submit-button">Confirm Changes</button>
+        } */}
+        <button className="edit-haunt-submit-button">Submit</button>
         </form>
       </div>
     </>
