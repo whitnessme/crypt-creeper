@@ -19,7 +19,7 @@ function ListingEditModal ({hauntId}) {
         </div>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <ListingEditForm hauntId={hauntId} />
+              <ListingEditForm setShowModal={setShowModal} hauntId={hauntId} />
             </Modal>
           )}
         </>

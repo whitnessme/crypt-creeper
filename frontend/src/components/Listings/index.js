@@ -70,7 +70,7 @@ function Listings () {
                     {haunts?.map((haunt) => (
                         <>
                         <ImageBlock
-                        key={`listing-${haunt?.name}`}
+                        key={`listing-${haunt?.id}`}
                         classNames='user-view-haunts'
                         url={haunt?.Images[0].url}
                         hauntId={haunt.id}

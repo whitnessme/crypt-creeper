@@ -47,7 +47,7 @@ ul {
     width: 250px;
 }
 
-.fa-dungeon {
+.haunts-icon {
     padding-bottom: 5px;
     font-size: 25px;
     color: rgb(98, 185, 149);
@@ -58,6 +58,6 @@ ul {
     padding: 10px;
 }
 
-.fa-dungeon:hover {
+.haunts-icon:hover {
     transform: translateY(-2px);
 }

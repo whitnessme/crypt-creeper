@@ -77,7 +77,9 @@ asyncHandler(async (req, res) => {
         closeLandmark,
         price,
         summary
-    }, {where: req.params.hauntId});
+    }, {where: {
+        id: req.params.hauntId
+    }});
 
     res.json(updated)
 }))

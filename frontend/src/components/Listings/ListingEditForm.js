@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState  } from "react";
+import { useDispatch, useSelector} from "react-redux";
+import { useHistory} from 'react-router-dom';
 import { usStates } from "./info-listing";
 import EditFeaturesForm from "./EditFeaturesForm";
 
-function ListingEditForm({ hauntId }) {
+import { updateHaunt, getHauntsbyHostId } from '../../store/haunt'
+
+function ListingEditForm({ hauntId, setShowModal }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const sessionUser = useSelector((state) => state.session.user);
   const haunts = useSelector((state) => state.haunt.entries);
   let selectedHaunt = haunts[hauntId];
@@ -13,6 +18,7 @@ function ListingEditForm({ hauntId }) {
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
+
 
   const showInfoHideOthers = () => {
       setShowInfo(true);
@@ -42,12 +48,20 @@ function ListingEditForm({ hauntId }) {
   const [price, setPrice] = useState(selectedHaunt.price);
   const [summary, setSummary] = useState(selectedHaunt.summary);
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
+  dispatch(updateHaunt(payload, selectedHaunt.id))
+  dispatch(getHauntsbyHostId(sessionUser?.id))
+  history.push(`/listings/${sessionUser.id}`)
+  setShowModal(false)
+}
 
 
   return (
     <>
       <div className="form-container">
-        <form className="edit-listing-form">
+        <form onSubmit={handleSubmit} className="edit-listing-form">
           <h2>Edit</h2>
           <h5>{selectedHaunt?.name}</h5>
           {errors.length > 0 && (
@@ -57,7 +71,6 @@ function ListingEditForm({ hauntId }) {
               ))}
             </ul>
           )}
-            {console.log(selectedHaunt)}
           {showInfo ? (
             <>
               <label>
@@ -188,6 +201,7 @@ function ListingEditForm({ hauntId }) {
               </>
           )
         }
+        <button className="edit-haunt-submit-button">Confirm Changes</button>
         </form>
       </div>
     </>
