@@ -39,9 +39,11 @@ function EditFeaturesForm({ selectedHaunt }) {
       <div>
         <h4>Add an Area Feature:</h4>
         <div className="all-icon">
-          <h5>Select an icon:</h5>
+          <p>Select an icon:</p>
+            <h6>
+              Please let seekers know what type of place they're staying at, if there's bedding available, and how many guests are allowed!
+            </h6>
           <div className="icon-section">
-            <h6>HOUSING:</h6>
             {areaIcons[0].map((icon) => (
               <Radio
               key={`${icon}`}
@@ -53,7 +55,7 @@ function EditFeaturesForm({ selectedHaunt }) {
               ))}
           </div>
           <div className="icon-section">
-              <h6>GUESTS:</h6>
+              {/* <h6>GUESTS:</h6> */}
             {areaIcons[1].map((icon) => (
               <Radio
                 key={`${icon}`}

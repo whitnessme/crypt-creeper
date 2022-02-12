@@ -114,8 +114,9 @@ export const deleteHaunt = (hauntId) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
     })
     if (res.ok) {
-        
+        // const deletedHaunt = await res.json();
         dispatch(removeHaunt(hauntId))
+        // return deletedHaunt;
     }
 };
 

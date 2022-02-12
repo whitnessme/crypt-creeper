@@ -6,6 +6,14 @@
     margin: auto;
 }
 
+input, select, .icon-section {
+    color:rgb(98, 185, 149)
+}
+
+.icon-section {
+    font-size: 20px;
+}
+
 .listings-right-div {
     display: flex;
     flex-direction: column;
@@ -15,11 +23,13 @@
 }
 
 .user-left-col {
-    display: block;
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
+    justify-content: space-between;
     position: relative;
     width: 300px;
-    height: 300px;
+    height: 380px;
     text-align: center;
     border: 1px solid rgba(128, 128, 128, 0.473);
     padding: 20px;
@@ -82,6 +92,8 @@
     padding: 10px;
 }
 
+
+
 .user-view-haunts > .block-info-container > .block-button-container {
     display: flex;
     justify-content: space-between;
@@ -102,7 +114,14 @@
     font-size: 20px;
 }
 
+.edit-delete-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .edit-button, .delete-button {
+    display: inline;
     box-sizing: border-box;
     width: 45px;
     height: 45px;
@@ -116,12 +135,31 @@
 
 .delete-button {
     /* border-radius: none; */
-    font-size: 18px;
+    font-size: 25px;
     color: rgb(179, 25, 25)
 }
 
+.create-button {
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: normal;
+    color: white;
+    background-color: rgba(98, 185, 149, 0.562);
+}
+
+.create-haunt-div {
+    border-top: 1px solid rgba(128, 128, 128, 0.329);
+    
+}
+
+.create-button:hover {
+    background-color: rgba(98, 185, 149);
+}
+
 .edit-button:hover, .delete-button:hover {
-    background-color: rgba(230, 230, 230);;;
+    background-color: rgba(230, 230, 230);
 }
 
 .user-profile {
@@ -146,4 +184,22 @@ textarea {
     height: 150px;
     width: 280px;
     padding: 10px;
+}
+
+.dungeon-icon:hover ~ .add-help {
+    color:rgb(98, 185, 149) !important;
+    font-style: italic;
+}
+
+.add-help {
+    padding-bottom: 9px;
+    transition: .5s;
+}
+
+.edit-listing-form > .dungeon-icon > .fa-solid {
+    font-size: 35px;
+}
+
+.edit-listing-form h2 {
+    margin-bottom: 5px;
 }

@@ -19,7 +19,7 @@ function HauntFeatures ({haunt, hauntId}) {
                         </div>
                         ))}
                     </div>
-                    <div style={{display: 'hidden'}}>
+                    <div style={{color:'transparent'}}>
                         {count++}
                     </div>
                 </div>

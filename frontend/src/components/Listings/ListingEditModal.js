@@ -1,12 +1,22 @@
 import ListingEditForm from "./ListingEditForm";
 import { useState } from 'react'
 import { Modal } from '../../context/Modal';
+import { useDispatch, useSelector} from "react-redux";
+import { deleteHaunt, getHauntsbyHostId } from '../../store/haunt'
 
 function ListingEditModal ({hauntId}) {
+  const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
 
-    const handleDelete = () => {
+    const sessionUser = useSelector((state) => state.session.user)
 
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        
+        if(hauntId){
+          dispatch(deleteHaunt(hauntId))
+          dispatch(getHauntsbyHostId(sessionUser?.id))
+        }
     }
 
     return (
