@@ -2,7 +2,7 @@ import ImageSlide from "./ImageSlide";
 import HauntHeader from "./HauntHeader";
 import HauntBookingInfo from "./HauntBookingInfo";
 import HauntFeatures from "./HauntFeatures";
-import store from "../../store";
+import './haunt-page.css'
 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -18,9 +18,6 @@ function HauntPage() {
     return Object.values(state.haunt.entries);
   });
 
-//   const checkIds = () => {
-//       haunt
-//   }
 
   useEffect(() => {
     dispatch(getOneHaunt(hauntId)).then((data) => {
