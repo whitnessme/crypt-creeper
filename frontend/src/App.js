@@ -8,6 +8,7 @@ import * as sessionActions from "./store/session";
 import HauntPage from "./components/HauntPage";
 import Listings from "./components/Listings";
 import HauntsList from "./components/HauntsList";
+import Trips from "./components/Trips";
 
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route path='/listings/:userId'>
               <Listings />
+            </Route>
+            <Route path='/trips/:userId'>
+              <Trips />
             </Route>
           </Switch>
         )}

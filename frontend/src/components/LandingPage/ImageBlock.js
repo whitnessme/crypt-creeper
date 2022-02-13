@@ -1,7 +1,7 @@
 import { Link, useHistory} from 'react-router-dom';
 import ImageBlockCaption from "./ImageBlockCaption";
 
-function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing }) {
+function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing, trip }) {
     let history = useHistory();
     let redirect;
     let relativeLink;
@@ -9,6 +9,11 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
         relativeLink = `/listings/host/${hauntId}`
         redirect = () => {
             history.push(`/listings/host/${hauntId}`)
+        }
+     } else if (trip) {
+        relativeLink = `/trips/user/${hauntId}`
+        redirect = () => {
+            history.push(`/trips/user/${hauntId}`)
         }
     } else {
         relativeLink = `/haunts/${hauntId}`

@@ -9,7 +9,8 @@ const ImageBlockCaption = ({
   buttonLink,
   hauntId,
   relativeLink,
-  listing
+  listing,
+  trip
 }) => {
 
 

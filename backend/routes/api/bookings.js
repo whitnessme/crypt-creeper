@@ -10,7 +10,12 @@ router.get('/users/:userId', asyncHandler(async function (req, res) {
     const bookings = await Booking.findAll({
         where: {
             userId: req.params.userId
-        }})
+        },
+        include: {
+            model: Haunt,
+            include: Image
+        } 
+    })
     res.json(bookings)
 }));
 
@@ -21,6 +26,15 @@ router.get('/haunts/:hauntId', asyncHandler(async function (req, res) {
             hauntId: req.params.hauntId
         }})
     res.json(bookings)
+}));
+
+// Get specific Booking
+router.get('/:bookingId', asyncHandler(async function (req, res) {
+    const booking = await Haunt.findByPk(req.params.bookingId, {include:
+        {model: Haunt,
+        include: Image}
+    });
+        return res.json(booking)
 }));
 
 // Create a booking

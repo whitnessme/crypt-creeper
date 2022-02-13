@@ -186,8 +186,8 @@ function HauntBookingInfo({ haunt, hauntId }) {
             <div
               className={`checkin-div selected-${showStart}`}
               onClick={() => {
-                setShowStart(!showStart);
-                setShowEnd(!showEnd);
+                setShowStart(true);
+                setShowEnd(false);
               }}
             >
               <p className="bold-text">Check in</p>
@@ -200,8 +200,8 @@ function HauntBookingInfo({ haunt, hauntId }) {
             <div
               className={`checkout-div selected-${showEnd}`}
               onClick={() => {
-                setShowEnd(!showEnd);
-                setShowStart(!showStart);
+                setShowEnd(true);
+                setShowStart(false);
               }}
             >
               <p className="bold-text">Check out</p>
@@ -242,6 +242,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
               </>
             )}
           </div>
+          <div className="guests-container">
           <label>Guests</label>
           <select
             value={numOfGuests}
@@ -256,14 +257,18 @@ function HauntBookingInfo({ haunt, hauntId }) {
               </option>
             ))}
           </select>
-          <p>2 nights minimum stay</p>
-          <button type="submit">Request to book</button>
+          </div>
+          <div className="book-submit-container">
+          <button className="book-submit" type="submit">Instant book</button>
+          </div>
         </form>
         <div className="current-booking-ranges-div">
           <h5>Dates already booked:</h5>
           <ul>
             {alreadyBookedDays().ranges.map((e) => (
-              <li>{e}</li>
+              <>
+              <li><i className="fa-solid fa-calendar-minus"></i>  {e}</li>
+              </>
             ))}
           </ul>
         </div>

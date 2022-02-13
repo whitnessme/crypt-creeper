@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_BOOKING_USER = 'booking/loadBookingUser';
 const LOAD_BOOKING_HAUNT = 'booking/loadBookHaunt';
+const LOAD_ONE_BOOKING = 'booking/loadOneBooking'
 const CREATE_BOOKING = 'booking/create';
 const UPDATE_BOOKING = 'booking/update'
 const REMOVE_BOOKING = 'booking/remove'
@@ -19,6 +20,13 @@ export const loadBookingHaunt = hauntBookings => {
         hauntBookings
     }
 }
+
+export const loadOneBooking = oneBooking => {
+    return {
+        type: LOAD_ONE_BOOKING,
+        oneBooking
+    };
+};
 
 export const create = newBooking => {
     return {
@@ -59,6 +67,16 @@ export const getBookingsByHaunt = (hauntId) => async (dispatch, getState) => {
     }
 };
 
+export const getOneBooking = (bookingId) => async (dispatch, getState) => {
+    const res = await fetch(`/api/bookings/${bookingId}`);
+    if (res.ok) {
+        const booking = await res.json()
+        console.log(booking)
+        if(!booking) return null
+        return dispatch(loadOneHaunt(booking))
+    };
+};
+
 export const createNewBooking = (payload) => async (dispatch, getState) => {
     const res = await csrfFetch('/api/bookings', {
         method: 'POST',
@@ -97,7 +115,7 @@ export const deleteBooking = (bookingId) => async (dispatch, getState) => {
 };
 
 // Reducer 
-const initialState = {byUser: {}, byHaunt: {}}
+const initialState = {byUser: {}, byHaunt: {}, entries: {}}
 const bookingsReducer = (state = initialState, action) => {
     let newState;
     let byUser;
@@ -115,6 +133,12 @@ const bookingsReducer = (state = initialState, action) => {
             action.hauntBookings.forEach(booking => byHaunt[booking.id] = booking)
             newState.byHaunt = byHaunt;
             return newState;
+        case LOAD_ONE_BOOKING:
+            newState = {...state};
+            entries = {};
+            entries[action.oneBooking.id] = action.oneBooking;
+            newState.entries = entries;
+            return newState;  
         case CREATE_BOOKING:
             newState = {...state, [action.newBooking.id]: action.newBooking}
             return newState;
