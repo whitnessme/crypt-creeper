@@ -12,7 +12,7 @@ const ImageBlockCaption = ({
   listing
 }) => {
 
-  console.log(listing)
+
   return (
     <div className="block-info-container">
 {/* No button */}

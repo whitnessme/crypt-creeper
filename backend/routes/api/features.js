@@ -10,7 +10,6 @@ const router = express.Router();
 // Add a feature
 router.post('/:hauntId', asyncHandler(async function(req, res) {
     const {name, icon} = req.body;
-    console.log(name, icon)
     const newFeature = await AreaFeature.create({name, icon})
     const join = await hauntAreaFeatures.create({
         areaFeatureId: newFeature.id,
