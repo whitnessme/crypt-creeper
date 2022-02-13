@@ -26,6 +26,10 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
+      numOfGuests: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
