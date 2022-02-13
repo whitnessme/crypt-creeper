@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const hauntsRouter = require('./haunts.js');
 const featuresRouter = require('./features.js')
-const bookingsRouter = require('./bookings')
+const bookingsRouter = require('./bookings.js')
 
 router.use('/session', sessionRouter);
 

@@ -17,7 +17,6 @@ export const createNewAreaFeature = ({feature, hauntId}) => async (dispatch, get
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(feature)
     })
-    console.log("Hello?")
     if(res.ok) {
         const newAreaFeature = await res.json()
         dispatch(createAreaFeature(newAreaFeature))

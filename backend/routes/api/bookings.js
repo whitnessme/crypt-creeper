@@ -1,6 +1,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const validateHaunt = require('../validations/haunt')
+const validateBooking = require('../validations/booking')
 const { Haunt, Image, Review, Cryptid, AreaFeature, Essential, Amenity, Booking, User, hauntAmenities, hauntAreaFeatures, hauntCryptids, hauntEssentials } = require('../../db/models')
 
 const router = express.Router();
@@ -55,3 +55,5 @@ router.delete('/:bookingId', asyncHandler(async function(req, res) {
 
     res.json()
 }))
+
+module.exports = router;
