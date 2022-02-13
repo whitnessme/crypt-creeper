@@ -97,17 +97,23 @@ export const deleteBooking = (bookingId) => async (dispatch, getState) => {
 };
 
 // Reducer 
-const initialState = {}
+const initialState = {byUser: {}, byHaunt: {}}
 const bookingsReducer = (state = initialState, action) => {
     let newState;
+    let byUser;
+    let byHaunt;
     switch(action.type) {
         case LOAD_BOOKING_USER:
             newState = {...state}
-            action.userBookings.forEach(booking => newState[booking.id] = booking)
+            byUser = {}
+            action.userBookings.forEach(booking => byUser[booking.id] = booking)
+            newState.byUser = byUser;
             return newState;
         case LOAD_BOOKING_HAUNT:
             newState = {...state}
-            action.hauntBookings.forEach(booking => newState[booking.id] = booking)
+            byHaunt = {}
+            action.hauntBookings.forEach(booking => byHaunt[booking.id] = booking)
+            newState.byHaunt = byHaunt;
             return newState;
         case CREATE_BOOKING:
             newState = {...state, [action.newBooking.id]: action.newBooking}

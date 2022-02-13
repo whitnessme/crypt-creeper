@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/whitnessme/react-solo-project/issues"
   },
-  "homepage": "https://github.com/whitnessme/react-solo-project#readme"
+  "homepage": "https://github.com/whitnessme/react-solo-project#readme",
+  "dependencies": {
+    "moment-range": "^4.0.2"
+  }
 }

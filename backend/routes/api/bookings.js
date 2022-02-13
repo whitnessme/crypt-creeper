@@ -25,10 +25,11 @@ router.get('/haunts/:hauntId', asyncHandler(async function (req, res) {
 
 // Create a booking
 router.post('/', validateBooking, asyncHandler(async function(req, res) {
-    const { userId, hauntId, startDate, endDate} = req.body
+    const { userId, hauntId, numOfGuests, startDate, endDate} = req.body
     const booking = await Booking.create({
         userId,
         hauntId,
+        numOfGuests,
         startDate,
         endDate
     });

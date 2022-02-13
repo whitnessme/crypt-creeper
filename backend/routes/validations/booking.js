@@ -8,7 +8,7 @@ const validateBooking = [
         .bail()
         .isAfter()
         .withMessage('Please select a future start date')
-        .custom((start, { req }) => end >= req.body.endDate)
+        .custom((startDate, { req }) => startDate < req.body.endDate)
         .withMessage('Start date must be before end date'),
     check('endDate')
         .exists({checkFalsy: true})

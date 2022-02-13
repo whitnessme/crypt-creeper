@@ -1,7 +1,39 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector} from "react-redux";
+import { useHistory} from 'react-router-dom';
+import { createNewBooking, getBookingsByUser, getBookingsByHaunt } from '../../store/booking';
+import './booking-form.css'
+
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+
+
 function HauntBookingInfo ({haunt, hauntId}) {
-    if(!haunt) return null
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const moment = MomentRange.extendMoment(Moment);
+
+    const [errors, setErrors] = useState(['default']);
+    const [showStart, setShowStart] = useState(false);
+    const [showEnd, setShowEnd] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const sessionUser = useSelector((state) => state.session.user);
+
+    const hauntBookings = useSelector((state) => {
+        return Object.values(state?.booking?.byHaunt)})
+    const userBookings = useSelector((state) => {
+        return Object.values(state?.booking?.byUser)})
+
+    console.log(hauntBookings)
     
+    useEffect(() => {
+        dispatch(getBookingsByUser(sessionUser.id))
+        dispatch(getBookingsByHaunt(hauntId))
+    }, [dispatch, hauntId])
+
     let info = haunt[0].AreaFeatures
+
     const findOccupancy = () => {
         let features = Object.values(info)
         let occupancy = features.filter((feature) => feature.name.includes('adults') || feature.name.includes('guests'))
@@ -9,11 +41,12 @@ function HauntBookingInfo ({haunt, hauntId}) {
         return occupancy[0].name
     }
 
-    let numOfGuests = findOccupancy();
+    let allowedGuests = findOccupancy();
 
     const findNumOfGuestOptions = () => {
         let guests = findOccupancy();
-        let nums = guests.split(" ").filter(word => parseInt(word))
+        let nums = guests.split(" ").filter(word => parseInt(word, 10))
+        
         if (nums.length === 1) {
             let result = [];
             for (let i = 0; i <= nums[0]; i++) {
@@ -23,7 +56,7 @@ function HauntBookingInfo ({haunt, hauntId}) {
         }
         if (nums.length === 2) {
             let result = [];
-            for (let i = nums[0]; i <= nums[1]; i++) {
+            for (let i = parseInt(nums[0]); i <= nums[1]; i++) {
                 result.push(i)
             }
             return result;
@@ -32,32 +65,170 @@ function HauntBookingInfo ({haunt, hauntId}) {
 
     let numOptions = findNumOfGuestOptions();
 
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [numOfGuests, setNumOfGuests] = useState(numOptions[0])
+
+    if(!haunt) return null
+
+    const months = {'01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr', '05': 'May', '06': 'Jun', '07': 'Jul', '08': 'Aug', '09': 'Sept', '10': 'Oct', '11': 'Nov', '12': 'Dec'};
+
+    const changeDateFormat = (date) => {
+        const dateArr = date.split('-')
+        let month = months[dateArr[1]]
+        return `${month} ${dateArr[2]}`
+    }
+
+    const alreadyBookedDays = () => {
+        let ranges = [];
+        let result = [];
+        hauntBookings?.filter(book => book.userId === sessionUser.id).map((book) => {
+            ranges.push(`${changeDateFormat(book.startDate)} - ${changeDateFormat(book.endDate)}`)
+            let startString = book.startDate.split('-').join(', ')
+            let endString = book.endDate.split('-').join(', ')
+            const start = new Date(startString);
+            const end = new Date(endString);
+            const range = moment.range(start, end);
+            result.push(range)
+            
+        })
+        return {ranges, result}
+    }
+
+    const checkIfIntersect = () => {
+        let result = false;
+        let currentBookings = alreadyBookedDays();
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const range = moment.range(start, end);
+        console.log("current", currentBookings)
+        currentBookings.result.map(booking => {
+            if(booking.overlaps(range)) {
+                result = true;
+            }
+        })
+        return result;
+    }
+    
+    console.log(alreadyBookedDays())
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setErrors(['default'])
+        if(!sessionUser) {
+            setErrors('Please log in to book')
+        } else if (checkIfIntersect()){
+            setErrors(['Invalid range, intersects with other bookings'])
+        } else {
+            const payload = {startDate, endDate, numOfGuests: parseInt(numOfGuests), userId: sessionUser.id, hauntId}
+            dispatch(createNewBooking(payload))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    if (data.errors)
+                    setErrors(data.errors);
+                }});
+                if (!errors) {
+                    dispatch(getBookingsByUser(sessionUser.id))
+                    dispatch(getBookingsByHaunt(hauntId))
+                    // history.push(`/trips/${sessionUser.id}`)
+          }
+        }
+      }
 
     return (
-        <div className="haunt-booking-info-container">
+        <>
+        <form onSubmit={handleSubmit} className="haunt-booking-info-container">
             <div className="haunt-price-top">
                 <h2>${haunt[0].price}</h2>
-                <span>per night {`(${numOfGuests})`}</span>
+                <div>per night {`(${allowedGuests})`}</div>
             </div>
+            {errors != 'default' && (
+            <ul className="error-list-inline">
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+              </ul>
+            )}
             <div className="book-dates-buttons-container">
-                <span className="check-in">
+                <div className={`checkin-div selected-${showStart}`}
+                    onClick={() => {
+                    setShowStart(true)
+                    setShowEnd(false)
+                    }}
+                    >
                     <p className="bold-text">Check in</p>
-                    <p>Select date</p>
-                </span>
-                <span className="check-out">
+                   {startDate ?
+                    <p>{changeDateFormat(startDate)}</p>
+                    :
+                    <p>Select date</p>}
+
+                </div>
+                <div className={`checkout-div selected-${showEnd}`}
+                    onClick={() => {
+                    setShowEnd(true)
+                    setShowStart(false)
+                    }}
+                    >
                     <p className="bold-text">Check out</p>
-                    <p>Select date</p>
-                </span>
+                    {endDate ?
+                    <p>{changeDateFormat(endDate)}</p>
+                    :
+                    <p>Select date</p>}
+                </div>
             </div>
+                <div className='date-input-container'>
+                    {showStart &&
+                     <>
+                        <i className="fa-solid fa-backward-step"></i>
+                        <input
+                        type='date'
+                        className='check-in'
+                        value={startDate}
+                        onChange={(e) => {
+                        setStartDate(e.target.value)
+                        setShowStart(false)
+                        }} />
+                     </>
+                    }
+                    {showEnd &&
+                     <>
+                        <i className="fa-solid fa-forward-step"></i>
+                        <input
+                        type='date'
+                        className='check-out'
+                        value={endDate}
+                        onChange={(e) => {
+                            setEndDate(e.target.value)
+                            setShowEnd(false)
+                            }} />
+                     </>
+                    }
+                </div>
             <label>Guests</label>
-            <select name='guests' className="guests-select-dropdown">
+            <select
+            value={numOfGuests}
+            placeholder="#"
+            name='guests'
+            className="guests-select-dropdown"
+            onChange={(e) => setNumOfGuests(e.target.value)}
+            >
                 {numOptions.map(option => (
-                    <option key={option} value={option}>{option}</option>
+                    <option key={`guests-allowed-${option}`} value={option}>{option}</option>
                 ))}
             </select>
             <p>2 nights minimum stay</p>
-            <button>Request to book</button>
+            <button type='submit'>Request to book</button>
+        </form>
+        <div className='current-booking-ranges-div'>
+            <h5>Dates already booked:</h5>
+            <ul>
+            {alreadyBookedDays().ranges.map(e => (
+                <li>{e}</li>
+            ))}
+            </ul>
         </div>
+        </>
     )
 }
 
