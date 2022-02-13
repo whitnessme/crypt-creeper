@@ -94,7 +94,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     12: "Dec",
   };
 
-  const changeDateFormat = (date) => {
+ const changeDateFormat = (date) => {
     const dateArr = date.split("-");
     let month = months[dateArr[1]];
     return `${month} ${dateArr[2]}`;

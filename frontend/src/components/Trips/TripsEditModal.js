@@ -2,20 +2,25 @@ import TripEditForm from "./TripEditForm";
 import { useState } from 'react'
 import { Modal } from '../../context/Modal';
 import { useDispatch, useSelector} from "react-redux";
-import { deleteBooking, getBookingByUser } from '../../store/haunt'
+import {  getOneBooking, getBookingsByHaunt } from '../../store/booking'
 
-function ListingEditModal ({hauntId}) {
+function ListingEditModal ({bookingId, trip}) {
   const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
 
     const sessionUser = useSelector((state) => state.session.user)
 
+    const userBookings = useSelector((state) => {
+        return Object.values(state?.booking?.byUser);
+      });
+
+
     const handleDelete = async (e) => {
         e.preventDefault();
         
-        if(hauntId){
-          dispatch(deleteHaunt(hauntId))
-          dispatch(getHauntsbyHostId(sessionUser?.id))
+        if(bookingId){
+          dispatch(getOneBooking(bookingId))
+          dispatch(getBookingsByHaunt(trip?.hauntId));
         }
     }
 
@@ -29,7 +34,7 @@ function ListingEditModal ({hauntId}) {
         </div>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <ListingEditForm setShowModal={setShowModal} hauntId={hauntId} />
+              <TripEditForm showModel={showModal} setShowModal={setShowModal} bookingId={bookingId} />
             </Modal>
           )}
         </>

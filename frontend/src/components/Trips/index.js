@@ -6,13 +6,15 @@ import { useEffect } from "react";
 
 import { getBookingsByUser } from "../../store/booking";
 import "../Listings/listing.css";
-import TripsEditModal from "./TripsEditModal";
+
 
 function Trips() {
   let history = useHistory();
   const dispatch = useDispatch();
 
-  const trips = useSelector((state) => Object.values(state.booking.byUser));
+  const bookings = useSelector((state) => Object.values(state.booking.byUser));
+
+  console.log(bookings)
 
   const sessionUser = useSelector((state) => state.session.user);
   if (!sessionUser) {
@@ -45,7 +47,7 @@ function Trips() {
           <div className="listing-nav">
             <ul className="listing-nav-links">
               <li>
-                <p className="num">{trips?.length}</p>
+                <p className="num">{bookings?.length}</p>
                 <p className="listing-nav-title">Listings</p>
               </li>
               <li>
@@ -58,23 +60,26 @@ function Trips() {
               </li>
             </ul>
           </div>
-          {trips && (
+          {bookings && (
             <div className="listings-haunts-div">
-              {trips?.map((trip) => (
+              {bookings?.map((booking) => (
                 <>
                   <ImageBlock
-                    key={`listing-${trip?.id}`}
+                    key={`listing-${booking?.id}`}
                     classNames="user-view-haunts"
-                    url={trip?.Haunts?.Images && trip?.Haunts?.Images[0]?.url}
-                    hauntId={trip?.id}
+                    url={booking?.Haunt?.Images && booking?.Haunt?.Images[0]?.url}
+                    tripId={booking?.id}
                     caption={[
-                      trip?.name,
-                      `In ${trip?.city}, ${trip?.state}`,
+                      booking?.name,
+                      `In ${booking?.Haunt.city}, ${booking?.Haunt.state}`,
                     ]}
-                    buttonText="Edit Trip"
+                    buttonText="Edit booking"
                     caption0Class="listing-title"
                     caption1Class="listing-location"
-                    trip={true}
+                    hauntId={booking?.Haunt?.id}
+                    booking={true}
+                    trip={booking}
+                    bookingId={booking?.id}
                   />
                 </>
               ))}

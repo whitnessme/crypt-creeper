@@ -73,7 +73,7 @@ export const getOneBooking = (bookingId) => async (dispatch, getState) => {
         const booking = await res.json()
         console.log(booking)
         if(!booking) return null
-        return dispatch(loadOneHaunt(booking))
+        return dispatch(loadOneBooking(booking))
     };
 };
 
@@ -120,6 +120,7 @@ const bookingsReducer = (state = initialState, action) => {
     let newState;
     let byUser;
     let byHaunt;
+    let entries;
     switch(action.type) {
         case LOAD_BOOKING_USER:
             newState = {...state}
