@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import {
   createNewBooking,
   getBookingsByUser,
-  getBookingsByHaunt,
+  getBookingsByHaunt
 } from "../../store/booking";
+import { getOneHaunt } from "../../store/haunt";
 import "./booking-form.css";
 
 const Moment = require("moment");
@@ -30,12 +31,21 @@ function HauntBookingInfo({ haunt, hauntId }) {
     return Object.values(state?.booking?.byUser);
   });
 
-  useEffect(() => {
+  if(!haunt) {
+    dispatch(getOneHaunt(hauntId))
+  }
+
+  useEffect(async() => {
     dispatch(getBookingsByUser(sessionUser.id));
     dispatch(getBookingsByHaunt(hauntId));
   }, [dispatch, hauntId, sessionUser]);
 
-  let info = haunt[0].AreaFeatures;
+
+  let info;
+  console.log(info)
+  if(haunt) {
+    info = haunt[0].AreaFeatures;
+  }
 
   const findOccupancy = () => {
     let features = Object.values(info);
@@ -78,7 +88,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
   const [numOfGuests, setNumOfGuests] = useState(numOptions[0]);
   const [success, setSuccess] = useState(false)
 
-  if (!haunt) return null;
+  // if (!haunt) return null;
 
   const months = {
     "01": "Jan",
@@ -105,8 +115,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     let ranges = [];
     let result = [];
     hauntBookings
-      ?.filter((book) => book.userId === sessionUser.id)
-      .map((book) => {
+      ?.map((book) => {
         ranges.push(
           `${changeDateFormat(book.startDate)} - ${changeDateFormat(
             book.endDate
@@ -180,7 +189,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
             <h2>${haunt[0].price}</h2>
             <div>per night {`(${allowedGuests})`}</div>
             {success &&
-              <p>Successfully booked!</p>
+              <p className="success">Successfully booked!</p>
             }
           </div>
           {errors != "default" && (

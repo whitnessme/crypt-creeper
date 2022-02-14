@@ -7,6 +7,16 @@
     margin: auto;
 }
 
+.cryptids-list-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    margin: auto;
+}
+
 header {
     padding: 20px;
     padding-top: 40px;
@@ -104,6 +114,16 @@ header + .lone > div {
     padding: 10px;
 }
 
+.normal {
+    width: 300px;
+    height: 200px;
+    margin: 30px;
+}
+
+.normal > .img-container {
+    border-radius: 10px;
+}
+
 .two-wide {
     height: 450px;
     width: 48%;
@@ -129,4 +149,24 @@ header + .lone > div {
     border-radius: 24px;
     text-decoration: none;
     color: rgb(98, 185, 149);
+}
+
+.cryptology{
+    position: relative;
+    filter: opacity(80%);
+}
+
+.cryptology > .block-info-container {
+    filter: opacity(100%);
+    position: absolute;
+    background-color: white;
+    bottom: 100px;
+    right: 30px;
+    padding: 30px;
+    width: 400px;
+}
+
+.haunts-list-page-container {
+    width: 80 vw;
+    height: 100 vh;
 }

@@ -1,7 +1,7 @@
 import { Link, useHistory} from 'react-router-dom';
 import ImageBlockCaption from "./ImageBlockCaption";
 
-function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing, booking }) {
+function ImageBlock({ hauntId, bookingId, go, trip, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing, booking }) {
     let history = useHistory();
     let redirect;
     let relativeLink;
@@ -22,12 +22,15 @@ function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, button
         }
     }
 
+
     return (
         <div className={`image-block ${classNames}`}>
             {hauntId && !buttonText
             ?
             <>
-                <div onClick={() => history.push(`/haunts/${hauntId}`)} className="img-container" style={{backgroundImage: `url(${url})`}}>
+                <div onClick={() => {
+            history.push(`/haunts/${hauntId}`)
+        } } className="img-container" style={{backgroundImage: `url(${url})`}}>
                 </div>
                 <ImageBlockCaption
                 redirect={redirect}
@@ -41,7 +44,7 @@ function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, button
             :
             <>
                 <div
-                onClick={() => history.push(`/haunts/${hauntId}`)}
+                onClick={go ? () => {history.push('/haunts')} : () => history.push(`/haunts/${hauntId}`)}
                 className="img-container" style={{backgroundImage: `url(${url})`}}>
                 </div>
                 <ImageBlockCaption

@@ -8,7 +8,8 @@ const router = express.Router();
 // Get all Haunts & Images with that id
 router.get('/', asyncHandler(async function (req, res) {
     const haunts = await Haunt.findAll({include: [
-        {model: Image}
+        {model: Image},
+        {model: AreaFeature},
     ]})
     res.json(haunts)
 }));

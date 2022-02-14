@@ -19,20 +19,20 @@ function HauntHeader({ haunt, hauntId }) {
           <p>{info.closeLandmark}</p>
         </div>
         <div className="haunt-information">
-          <span className="host-info">
-            <span className="skull-host-icon">
-              <i className="fa-solid fa-skull"></i>
-            </span>
-            <span className="host-name">
+          <div className="host-info">
+            <div className="skull-host-icon user-profile">
+            <i className="fa-solid fa-ghost"></i>
+            </div>
+            <div className="host-name">
               <p>Hosted by</p>
               <p>
                 {info?.User?.firstName} {lastInitial}.
               </p>
-            </span>
-          </span>
-          <span className="haunt-summary">
+            </div>
+          </div>
+          <div className="haunt-summary">
             <p>{info.summary}</p>
-          </span>
+          </div>
         </div>
       </div>}
     </div>

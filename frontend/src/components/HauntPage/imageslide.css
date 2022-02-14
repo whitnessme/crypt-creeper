@@ -5,8 +5,9 @@
     height: 480px;
     margin-left: auto;
     margin-right: auto;
-    overflow-x: scroll;
     text-align: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .slide-img-container {
@@ -42,7 +43,7 @@
     top: 300px;
 }
 
-.slide-button-prev .slide-button-next {
+/* .slide-button-prev .slide-button-next {
     display: inline-block;
     position: relative;
     min-height: 50px;
@@ -54,4 +55,4 @@
     width: 50px;
     color: rgba(255, 255, 255, 0.699);
     font-size: 2rem;
-}
+} */

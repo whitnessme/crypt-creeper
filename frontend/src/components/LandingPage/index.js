@@ -3,6 +3,7 @@ import ImageBlockGrid from './ImageBlockGrid';
 import { twoWide, threeWide1} from './image-block-info'
 
 import './LandingPage.css'
+import HauntsList from "../HauntsList";
 
 function LandingPage() {
 
@@ -17,13 +18,14 @@ function LandingPage() {
                 </div>
             </header>
             <div className="lone">
-            <ImageBlock url={url} classNames='wide tall' />
+            <ImageBlock url={url} go={true} classNames='wide tall' />
             </div>
             <ImageBlockGrid classNames='two-wide' blocks={twoWide} />
             <div className="lone">
-            <ImageBlock url={url} classNames='wide tall' caption={["Own a Supernatural Location? Earn money with CryptSeeker.", "Host our cryptozoology and parapsychology community at your transcendental places!"]} buttonText="Learn more" buttonLink="host/signup" />
+            <ImageBlock url='https://images.squarespace-cdn.com/content/v1/5a7989439f07f5f97873172d/1574954359606-OBQVGDT5OB803C94BKDA/Monsters+Movementum.jpg' classNames='wide tall cryptology' caption={["Own a Supernatural Location? Earn money with CryptSeeker.", "Host our cryptozoology and parapsychology community at your transcendental places!"]} buttonText="Learn more" buttonLink="host/signup" />
             </div>
             <ImageBlockGrid classNames="three-wide tall" blocks={threeWide1} />
+          {/* <HauntsList /> */}
         </div>
     );
 }

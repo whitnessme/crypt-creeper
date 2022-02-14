@@ -34,6 +34,15 @@ function EditFeaturesForm({ selectedHaunt }) {
 
   let Contents;
 
+  // if (showFeatures === 'Ess') {
+  //   Contents= (
+  //     <div>
+
+  //     <h4>Under construction</h4>
+  //     </div>
+  //     )
+  // }
+
   if (showFeatures === "Area") {
     Contents = (
       <div>
@@ -100,11 +109,11 @@ function EditFeaturesForm({ selectedHaunt }) {
           <button onClick={e => setShowFeatures("Area")} className="show-button show-feature">
             Area Feature
           </button>
-          <button onClick={e => setShowFeatures("Ess")}className="show-button show-feature">
-            Essential
+          <button className="show-button show-feature">
+            Coming Soon
           </button>
-          <button onClick={e => setShowFeatures("Ess")} className="show-button show-feature">
-            Amenity
+          <button className="show-button show-feature">
+            Coming Soon
           </button>
         </div>
         {Contents}

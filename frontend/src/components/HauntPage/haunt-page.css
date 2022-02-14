@@ -1,8 +1,8 @@
 .haunt-div {
     /* text-align: center; */
     position: relative;
-    width: 40vw;
-
+    width: 48vw;
+    min-width: 400px;
     margin-left: 160px;
 }
 
@@ -10,3 +10,94 @@ div {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.location-header-div {
+    display: flex;
+    align-items: center;
+}
+
+.location-header-div > span {
+    padding: 10px;
+    color: rgb(190, 190, 190);
+}
+
+.location-header-div > i {
+    font-size: 20px;
+    color: rgb(98, 185, 149);
+}
+
+.haunt-title > p {
+    color: rgb(98, 185, 149);
+    padding-bottom: 18px;
+    font-style: italic;
+}
+
+.haunt-information {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.host-info {
+    box-sizing: border-box;
+    display: block;
+    position: static;
+    width: 50%;
+}
+
+.host-name {
+    display: flex;
+    flex-direction: row;
+}
+
+.haunt-summary {
+    box-sizing: border-box;
+    display: block;
+    padding: 0px 30px;
+    text-indent: 10px;
+    line-height: 1.5em;
+    width: 100%;
+}
+
+.host-info {
+    display: flex;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.host-name {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+}
+
+.host-name > p:first-child {
+    font-size: small;
+    white-space: nowrap;
+}
+
+.haunt-features-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.haunt-features-container > div {
+    width: 33%;
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.342);
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.features-div > div {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+    font-size: 15px;
+}
+
+.features-div > div > div {
+    padding-right: 6px;
+}

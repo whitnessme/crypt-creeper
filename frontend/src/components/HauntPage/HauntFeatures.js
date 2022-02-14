@@ -10,9 +10,9 @@ function HauntFeatures ({haunt, hauntId}) {
         <div className="haunt-features-container">
             {[area, ess, amenity].map((info) => (
                 <div key={`feature-${count}`}>
-                    <div  className={`${count}-features-div`}>
+                    <div className={`features-div`}>
                         <h3>{title[count]}</h3>
-                    {info.map(option => (
+                    {info?.map(option => (
                         <div key={`each${option.id}`}>
                             <div dangerouslySetInnerHTML={{__html: option.icon}}></div>
                             <div>{option.name}</div>

@@ -17,11 +17,13 @@ function HauntPage() {
   const haunt = useSelector((state) => {
     return Object.values(state.haunt.entries);
   });
+  const sessionUser = useSelector((state) => state.session.user);
+  if (!sessionUser) {
+    history.push("/");
+  }
 
-
-  useEffect(() => {
-    dispatch(getOneHaunt(hauntId)).then((data) => {
-        console.log("Data", data)
+  useEffect(async () => {
+   await dispatch(getOneHaunt(hauntId)).then((data) => {
       if (!data) history.push("/404");
     });
   }, [dispatch, hauntId]);

@@ -11,14 +11,14 @@ function ImageSlide({hauntId, haunt}) {
                     return <img className='slide-img' src={img.url}></img>
                 })}
             </div>
-            <div className='slide-button-container'>
+            {/* <div className='slide-button-container'>
                <div className='slide-button-prev'>
                <i className="fa-solid fa-circle-chevron-left"></i>
                </div>
                <div className='slide-button-next'>
                <i className="fa-solid fa-circle-chevron-right"></i>
                </div>
-            </div>
+            </div> */}
         </div>
     );
 }
