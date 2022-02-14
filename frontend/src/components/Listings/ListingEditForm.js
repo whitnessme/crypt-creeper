@@ -48,20 +48,24 @@ function ListingEditForm({ hauntId, setShowModal }) {
   const [price, setPrice] = useState(selectedHaunt.price);
   const [summary, setSummary] = useState(selectedHaunt.summary);
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
+  setErrors(['default']);
+
 const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
-  dispatch(updateHaunt(payload, selectedHaunt.id))
+  const result = await dispatch(updateHaunt(payload, selectedHaunt.id))
   .catch(async (res) => {
     const data = await res.json();
     if (data && data.errors) {
       if (data.errors)
       setErrors(data.errors);
     }});
-    if (!errors.length) {
+
+    if (result) {
+      console.log('hello?')
         dispatch(getHauntsbyHostId(sessionUser?.id))
-        history.push(`/listings/${sessionUser.id}`)
         setShowModal(false)
+        history.push(`/listings/${sessionUser?.id}`)
     }
 }
 
@@ -72,7 +76,7 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
         <form onSubmit={handleSubmit} className="edit-listing-form">
           <h2>Edit</h2>
           <h5>{selectedHaunt?.name}</h5>
-          {errors != 'default' && (
+          {errors && errors != 'default' && (
             <ul className="error-list">
               <button onClick={() => setErrors('default')} className="error-x">X</button>
               {errors.map((error, idx) => (

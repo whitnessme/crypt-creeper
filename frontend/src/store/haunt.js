@@ -65,15 +65,16 @@ export const getHaunts = () => async (dispatch, getState) => {
         const haunts = await res.json()
         return dispatch(loadHaunts(haunts))
     }
-    return res;
+    return await res.json();
 };
 
 export const getHauntsbyHostId = (userId) => async (dispatch, getState) => {
     const res = await fetch(`/api/haunts/host/${userId}`);
     if (res.ok) {
         const hostHaunts = await res.json()
-        return dispatch(loadHauntsbyHost(hostHaunts))
+        dispatch(loadHauntsbyHost(hostHaunts))
     }
+    return await res.json()
 };
 
 export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
@@ -84,6 +85,7 @@ export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
         if(!haunt) return null
         return dispatch(loadOneHaunt(haunt))
     };
+    return await res.json()
 };
 
 export const createNewHaunt = (payload) => async (dispatch, getState) => {
@@ -107,7 +109,9 @@ export const updateHaunt = (payload, hauntId) => async (dispatch) => {
     });
     if (res.ok) {
         const haunt = await res.json()
+        console.log(haunt)
         dispatch(update(haunt))
+        return haunt;
     }
 };
 
@@ -151,10 +155,15 @@ const hauntReducer = (state = initialState, action) => {
             return newState;   
         case CREATE_HAUNT:
             newState = {...state};
-            newState.entries = {...newState.entries, [action.newHaunt.id] : action.newHaunt};
+            newState.entries = { [action.newHaunt.id] : action.newHaunt};
             return newState;
         case UPDATE_HAUNT:
-            newState = {...state, [action.haunt.id]: action.haunt};
+            newState = {...state}
+            console.log(newState)
+            entries = {...state.entries};
+            entries[action.updatedHaunt.id] = action.updatedHaunt
+            newState.entries = entries
+            console.log(newState)
             return newState;
         case DELETE_HAUNT:
             newState = {...state};

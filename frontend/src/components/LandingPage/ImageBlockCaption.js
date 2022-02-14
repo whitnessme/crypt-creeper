@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import ListingEditModal from "../Listings/ListingEditModal";
-import TripEditModal from '../Trips/TripsEditModal';
 
 const ImageBlockCaption = ({
   caption,
@@ -34,9 +33,9 @@ const ImageBlockCaption = ({
             {listing ? 
              <ListingEditModal hauntId={hauntId} />
              :
-            booking ? 
-             <TripEditModal bookingId={bookingId} trip={trip} />
-             :
+            // booking ? 
+            //   <TripEditModal bookingId={bookingId} trip={trip} />
+            //  :
              <NavLink exact to={relativeLink} className="block-button">
               {buttonText}
             </NavLink>

@@ -59,6 +59,7 @@ router.post("/", validateHaunt, asyncHandler(async function(req, res) {
         price,
         summary
     });
+    console.log(res.json(haunt))
     res.json(haunt)
 }))
 
@@ -66,7 +67,7 @@ router.post("/", validateHaunt, asyncHandler(async function(req, res) {
 router.put('/:hauntId', validateHaunt,
 asyncHandler(async (req, res) => {
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
-
+console.log(req.json)
     const updated = await Haunt.update({
         userId,
         name,
@@ -81,8 +82,16 @@ asyncHandler(async (req, res) => {
     }, {where: {
         id: req.params.hauntId
     }});
-
-    res.json(updated)
+    const result = await Haunt.findByPk(req.params.hauntId, {include: [
+        {model: Image},
+        {model: Cryptid},
+        {model: AreaFeature},
+        {model: Essential},
+        {model: Amenity},
+        {model: User}
+    ]})
+    console.log(result)
+    return res.json(result)
 }))
 
 // Delete a specific Haunt

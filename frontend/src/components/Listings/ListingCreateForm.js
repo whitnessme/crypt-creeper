@@ -1,6 +1,6 @@
 import React, { useState  } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { useHistory} from 'react-router-dom';
+import { useHistory, useParams} from 'react-router-dom';
 import { usStates } from "./info-listing";
 import EditFeaturesForm from "./EditFeaturesForm";
 
@@ -8,12 +8,14 @@ import { createNewHaunt, getHauntsbyHostId } from '../../store/haunt'
 import { useEffect } from "react";
 
 function ListingEditForm({ setShowModal }) {
+  const userId = useParams()
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
 //   const haunts = useSelector((state) => state.haunt.entries);
 //   let selectedHaunt = haunts[hauntId];
+
 
   const [errors, setErrors] = useState(['default']);
   const [showInfo, setShowInfo] = useState(false);
@@ -47,21 +49,23 @@ function ListingEditForm({ setShowModal }) {
   const [price, setPrice] = useState('');
   const [summary, setSummary] = useState('');
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
-  setErrors([]);
-    const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
-  dispatch(createNewHaunt(payload))
+    const payload = {name, userId: sessionUser.id, address, city, state, zipcode, country, closeLandmark, price, summary}
+  const newListing = await dispatch(createNewHaunt(payload))
   .catch(async (res) => {
     const data = await res.json();
     if (data && data.errors) {
       if (data.errors)
       setErrors(data.errors);
     }});
-    if (!errors.length) {
-        dispatch(getHauntsbyHostId(sessionUser?.id))
-        history.push(`/listings/${sessionUser.id}`)
+    console.log("RESULT", newListing)
+
+    if (newListing) {
+      console.log(newListing)
+        dispatch(getHauntsbyHostId(sessionUser.id))
         setShowModal(false)
+        history.push(`/listings/${sessionUser.id}`)
     }
 }
 
@@ -76,10 +80,10 @@ const handleSubmit = (e) => {
           <h2>Create a New Haunt Listing!</h2>
             <div className="add-help" style={{color:'transparent', margin:'0px', fontStyle: 'italic'}}>Add features with edit button after submitting!
             </div>
-          {errors != 'default' && (
+          {errors && !(errors[0] === 'default') && (
             <ul className="create-errors error-list">
-                <button onClick={() => setErrors('default')} className="error-x">X</button>
-              {errors.map((error, idx) => (
+                <button onClick={() => setErrors(['default'])} className="error-x">X</button>
+              {errors?.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
             </ul>

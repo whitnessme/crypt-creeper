@@ -12,7 +12,7 @@ function Listings() {
   let history = useHistory();
   const dispatch = useDispatch();
 
-  const haunts = useSelector((state) => Object.values(state.haunt.entries));
+  const haunts = useSelector((state) => Object.values(state?.haunt?.entries));
 
   const sessionUser = useSelector((state) => state.session.user);
   if (!sessionUser) {
@@ -21,7 +21,7 @@ function Listings() {
 
   useEffect(() => {
     dispatch(getHauntsbyHostId(sessionUser?.id));
-  }, [dispatch]);
+  }, [dispatch, sessionUser]);
 
   let lastInitial = sessionUser?.lastName.slice(0, 1);
 
@@ -74,7 +74,7 @@ function Listings() {
                   <ImageBlock
                     key={`listing-${haunt?.id}`}
                     classNames="user-view-haunts"
-                    url={haunt.Images && haunt?.Images[0]?.url}
+                    url={haunt?.Images && haunt?.Images[0]?.url}
                     hauntId={haunt?.id}
                     caption={[
                       haunt?.name,
