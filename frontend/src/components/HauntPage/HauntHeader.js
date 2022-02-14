@@ -1,7 +1,14 @@
+// import alien from '../../images/cryptid-icons/alien.pdf'
+// import bigfoot from '../../images/cryptid-icons/bigfoot.pdf'
+// import bird from '../../images/cryptid-icons/bird.pdf'
+// import chimera from '../../images/cryptid-icons/chimera.pdf'
+
+
 function HauntHeader({ haunt, hauntId }) {
   let info = haunt[0];
   let lastInitial = info?.User?.lastName?.slice(0, 1);
 
+  console.log(info.Cryptids)
 
   return (
     <div className="haunt-info-div">
@@ -31,9 +38,12 @@ function HauntHeader({ haunt, hauntId }) {
             </div>
           </div>
           <div className="haunt-summary">
-            <p>{info.summary}</p>
+            <p>{info?.summary}</p>
           </div>
         </div>
+        {/* <div className='cryptid-encounters'>
+          <img src={require('../../images/cryptid-icons/bigfoot.pdf')}></img>
+        </div> */}
       </div>}
     </div>
   );

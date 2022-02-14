@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import UsersPage from '../UsersPage'
 
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [showMenu, setShowMenu] = useState(false);
     
     const openMenu = () => {
@@ -29,6 +31,7 @@ function ProfileButton({ user }) {
       e.preventDefault();
       dispatch(sessionActions.logout());
     };
+
   
     return (
         <>
@@ -43,6 +46,11 @@ function ProfileButton({ user }) {
           <ul className="profile-dropdown">
             <li>Welcome {user.firstName}!</li>
             <li>{user.username}</li>
+            <li>
+              <a className="github" href="https://github.com/whitnessme/crypt-seeker" target='_blank'>
+              <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

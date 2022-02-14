@@ -112,6 +112,7 @@ header + .lone > div {
     background-color: rgb(98, 185, 149);
     border-radius:  0px 0px 24px 24px;
     padding: 10px;
+    align-items: center;
 }
 
 .normal {
@@ -169,4 +170,12 @@ header + .lone > div {
 .haunts-list-page-container {
     width: 80 vw;
     height: 100 vh;
+}
+
+.small-header, .small-text {
+    font-size: small;
+}
+
+.large-header {
+    font-size: 20px;
 }

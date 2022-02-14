@@ -82,3 +82,13 @@ ul {
 .fa-rectangle-xmark {
     color: rgb(175, 26, 26)
 }
+
+.github {
+    color: rgb(175, 26, 26);
+    font-size: 28px;
+    transition: .5s;
+}
+
+.github:hover {
+    font-size: 32px;
+}
