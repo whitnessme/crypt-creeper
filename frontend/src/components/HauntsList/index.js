@@ -26,8 +26,8 @@ function HauntsList() {
 
     return (
         <div className="haunts-list-page-container">
-            <div className="cryptids-list-container">
             <h2>Seeking out some cryptids and supernatural beings?</h2>
+            <div className="cryptids-list-container">
                 {haunts?.map((haunt) => (
                     <ImageBlock caption={[`${haunt.name}`]} url={haunt?.Images[haunt.Images.length - 1]?.url} hauntId={haunt?.id} classNames='normal lone' />
                 ))}

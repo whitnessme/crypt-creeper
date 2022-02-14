@@ -101,3 +101,7 @@ div {
 .features-div > div > div {
     padding-right: 6px;
 }
+
+.haunts-list-page-container {
+    text-align: center;
+}
