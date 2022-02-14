@@ -27,13 +27,15 @@ function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, button
             {hauntId && !buttonText
             ?
             <>
-                <div onClick={redirect} className="img-container" style={{backgroundImage: `url(${url})`}}>
+                <div onClick={() => history.push(`/haunts/${hauntId}`)} className="img-container" style={{backgroundImage: `url(${url})`}}>
                 </div>
                 <ImageBlockCaption
                 redirect={redirect}
                 caption={caption}
                 hauntId={hauntId}
                 caption0Class={caption0Class}
+                booking={booking}
+                bookingId={bookingId}
                 caption1Class={caption1Class} />
             </>
             :
@@ -44,7 +46,6 @@ function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, button
                 </div>
                 <ImageBlockCaption
                 hauntId={hauntId}
-                bookingId={bookingId}
                 caption={caption}
                 buttonText={buttonText}
                 buttonLink={buttonLink}
@@ -52,7 +53,6 @@ function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, button
                 caption1Class={caption1Class}
                 relativeLink={relativeLink}
                 listing={listing}
-                booking={booking}
                 />
             </>
             }

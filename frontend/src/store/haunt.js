@@ -159,11 +159,9 @@ const hauntReducer = (state = initialState, action) => {
             return newState;
         case UPDATE_HAUNT:
             newState = {...state}
-            console.log(newState)
             entries = {...state.entries};
             entries[action.updatedHaunt.id] = action.updatedHaunt
             newState.entries = entries
-            console.log(newState)
             return newState;
         case DELETE_HAUNT:
             newState = {...state};

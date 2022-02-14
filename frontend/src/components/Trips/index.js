@@ -27,6 +27,27 @@ function Trips() {
 
   let lastInitial = sessionUser?.lastName.slice(0, 1);
 
+  const months = {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sept",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
+
+  const changeDateFormat = (date) => {
+    const dateArr = date.split("-");
+    let month = months[dateArr[1]];
+    return `${month} ${dateArr[2]}`;
+  };
+
   return (
     <>
       <div className="listings-page-container">
@@ -48,7 +69,7 @@ function Trips() {
             <ul className="listing-nav-links">
               <li>
                 <p className="num">{bookings?.length}</p>
-                <p className="listing-nav-title">Listings</p>
+                <p className="listing-nav-title">Trips</p>
               </li>
               <li>
                 <p className="coming-soon">coming soon</p>
@@ -70,14 +91,16 @@ function Trips() {
                     url={booking?.Haunt?.Images && booking?.Haunt?.Images[0]?.url}
                     tripId={booking?.id}
                     caption={[
-                      booking?.name,
+                      `${changeDateFormat(booking.startDate)} - ${changeDateFormat(
+                        booking.endDate
+                      )}`,
                       `In ${booking?.Haunt.city}, ${booking?.Haunt.state}`,
                     ]}
-                    buttonText="Edit booking"
+                    // buttonText={<i className="fa-solid fa-trash-can"></i>}
                     caption0Class="listing-title"
                     caption1Class="listing-location"
                     hauntId={booking?.Haunt?.id}
-                    booking={true}
+                    booking='true'
                     trip={booking}
                     bookingId={booking?.id}
                   />

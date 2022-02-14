@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ListingEditModal from "../Listings/ListingEditModal";
+import { useDispatch, useSelector} from "react-redux";
+import {deleteBooking, getBookingsByUser} from '../../store/booking'
 
 const ImageBlockCaption = ({
   caption,
@@ -14,15 +16,29 @@ const ImageBlockCaption = ({
   bookingId,
   trip
 }) => {
+  const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user)
 
+  const handleDelete = async (e) => {
+      e.preventDefault();
+      console.log(bookingId)
+      if(bookingId){
+        dispatch(deleteBooking(parseInt(bookingId)))
+        dispatch(getBookingsByUser(sessionUser?.id));
+      }
+  }
 
+console.log("booking", booking)
   return (
     <div className="block-info-container">
 {/* No button */}
       {caption && hauntId && !buttonText && (
         <>
-        <p className={caption0Class}>{caption[0]}</p>
-        <p className={caption1Class}>{caption[1]}</p>
+          <p className={caption0Class}>{caption[0]}</p>
+         <p className={caption1Class}>{caption[1]}</p>
+        {booking &&
+          <button onClick={handleDelete} className="booking-delete delete-button"><i className="fa-solid fa-trash-can"></i></button>
+        }
         </>
       )}
       {caption && hauntId && buttonText && (

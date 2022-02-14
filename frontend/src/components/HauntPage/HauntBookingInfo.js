@@ -30,12 +30,10 @@ function HauntBookingInfo({ haunt, hauntId }) {
     return Object.values(state?.booking?.byUser);
   });
 
-  console.log(hauntBookings);
-
   useEffect(() => {
     dispatch(getBookingsByUser(sessionUser.id));
     dispatch(getBookingsByHaunt(hauntId));
-  }, [dispatch, hauntId]);
+  }, [dispatch, hauntId, sessionUser]);
 
   let info = haunt[0].AreaFeatures;
 
@@ -54,6 +52,8 @@ function HauntBookingInfo({ haunt, hauntId }) {
   const findNumOfGuestOptions = () => {
     let guests = findOccupancy();
     let nums = guests.split(" ").filter((word) => parseInt(word, 10));
+
+    if(parseInt(nums[0]) > parseInt(nums[1])) nums.splice(1, 1)
 
     if (nums.length === 1) {
       let result = [];
@@ -76,6 +76,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [numOfGuests, setNumOfGuests] = useState(numOptions[0]);
+  const [success, setSuccess] = useState(false)
 
   if (!haunt) return null;
 
@@ -127,7 +128,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const range = moment.range(start, end);
-    console.log("current", currentBookings);
+
     currentBookings.result.map((booking) => {
       if (booking.overlaps(range)) {
         result = true;
@@ -138,7 +139,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
 
   console.log(alreadyBookedDays());
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(["default"]);
     if (!sessionUser) {
@@ -153,15 +154,19 @@ function HauntBookingInfo({ haunt, hauntId }) {
         userId: sessionUser.id,
         hauntId,
       };
-      dispatch(createNewBooking(payload)).catch(async (res) => {
+      const result = await dispatch(createNewBooking(payload)).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
           if (data.errors) setErrors(data.errors);
         }
       });
-      if (!errors) {
+
+      if (result) {
+        setSuccess(true);
         dispatch(getBookingsByUser(sessionUser.id));
         dispatch(getBookingsByHaunt(hauntId));
+        setShowStart(false)
+        setShowEnd(false)
         // history.push(`/trips/${sessionUser.id}`)
       }
     }
@@ -174,6 +179,9 @@ function HauntBookingInfo({ haunt, hauntId }) {
           <div className="haunt-price-top">
             <h2>${haunt[0].price}</h2>
             <div>per night {`(${allowedGuests})`}</div>
+            {success &&
+              <p>Successfully booked!</p>
+            }
           </div>
           {errors != "default" && (
             <ul className="error-list-inline">
@@ -222,7 +230,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
                   value={startDate}
                   onChange={(e) => {
                     setStartDate(e.target.value);
-                    setShowStart(!showStart);
                   }}
                 />
               </>
@@ -236,7 +243,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
                   value={endDate}
                   onChange={(e) => {
                     setEndDate(e.target.value);
-                    setShowEnd(!showEnd);
                   }}
                 />
               </>

@@ -108,9 +108,9 @@ export const deleteBooking = (bookingId) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
     })
     if (res.ok) {
-        // const deletedHaunt = await res.json();
-        dispatch(remove(bookingId))
-        // return deletedHaunt;
+        const deletedHaunt = await res.json();
+        await dispatch(remove(bookingId))
+        return deletedHaunt
     }
 };
 
@@ -141,10 +141,14 @@ const bookingsReducer = (state = initialState, action) => {
             newState.entries = entries;
             return newState;  
         case CREATE_BOOKING:
-            newState = {...state, [action.newBooking.id]: action.newBooking}
+            newState = {...state};
+            newState.byUser = {[action.newBooking.id]: action.newBooking}
             return newState;
         case UPDATE_BOOKING:
-            newState = {...state, [action.updatedBooking.id]: action.updatedBooking};
+            newState = {...state}
+            byUser = {...state.byUser}
+            byUser[action.updatedBooking.id] = action.updatedBooking
+            newState.byUser = byUser
             return newState;
         case REMOVE_BOOKING:
             newState = {...state};
