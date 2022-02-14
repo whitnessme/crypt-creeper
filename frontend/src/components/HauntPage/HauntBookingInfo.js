@@ -149,6 +149,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
   console.log(alreadyBookedDays());
 
   const handleSubmit = async (e) => {
+    let payload;
     e.preventDefault();
     setErrors(["default"]);
     if (!sessionUser) {
@@ -156,7 +157,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     } else if (checkIfIntersect()) {
       setErrors(["Invalid range, intersects with other bookings"]);
     } else {
-      const payload = {
+      payload = {
         startDate,
         endDate,
         numOfGuests: parseInt(numOfGuests),
@@ -169,16 +170,16 @@ function HauntBookingInfo({ haunt, hauntId }) {
           if (data.errors) setErrors(data.errors);
         }
       });
-
+      
       if (result) {
         setSuccess(true);
-        dispatch(getBookingsByUser(sessionUser.id));
+        dispatch(getBookingsByUser(sessionUser?.id));
         dispatch(getBookingsByHaunt(hauntId));
         setShowStart(false)
         setShowEnd(false)
         // history.push(`/trips/${sessionUser.id}`)
       }
-    }
+      }
   };
 
   return (
@@ -194,7 +195,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
           </div>
           {errors != "default" && (
             <ul className="error-list-inline">
-              {errors.map((error, idx) => (
+              {errors?.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
             </ul>
