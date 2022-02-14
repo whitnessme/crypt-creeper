@@ -1,4 +1,6 @@
 .slide-container {
+    position: relative;
+    left: -160px;
     width: 100vw;
     height: 480px;
     margin-left: auto;

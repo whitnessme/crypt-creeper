@@ -4,7 +4,7 @@ import { Modal } from '../../context/Modal';
 import { useDispatch, useSelector} from "react-redux";
 // import { deleteHaunt, getHauntsbyHostId } from '../../store/haunt'
 
-function ListingCreateModal ({hauntId}) {
+function ListingCreateModal () {
   const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
 

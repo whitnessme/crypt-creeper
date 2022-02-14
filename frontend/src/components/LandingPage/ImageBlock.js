@@ -1,7 +1,7 @@
 import { Link, useHistory} from 'react-router-dom';
 import ImageBlockCaption from "./ImageBlockCaption";
 
-function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing }) {
+function ImageBlock({ hauntId, bookingId, trip, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing, booking }) {
     let history = useHistory();
     let redirect;
     let relativeLink;
@@ -9,6 +9,11 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
         relativeLink = `/listings/host/${hauntId}`
         redirect = () => {
             history.push(`/listings/host/${hauntId}`)
+        }
+     } else if (booking) {
+        relativeLink = `/booking/user/${hauntId}`
+        redirect = () => {
+            history.push(`/booking/user/${hauntId}`)
         }
     } else {
         relativeLink = `/haunts/${hauntId}`
@@ -33,10 +38,13 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
             </>
             :
             <>
-                <div className="img-container" style={{backgroundImage: `url(${url})`}}>
+                <div
+                onClick={() => history.push(`/haunts/${hauntId}`)}
+                className="img-container" style={{backgroundImage: `url(${url})`}}>
                 </div>
                 <ImageBlockCaption
                 hauntId={hauntId}
+                bookingId={bookingId}
                 caption={caption}
                 buttonText={buttonText}
                 buttonLink={buttonLink}
@@ -44,6 +52,7 @@ function ImageBlock({ hauntId, url, classNames, caption, buttonText, buttonLink,
                 caption1Class={caption1Class}
                 relativeLink={relativeLink}
                 listing={listing}
+                booking={booking}
                 />
             </>
             }

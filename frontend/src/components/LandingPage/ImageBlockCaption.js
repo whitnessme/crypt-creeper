@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import ListingEditModal from "../Listings/ListingEditModal";
+import TripEditModal from '../Trips/TripsEditModal';
 
 const ImageBlockCaption = ({
   caption,
@@ -9,10 +10,13 @@ const ImageBlockCaption = ({
   buttonLink,
   hauntId,
   relativeLink,
-  listing
+  listing,
+  booking,
+  bookingId,
+  trip
 }) => {
 
-  console.log(listing)
+
   return (
     <div className="block-info-container">
 {/* No button */}
@@ -29,6 +33,9 @@ const ImageBlockCaption = ({
             <p className={caption1Class}>{caption[1]}</p>
             {listing ? 
              <ListingEditModal hauntId={hauntId} />
+             :
+            booking ? 
+             <TripEditModal bookingId={bookingId} trip={trip} />
              :
              <NavLink exact to={relativeLink} className="block-button">
               {buttonText}

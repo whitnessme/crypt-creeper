@@ -39,7 +39,8 @@ router.get('/:hauntId', asyncHandler(async function (req, res) {
         {model: Amenity},
         {model: User}
     ]});
-    res.json(haunts)
+        return res.json(haunts)
+
 }));
 
 // Create New Haunt

@@ -63,7 +63,7 @@ export const getHaunts = () => async (dispatch, getState) => {
     const res = await fetch('/api/haunts');
     if (res.ok) {
         const haunts = await res.json()
-        dispatch(loadHaunts(haunts))
+        return dispatch(loadHaunts(haunts))
     }
     return res;
 };
@@ -72,7 +72,7 @@ export const getHauntsbyHostId = (userId) => async (dispatch, getState) => {
     const res = await fetch(`/api/haunts/host/${userId}`);
     if (res.ok) {
         const hostHaunts = await res.json()
-        dispatch(loadHauntsbyHost(hostHaunts))
+        return dispatch(loadHauntsbyHost(hostHaunts))
     }
 };
 
@@ -80,7 +80,9 @@ export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
     const res = await fetch(`/api/haunts/${hauntId}`);
     if (res.ok) {
         const haunt = await res.json()
-        dispatch(loadOneHaunt(haunt))
+        console.log(haunt)
+        if(!haunt) return null
+        return dispatch(loadOneHaunt(haunt))
     };
 };
 
@@ -90,7 +92,6 @@ export const createNewHaunt = (payload) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     })
-    console.log(res)
     if (res.ok) {
         const newHaunt = await res.json()
         dispatch(createHaunt(newHaunt))
