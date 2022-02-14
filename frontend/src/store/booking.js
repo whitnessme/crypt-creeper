@@ -71,7 +71,7 @@ export const getOneBooking = (bookingId) => async (dispatch, getState) => {
     const res = await fetch(`/api/bookings/${bookingId}`);
     if (res.ok) {
         const booking = await res.json()
-        console.log(booking)
+  
         if(!booking) return null
         return dispatch(loadOneBooking(booking))
     };

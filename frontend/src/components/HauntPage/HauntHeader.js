@@ -8,7 +8,7 @@ function HauntHeader({ haunt, hauntId }) {
   let info = haunt[0];
   let lastInitial = info?.User?.lastName?.slice(0, 1);
 
-  console.log(info.Cryptids)
+
 
   return (
     <div className="haunt-info-div">

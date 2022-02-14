@@ -42,7 +42,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
 
 
   let info;
-  console.log(info)
+  
   if(haunt) {
     info = haunt[0].AreaFeatures;
   }
@@ -146,7 +146,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     return result;
   };
 
-  console.log(alreadyBookedDays());
+   (alreadyBookedDays());
 
   const handleSubmit = async (e) => {
     let payload;
@@ -154,6 +154,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     setErrors(["default"]);
     if (!sessionUser) {
       setErrors("Please log in to book");
+      // history.push('/login')
     } else if (checkIfIntersect()) {
       setErrors(["Invalid range, intersects with other bookings"]);
     } else {
