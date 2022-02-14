@@ -36,7 +36,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
   }
 
   useEffect(async() => {
-    dispatch(getBookingsByUser(sessionUser.id));
+    dispatch(getBookingsByUser(sessionUser?.id));
     dispatch(getBookingsByHaunt(hauntId));
   }, [dispatch, hauntId, sessionUser]);
 
