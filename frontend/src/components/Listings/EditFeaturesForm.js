@@ -4,7 +4,7 @@ import FeatureList from "./FeatureList";
 import Radio from "./Radio";
 import "./feature.css";
 import { createNewAreaFeature } from "../../store/feature";
-import { amenitiesIcon, areaIcons, essentialIcon } from "./info-listing";
+import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
 function EditFeaturesForm({ selectedHaunt }) {
   const dispatch = useDispatch();
