@@ -81,7 +81,7 @@ export const getOneHaunt = (hauntId) => async (dispatch, getState) => {
     const res = await fetch(`/api/haunts/${hauntId}`);
     if (res.ok) {
         const haunt = await res.json()
-        console.log(haunt)
+ 
         if(!haunt) return null
         return dispatch(loadOneHaunt(haunt))
     };
@@ -109,7 +109,7 @@ export const updateHaunt = (payload, hauntId) => async (dispatch) => {
     });
     if (res.ok) {
         const haunt = await res.json()
-        console.log(haunt)
+         (haunt)
         dispatch(update(haunt))
         return haunt;
     }

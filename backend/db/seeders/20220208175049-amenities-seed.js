@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'Amenities'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-   return queryInterface.bulkInsert('Amenities', [
+   return queryInterface.bulkInsert(options, [
     {name: 'No running water', icon: '<i class="fa-solid fa-droplet-slash"></i>'},
     {name: 'No potable water', icon: '<i class="fa-solid fa-droplet-slash"></i>'},
     {name: 'River nearby', icon: '<i class="fa-solid fa-water"></i>'},
@@ -37,6 +43,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
   
-   return queryInterface.bulkDelete('Amenities', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };

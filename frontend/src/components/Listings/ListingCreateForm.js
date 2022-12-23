@@ -59,10 +59,10 @@ const handleSubmit = async (e) => {
       if (data.errors)
       setErrors(data.errors);
     }});
-    console.log("RESULT", newListing)
+ 
 
     if (newListing) {
-      console.log(newListing)
+ 
         dispatch(getHauntsbyHostId(sessionUser.id))
         setShowModal(false)
         history.push(`/listings/${sessionUser.id}`)

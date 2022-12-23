@@ -21,14 +21,13 @@ const ImageBlockCaption = ({
 
   const handleDelete = async (e) => {
       e.preventDefault();
-      console.log(bookingId)
+
       if(bookingId){
         dispatch(deleteBooking(parseInt(bookingId)))
         dispatch(getBookingsByUser(sessionUser?.id));
       }
   }
 
-console.log("booking", booking)
   return (
     <div className="block-info-container">
 {/* No button */}

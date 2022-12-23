@@ -60,7 +60,6 @@ router.post("/", validateHaunt, asyncHandler(async function(req, res) {
         price,
         summary
     });
-    console.log(res.json(haunt))
     res.json(haunt)
 }))
 
@@ -68,7 +67,6 @@ router.post("/", validateHaunt, asyncHandler(async function(req, res) {
 router.put('/:hauntId', validateHaunt,
 asyncHandler(async (req, res) => {
     const { userId, name, address, city, state, zipcode, country, closeLandmark, price, summary } = req.body;
-console.log(req.json)
     const updated = await Haunt.update({
         userId,
         name,
@@ -91,7 +89,6 @@ console.log(req.json)
         {model: Amenity},
         {model: User}
     ]})
-    console.log(result)
     return res.json(result)
 }))
 

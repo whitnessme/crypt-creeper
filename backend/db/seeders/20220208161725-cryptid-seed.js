@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'Cryptids'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-   return queryInterface.bulkInsert('Cryptids', [
+   return queryInterface.bulkInsert(options, [
       { name: 'Honey Island Swamp Monster', icon:  '/images/cryptid-icons/bigfoot.pdf'},
       { name: 'Rougaru', icon: '/images/cryptid-icons/werewolf.pdf'},
       { name: 'Momo', icon:  '/images/cryptid-icons/bigfoot.pdf'},
@@ -32,6 +38,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
   
-   return queryInterface.bulkDelete('Cryptids', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };

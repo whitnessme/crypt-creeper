@@ -21,7 +21,7 @@ function HauntsList() {
           if (!data) history.push("/404");
         });
       }, [dispatch]);
-      console.log(haunts[0])
+ 
 
 
     return (

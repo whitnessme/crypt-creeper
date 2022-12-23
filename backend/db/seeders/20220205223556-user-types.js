@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'UserTypes'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-   return queryInterface.bulkInsert('UserTypes', [
+   return queryInterface.bulkInsert(options, [
      {type: "regular"},
      {type: "host"}
    ], {});
@@ -12,7 +18,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
 
-   return queryInterface.bulkDelete('UserTypes', null, {});
+   return queryInterface.bulkDelete(options, null, {});
 
   }
 };

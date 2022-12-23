@@ -62,7 +62,7 @@ const payload = {name, address, city, state, zipcode, country, closeLandmark, pr
     }});
 
     if (result) {
-      console.log('hello?')
+    
         dispatch(getHauntsbyHostId(sessionUser?.id))
         setShowModal(false)
         history.push(`/listings/${sessionUser?.id}`)

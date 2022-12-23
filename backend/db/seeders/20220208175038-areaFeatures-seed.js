@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'AreaFeatures'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-   return queryInterface.bulkInsert('AreaFeatures', [
+   return queryInterface.bulkInsert(options, [
     {name: 'Swamp house', icon: '<i class="fa-solid fa-house"></i>'},
     {name: '1 queen sized bed', icon: '<i class="fa-solid fa-bed"></i>'},
     {name: 'Cots available', icon: '<i class="fa-solid fa-bed"></i>'},
@@ -27,6 +33,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
   
-   return queryInterface.bulkDelete('AreaFeatures', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };

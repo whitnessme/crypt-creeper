@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'Essentials'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-   return queryInterface.bulkInsert('Essentials', [
+   return queryInterface.bulkInsert(options, [
     {name: 'No bathrooms', icon: '<i class="fa-solid fa-toilet-paper-slash"></i>'},
     {name: '1 bathroom', icon: '<i class="fa-solid fa-toilet-paper"></i>'},
     {name: '2 bathrooms', icon: '<i class="fa-solid fa-toilet-paper"></i>'},
@@ -35,6 +41,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
   
-   return queryInterface.bulkDelete('Essentials', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };

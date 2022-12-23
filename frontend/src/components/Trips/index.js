@@ -14,7 +14,7 @@ function Trips() {
 
   const bookings = useSelector((state) => Object.values(state.booking.byUser));
 
-  console.log(bookings)
+
 
   const sessionUser = useSelector((state) => state.session.user);
   if (!sessionUser) {
