@@ -4,16 +4,15 @@ function ImageBlockGrid({ blocks, classNames }) {
   // Image blocks need: image url, size, caption text, caption size & location,
   return (
     <div className="block-row">
-      {blocks.map((block) => (
+      {blocks.map((block, i) => (
         <>
           <ImageBlock
-            key={block.caption[0]}
+            key={"image-block" + i}
             classNames={classNames}
             url={block.url}
             hauntId={block.hauntId}
             caption={block.caption}
             buttonText={block.buttonText}
-            hauntId={block.hauntId}
             caption0Class={block.caption0Class}
             caption1Class={block.caption1Class}
           />

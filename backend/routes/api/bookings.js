@@ -68,7 +68,7 @@ router.delete('/:bookingId', asyncHandler(async function(req, res) {
     const booking = await Booking.findByPk(req.params.bookingId);
     booking.destroy();
 
-    res.json()
+    res.json("success")
 }))
 
 module.exports = router;

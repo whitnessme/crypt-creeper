@@ -12,7 +12,7 @@ function HauntHeader({ haunt, hauntId }) {
 
   return (
     <div className="haunt-info-div">
-     {haunt &&
+     {info &&
       <div className="haunt-header">
         <div className="location-header-div">
           <span>{info.country}</span>
