@@ -24,7 +24,7 @@ function ImageBlock({ hauntId, bookingId, go, trip, url, classNames, caption, bu
 
 
     return (
-        <div className={`image-block ${classNames}`}>
+        <div key={caption} className={`image-block ${classNames}`}>
             {hauntId && !buttonText
             ?
             <>
@@ -44,6 +44,7 @@ function ImageBlock({ hauntId, bookingId, go, trip, url, classNames, caption, bu
             :
             <>
                 <div
+                key={caption}
                 onClick={go ? () => {history.push('/haunts')} : () => history.push(`/haunts/${hauntId}`)}
                 className="img-container" style={{backgroundImage: `url(${url})`}}>
                 </div>

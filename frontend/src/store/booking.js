@@ -44,7 +44,7 @@ export const update = updatedBooking => {
 
 export const remove = removedBooking => {
     return {
-        type: UPDATE_BOOKING,
+        type: REMOVE_BOOKING,
         removedBooking,
     }
 }
@@ -108,6 +108,7 @@ export const deleteBooking = (bookingId) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
     })
     if (res.ok) {
+        console.log("hello?")
         const deletedHaunt = await res.json();
         await dispatch(remove(bookingId))
         return deletedHaunt

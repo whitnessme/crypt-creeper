@@ -23,8 +23,8 @@ const ImageBlockCaption = ({
       e.preventDefault();
 
       if(bookingId){
-        dispatch(deleteBooking(parseInt(bookingId)))
-        dispatch(getBookingsByUser(sessionUser?.id));
+        await dispatch(deleteBooking(parseInt(bookingId)))
+        await dispatch(getBookingsByUser(sessionUser?.id));
       }
   }
 

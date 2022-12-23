@@ -28,7 +28,7 @@ function HauntPage() {
 
   return (
     <>
-      {haunt.length && (
+      {haunt && (
         <div className="haunt-div">
           <ImageSlide haunt={haunt} hauntId={hauntId} />
           <HauntHeader haunt={haunt} hauntId={hauntId} />

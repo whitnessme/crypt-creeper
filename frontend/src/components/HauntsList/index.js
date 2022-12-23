@@ -29,7 +29,7 @@ function HauntsList() {
             <h2>Seeking out some cryptids and supernatural beings?</h2>
             <div className="cryptids-list-container">
                 {haunts?.map((haunt) => (
-                    <ImageBlock caption={[`${haunt.name}`]} url={haunt?.Images[haunt.Images.length - 1]?.url} hauntId={haunt?.id} classNames='normal lone' />
+                    <ImageBlock key={"imageblock-" + haunt.name} caption={[`${haunt.name}`]} url={haunt?.Images[haunt.Images.length - 1]?.url} hauntId={haunt?.id} classNames='normal lone' />
                 ))}
             </div>
 

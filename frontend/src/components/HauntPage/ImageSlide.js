@@ -2,13 +2,13 @@ import './imageslide.css'
 
 
 function ImageSlide({hauntId, haunt}) {
-    let images = haunt[0].Images
+    let images = haunt[0]?.Images
     
     return (
         <div className='slide-container'>
             <div className='slide-img-container'>
-                {images.map((img) => {
-                    return <img className='slide-img' src={img.url}></img>
+                {images?.map((img, i) => {
+                    return <img key={`imgslide-${i}`} className='slide-img' src={img.url}></img>
                 })}
             </div>
             {/* <div className='slide-button-container'>

@@ -44,24 +44,27 @@ function HauntBookingInfo({ haunt, hauntId }) {
   let info;
 
   if (haunt) {
-    info = haunt[0].AreaFeatures;
+    info = haunt[0]?.AreaFeatures;
   }
 
   const findOccupancy = () => {
-    let features = Object.values(info);
-    let occupancy = features.filter(
+    let features = [];
+    if (info) {
+      features = Object.values(info);
+    }
+    let occupancy = features?.filter(
       (feature) =>
-        feature.name.includes("adults") || feature.name.includes("guests")
+        feature?.name.includes("adults") || feature.name.includes("guests")
     );
 
-    return occupancy[0].name;
+    return occupancy[0]?.name;
   };
 
   let allowedGuests = findOccupancy();
 
   const findNumOfGuestOptions = () => {
     let guests = findOccupancy();
-    let nums = guests.split(" ").filter((word) => parseInt(word, 10));
+    let nums = guests?.split(" ").filter((word) => parseInt(word, 10));
 
     if (parseInt(nums[0]) > parseInt(nums[1])) nums.splice(1, 1)
 
@@ -80,8 +83,10 @@ function HauntBookingInfo({ haunt, hauntId }) {
       return result;
     }
   };
-
-  let numOptions = findNumOfGuestOptions();
+  let numOptions = [];
+  if (info) {
+    numOptions = findNumOfGuestOptions();
+  }
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -188,7 +193,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
       <div className="sticky-form">
         <form onSubmit={handleSubmit} className="haunt-booking-info-container">
           <div className="haunt-price-top">
-            <h2>${haunt[0].price}</h2>
+            <h2>${haunt[0]?.price}</h2>
             <div>per night {`(${allowedGuests})`}</div>
             {success &&
               <p className="success">Successfully booked!</p>
@@ -197,7 +202,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
           {errors != "default" && (
             <ul className="error-list-inline">
               {errors?.map((error, idx) => (
-                <li key={idx}>{error}</li>
+                <li key={error + idx}>{error}</li>
               ))}
             </ul>
           )}
@@ -282,9 +287,9 @@ function HauntBookingInfo({ haunt, hauntId }) {
         <div className="current-booking-ranges-div">
           <h5>Dates already booked:</h5>
           <ul>
-            {alreadyBookedDays().ranges.map((e) => (
+            {alreadyBookedDays().ranges.map((e, i) => (
               <>
-                <li><i className="fa-solid fa-calendar-minus"></i>  {e}</li>
+                <li key={"bookeddays-" + i}><i className="fa-solid fa-calendar-minus"></i>  {e}</li>
               </>
             ))}
           </ul>
