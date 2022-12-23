@@ -1,8 +1,14 @@
 'use strict';
 
+let options = {};
+options.tableName = 'Images'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-   return queryInterface.bulkInsert('Images', [
+   return queryInterface.bulkInsert(options, [
     {userId: 3, hauntId: 1, url: 'https://st2.depositphotos.com/3461853/12028/i/950/depositphotos_120280950-stock-photo-old-house-in-a-swamp.jpg'},
     {userId: 3, hauntId: 1, url: 'https://cdn.thecrazytourist.com/wp-content/uploads/2019/02/ccimage-shutterstock_302009690.jpg'},
     {userId: 3, hauntId: 1, url: 'https://static.wikia.nocookie.net/cryptidz/images/3/31/HONEY_ISLAND_SWAMP_MONSTER.jpg/'},
@@ -44,6 +50,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-   return queryInterface.bulkDelete('Images', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };

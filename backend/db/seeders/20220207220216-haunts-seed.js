@@ -1,9 +1,15 @@
 "use strict";
 
+let options = {};
+options.tableName = 'Haunts'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "Haunts",
+      options,
       [
         {
           userId: 3,
@@ -115,6 +121,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Haunts", null, {});
+    return queryInterface.bulkDelete(options, null, {});
   },
 };

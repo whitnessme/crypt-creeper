@@ -1,9 +1,15 @@
 'use strict';
 
+let options = {};
+options.tableName = 'hauntAreaFeatures'; 
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
   
-   return queryInterface.bulkInsert('hauntAreaFeatures', [
+   return queryInterface.bulkInsert(options, [
     {hauntId: 1, areaFeatureId: 1},
     {hauntId: 1, areaFeatureId: 2},
     {hauntId: 1, areaFeatureId: 3},
@@ -33,6 +39,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
    
-   return queryInterface.bulkDelete('hauntAreaFeatures', null, {});
+   return queryInterface.bulkDelete(options, null, {});
   }
 };
