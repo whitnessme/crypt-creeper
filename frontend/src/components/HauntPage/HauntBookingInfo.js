@@ -158,7 +158,7 @@ function HauntBookingInfo({ haunt, hauntId }) {
     e.preventDefault();
     setErrors(["default"]);
     if (!sessionUser) {
-      setErrors("Please log in to book");
+      setErrors(["Please log in to book"]);
       // history.push('/login')
     } else if (checkIfIntersect()) {
       setErrors(["Invalid range, intersects with other bookings"]);
