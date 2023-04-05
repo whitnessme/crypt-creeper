@@ -48,10 +48,11 @@ function HauntBookingInfo({ haunt, hauntId }) {
   }
 
   const findOccupancy = () => {
-    let features = [];
-    if (info) {
+    let features = [{name: "Up to 5 guests"}];
+    if (info.length >= 1) {
       features = Object.values(info);
     }
+    console.log(features)
     let occupancy = features?.filter(
       (feature) =>
         feature?.name.includes("adults") || feature.name.includes("guests")
@@ -65,12 +66,13 @@ function HauntBookingInfo({ haunt, hauntId }) {
   const findNumOfGuestOptions = () => {
     let guests = findOccupancy();
     let nums = guests?.split(" ").filter((word) => parseInt(word, 10));
+    console.log(nums)
 
     if (parseInt(nums[0]) > parseInt(nums[1])) nums.splice(1, 1)
 
     if (nums.length === 1) {
       let result = [];
-      for (let i = 0; i <= nums[0]; i++) {
+      for (let i = 1; i <= nums[0]; i++) {
         result.push(i);
       }
       return result;
