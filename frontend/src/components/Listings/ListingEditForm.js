@@ -55,6 +55,7 @@ const handleSubmit = async (e) => {
 const payload = {name, address, city, state, zipcode, country, closeLandmark, price, summary}
   const result = await dispatch(updateHaunt(payload, selectedHaunt.id))
   .catch(async (res) => {
+    console.log(res)
     const data = await res.json();
     if (data && data.errors) {
       if (data.errors)

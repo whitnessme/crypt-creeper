@@ -109,7 +109,6 @@ export const updateHaunt = (payload, hauntId) => async (dispatch) => {
     });
     if (res.ok) {
         const haunt = await res.json()
-         (haunt)
         dispatch(update(haunt))
         return haunt;
     }
