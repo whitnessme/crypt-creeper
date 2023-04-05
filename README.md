@@ -1,6 +1,6 @@
 # crypt-seeker
 
-This is my clone of HipCamp, but for those interested in staying in supernatural places. There are some good ole fashioned Haunted Hotels, Cryptid hideaways, mysterious spaces, and otherwise supernatural places!
+[CryptSeeker](https://crypt-seeker.onrender.com/) is a React/Redux/Express clone of HipCamp, but for those interested in staying in supernatural places. There are some good ole fashioned Haunted Hotels, Cryptid hideaways, mysterious spaces, and otherwise supernatural places! 
 
 ### To use this repo:
 
