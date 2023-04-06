@@ -5,7 +5,6 @@ function ImageBlockGrid({ blocks, classNames }) {
   return (
     <div className="block-row">
       {blocks.map((block, i) => (
-        <>
           <ImageBlock
             key={"image-block" + i}
             classNames={classNames}
@@ -16,7 +15,6 @@ function ImageBlockGrid({ blocks, classNames }) {
             caption0Class={block.caption0Class}
             caption1Class={block.caption1Class}
           />
-        </>
       ))}
     </div>
   );
