@@ -41,32 +41,32 @@ function HauntBookingInfo({ haunt, hauntId }) {
   }, [dispatch, hauntId, sessionUser]);
 
 
-  let info;
-
-  if (haunt) {
+  let info = [];
+  
+  if (haunt.length) {
     info = haunt[0]?.AreaFeatures;
   }
 
   const findOccupancy = () => {
-    let features = [{name: "Up to 5 guests"}];
+    let features = [];
     if (info.length >= 1) {
       features = Object.values(info);
     }
-    console.log(features)
     let occupancy = features?.filter(
       (feature) =>
-        feature?.name.includes("adults") || feature.name.includes("guests")
-    );
+      feature?.name.includes("adults") || feature.name.includes("guests")
+      );
+      console.log("Occu", occupancy)
 
-    return occupancy[0]?.name;
+    return occupancy.length ? occupancy[0].name : "Up to 5 guests";
   };
 
   let allowedGuests = findOccupancy();
 
   const findNumOfGuestOptions = () => {
     let guests = findOccupancy();
+    console.log(guests)
     let nums = guests?.split(" ").filter((word) => parseInt(word, 10));
-    console.log(nums)
 
     if (parseInt(nums[0]) > parseInt(nums[1])) nums.splice(1, 1)
 
