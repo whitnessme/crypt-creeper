@@ -40,15 +40,27 @@ export const createFeature = (feature, hauntId, type) => async (dispatch, getSta
     };
 };
 
+// Normalizing Data Helper Function
+const normalize = function(array, obj) {
+    array.forEach(ele => {
+        obj[ele.id] = ele
+    })
+}
+
 // Reducer
 
-const initialState = {};
+const initialState = {"area": {}, "essentials": {}, "amenities": {}};
 
 const featureReducer = (state = initialState, action) => {
-    let newState;
+    let newState = {"area": {}, "essentials": {}, "amenities": {}}
     switch(action.type) {
+        case GET_ALL_FEATURES:
+            normalize(action.features.area, newState.area)
+            normalize(action.features.essentials, newState.essentials)
+            normalize(action.features.amenities, newState.amenities)
+            return newState;
         case CREATE_AREA_FEATURE:
-            newState = {...state, [action.newAreaFeature.id]: action.newAreaFeature}
+            newState = {...state, "area": {...state.area, [action.newAreaFeature.id]: action.newAreaFeature}}
             return newState;
         default:
             return state; 
