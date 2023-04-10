@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-function FeatureList({ name, feature, featureState, setFeatureState }) {
+function FeatureList({ type, hauntId }) {
   
-
+// Need to grab the current features and display here
   return (
     null
   );

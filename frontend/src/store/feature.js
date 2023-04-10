@@ -1,6 +1,14 @@
 import { csrfFetch } from "./csrf";
 
-const CREATE_AREA_FEATURE = 'feature/addAreaFeature'
+const GET_ALL_FEATURES = 'features/getALL'
+const CREATE_AREA_FEATURE = 'features/addAreaFeature'
+
+export const getAllFeatures = features => {
+    return {
+        type: GET_ALL_FEATURES,
+        features
+    }
+}
 
 export const createAreaFeature = newAreaFeature => {
     return {
@@ -11,8 +19,16 @@ export const createAreaFeature = newAreaFeature => {
 
 // Thunk Creators
 
-export const createNewAreaFeature = ({feature, hauntId}) => async (dispatch, getState) => {
-    const res = await csrfFetch(`/api/areaFeatures/${hauntId}`, {
+export const grabFeatures = (hauntId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/features/${hauntId}`)
+    if (res.ok) {
+        const features = await res.json()
+        dispatch(getAllFeatures(features))
+    }
+}
+
+export const createFeature = (feature, hauntId, type) => async (dispatch, getState) => {
+    const res = await csrfFetch(`/api/features/${hauntId}/${type}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(feature)

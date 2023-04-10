@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import FeatureList from "./FeatureList";
 import Radio from "./Radio";
 import "./feature.css";
-import { createNewAreaFeature } from "../../store/feature";
+import { createFeature } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
 function EditFeaturesForm({ selectedHaunt }) {
   const dispatch = useDispatch();
-  const [areaFeatures, setAreaFeatures] = useState([]);
-  const [essentials, setEssentials] = useState([]);
-  const [amentities, setAmentities] = useState([]);
-
+  // const [areaFeatures, setAreaFeatures] = useState([]);
+  // const [essentials, setEssentials] = useState([]);
+  // const [amentities, setAmentities] = useState([]);
+  const [errors, setErrors] = useState([])
   const [iconValue, setIconValue] = useState('');
   const [inputField, setInputField] = useState('');
 
@@ -19,18 +19,22 @@ function EditFeaturesForm({ selectedHaunt }) {
 
   const hauntId = selectedHaunt.id
 
-  const handleAddClickArea = (e) => {
+  const handleAddClickArea = async (e) => {
     e.preventDefault()
-    setAreaFeatures([{ name: inputField, icon: iconValue }]);
-    setInputField('');
-    setIconValue('')
+    if (!errors.length) {
+      await dispatch(createFeature({ name: inputField, icon: iconValue }, hauntId, "area"))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          if (data.errors)
+          setErrors(data.errors);
+          console.log(errors)
+        }});
+        setInputField('');
+        setIconValue('')
+    }
   };
 
-  useEffect(() => {
-    if(selectedHaunt && areaFeatures.length != selectedHaunt.AreaFeatures.length) {
-      areaFeatures.forEach((feature) => dispatch(createNewAreaFeature({feature, hauntId})))
-    }
-  }, [dispatch, areaFeatures])
 
   let Contents;
 
@@ -46,12 +50,21 @@ function EditFeaturesForm({ selectedHaunt }) {
   if (showFeatures === "Area") {
     Contents = (
       <div>
-        <h4>Add an Area Feature:</h4>
+        <h4>{showFeatures} Features:</h4>
+        {(errors.length > 0) && (
+          <div className="feature-errors">
+            {errors.map(e => (
+              <p>{e}</p>
+            ))}
+          </div>
+        )}
+        
         <div className="all-icon">
             <p className="subtext">
               Please let seekers know what type of place they're staying at, if there's bedding available, and how many guests are allowed!
             </p>
           <p>Select an icon:</p>
+          {/*
           <div className="icon-section">
             {areaIcons[0].map((icon) => (
               <Radio
@@ -64,7 +77,7 @@ function EditFeaturesForm({ selectedHaunt }) {
               ))}
           </div>
           <div className="icon-section">
-              {/* <h6>GUESTS:</h6> */}
+              {/* <h6>GUESTS:</h6> 
             {areaIcons[1].map((icon) => (
               <Radio
                 key={`${icon}`}
@@ -76,7 +89,7 @@ function EditFeaturesForm({ selectedHaunt }) {
               />
             ))}
           </div>
-          {/* {areaFeatures.map((feature) => (
+           {areaFeatures.map((feature) => (
             <FeatureList
               name={"areaFeature"}
               feature={feature}
