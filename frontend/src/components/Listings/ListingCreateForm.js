@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { usStates } from "./info-listing";
 import ShowInfo from "./showInfo";
 import EditFeaturesForm from "./EditFeaturesForm";
 
@@ -21,6 +20,7 @@ function ListingEditForm({ setShowModal }) {
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
+  const [selectedHaunt, setSelectedHaunt] = useState(null);
 
   const showInfoHideOthers = () => {
     setShowInfo(true);
@@ -41,7 +41,7 @@ function ListingEditForm({ setShowModal }) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState("Alaska");
   const [zipcode, setZipcode] = useState("");
   const [country, setCountry] = useState("United States");
   const [closeLandmark, setCloseLandmark] = useState("");
@@ -72,26 +72,93 @@ function ListingEditForm({ setShowModal }) {
     );
 
     if (newListing) {
-      dispatch(getHauntsbyHostId(sessionUser.id));
-      setShowModal(false);
-      history.push(`/listings/${sessionUser.id}`);
+      setSelectedHaunt(newListing.id);
+      showFeaturesHideOthers();
     }
   };
+
+  const handleFeatureSubmit = (e) => {
+    e.preventDefault();
+
+    // Needs some sort of error check first?
+    dispatch(getHauntsbyHostId(sessionUser.id));
+    setShowModal(false);
+    history.push(`/listings/${sessionUser.id}`);
+  };
+
+  let contents;
+
+  if (showFeatures) {
+    contents = <EditFeaturesForm selectedHaunt={selectedHaunt} errors={errors} setErrors={setErrors} />;
+  } else {
+    contents = (
+      <>
+        {showInfo ? (
+          <ShowInfo
+            name={name}
+            setName={setName}
+            address={address}
+            setAddress={setAddress}
+            city={city}
+            setCity={setCity}
+            state={state}
+            setState={setState}
+            zipcode={zipcode}
+            setZipcode={setZipcode}
+            country={country}
+            setCountry={setCountry}
+            closeLandmark={closeLandmark}
+            setCloseLandmark={setCloseLandmark}
+            price={price}
+            setPrice={setPrice}
+            setShowInfo={setShowInfo}
+          />
+        ) : (
+          <>
+            <button className="show-button" onClick={showInfoHideOthers}>
+              Add Information
+            </button>
+          </>
+        )}
+
+        {showSum ? (
+          <>
+            <label>
+              Summary:
+              <textarea
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
+              />
+            </label>
+            <button className="hide-button" onClick={() => setShowSum(false)}>
+              Hide
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="show-button" onClick={showSumHideOthers}>
+              Add Summary
+            </button>
+          </>
+        )}
+      </>
+    );
+  }
 
   return (
     <>
       <div className="form-container">
-        <form onSubmit={handleSubmit} className="edit-listing-form">
+        <form onSubmit={showFeatures ? handleFeatureSubmit : handleSubmit} className="edit-listing-form">
           <div className="dungeon-icon">
             <i className="fa-solid fa-dungeon haunts-icon"></i>
           </div>
-          <h2>Create a New Haunt Listing!</h2>
-          <div
+          <h2>{showFeatures ? "Add some features to your new listing!" : "Create a New Haunt Listing!"}</h2>
+          {/* <div
             className="add-help"
             style={{ color: "transparent", margin: "0px", fontStyle: "italic" }}
           >
             Add features with edit button after submitting!
-          </div>
+          </div> */}
           {errors && !(errors[0] === "default") && (
             <ul className="create-errors error-list">
               <button
@@ -105,67 +172,8 @@ function ListingEditForm({ setShowModal }) {
               ))}
             </ul>
           )}
-          {showInfo ? (
-            <ShowInfo
-              name={name}
-              setName={setName}
-              address={address}
-              setAddress={setAddress}
-              city={city}
-              setCity={setCity}
-              state={state}
-              setState={setState}
-              zipcode={zipcode}
-              setZipcode={setZipcode}
-              country={country}
-              setCountry={setCountry}
-              closeLandmark={closeLandmark}
-              setCloseLandmark={setCloseLandmark}
-              price={price}
-              setPrice={setPrice}
-              setShowInfo={setShowInfo}
-            />
-          ) : (
-            <>
-              <button className="show-button" onClick={showInfoHideOthers}>
-                Add Information
-              </button>
-            </>
-          )}
-
-          {showSum ? (
-            <>
-              <label>
-                Summary:
-                <textarea
-                  value={summary}
-                  onChange={(e) => setSummary(e.target.value)}
-                />
-              </label>
-              <button className="hide-button" onClick={() => setShowSum(false)}>
-                Hide
-              </button>
-            </>
-          ) : (
-            <>
-              <button className="show-button" onClick={showSumHideOthers}>
-                Add Summary
-              </button>
-            </>
-          )}
-
-          {/* {showFeatures ? (
-              <>
-                <EditFeaturesForm />
-                <button className="hide-button" onClick={() => setShowFeatures(false)}>Hide</button>
-              </>
-          ) : (
-              <>
-                <button className="show-button" onClick={showFeaturesHideOthers}>Add Features</button>
-              </>
-          )
-        } */}
-          <button className="edit-haunt-submit-button">Submit</button>
+          {contents}
+          <button className="edit-haunt-submit-button">{showFeatures ? "Finish" : "Next"}</button>
         </form>
       </div>
     </>

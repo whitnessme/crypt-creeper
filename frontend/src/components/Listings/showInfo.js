@@ -1,3 +1,4 @@
+import { usStates } from "./info-listing";
 
 const ShowInfo = function({
     name, setName, address, setAddress,

@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import FeatureList from "./FeatureList";
 import Radio from "./Radio";
 import "./feature.css";
 import { createFeature } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
-function EditFeaturesForm({ selectedHaunt }) {
+function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
   const dispatch = useDispatch();
-  // const [areaFeatures, setAreaFeatures] = useState([]);
-  // const [essentials, setEssentials] = useState([]);
-  // const [amentities, setAmentities] = useState([]);
-  const [errors, setErrors] = useState([])
+
   const [iconValue, setIconValue] = useState('');
   const [inputField, setInputField] = useState('');
 
@@ -103,7 +99,6 @@ function EditFeaturesForm({ selectedHaunt }) {
               type="text"
               value={inputField.name}
               placeholder='Describe the feature'
-              required
             >
               {inputField.name}
             </input>
