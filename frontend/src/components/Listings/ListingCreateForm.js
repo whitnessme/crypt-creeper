@@ -16,7 +16,7 @@ function ListingEditForm({ setShowModal }) {
   //   const haunts = useSelector((state) => state.haunt.entries);
   //   let selectedHaunt = haunts[hauntId];
 
-  const [errors, setErrors] = useState(["default"]);
+  const [errors, setErrors] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
@@ -38,15 +38,15 @@ function ListingEditForm({ setShowModal }) {
     setShowFeatures(true);
   };
 
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
+  const [name, setName] = useState("testing");
+  const [address, setAddress] = useState("remove later");
+  const [city, setCity] = useState("remove later");
   const [state, setState] = useState("Alaska");
-  const [zipcode, setZipcode] = useState("");
+  const [zipcode, setZipcode] = useState(58693);
   const [country, setCountry] = useState("United States");
-  const [closeLandmark, setCloseLandmark] = useState("");
-  const [price, setPrice] = useState("");
-  const [summary, setSummary] = useState("");
+  const [closeLandmark, setCloseLandmark] = useState("remove later");
+  const [price, setPrice] = useState(67);
+  const [summary, setSummary] = useState("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,6 +73,7 @@ function ListingEditForm({ setShowModal }) {
 
     if (newListing) {
       setSelectedHaunt(newListing.id);
+      setErrors([])
       showFeaturesHideOthers();
     }
   };
@@ -159,10 +160,10 @@ function ListingEditForm({ setShowModal }) {
           >
             Add features with edit button after submitting!
           </div> */}
-          {errors && !(errors[0] === "default") && (
+          {(errors.length > 0) && (
             <ul className="create-errors error-list">
               <button
-                onClick={() => setErrors(["default"])}
+                onClick={() => setErrors([])}
                 className="error-x"
               >
                 X

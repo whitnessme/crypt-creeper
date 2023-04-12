@@ -60,33 +60,39 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
               Please let seekers know what type of place they're staying at, if there's bedding available, and how many guests are allowed!
             </p>
           <p>Select an icon:</p>
-          {/*
-          <div className="icon-section">
-            {areaIcons[0].map((icon) => (
-              <Radio
-              key={`${icon}`}
-              i="0"
-              iconValue={iconValue}
-              icon={icon}
-              setIconValue={setIconValue}
-              />
-              ))}
+          <div className="section-container">
+            <div className="icon-labels-left">
+            <h6>Structures:</h6> 
+            <h6>Guests:</h6> 
+            </div>
+            <div className="sub-section-container">
+              <div className="icon-section">
+                {areaIcons[0].map((icon, i) => (
+                  <Radio
+                  key={`${icon}`}
+                  i={`0${i}`}
+                  iconValue={iconValue}
+                  icon={icon}
+                  setIconValue={setIconValue}
+                  />
+                  ))}
+              </div>
+              <div className="icon-section">
+                {areaIcons[1].map((icon, i) => (
+                  <Radio
+                  key={`${icon}`}
+                  i={`1${i}`}
+                  iconValue={iconValue}
+                  icon={icon}
+                  setIconValue={setIconValue}
+                  required
+                  />
+                  ))}
+              </div>
+            </div>
           </div>
-          <div className="icon-section">
-              {/* <h6>GUESTS:</h6> 
-            {areaIcons[1].map((icon) => (
-              <Radio
-                key={`${icon}`}
-                i="1"
-                iconValue={iconValue}
-                icon={icon}
-                setIconValue={setIconValue}
-                required
-              />
-            ))}
-          </div>
-           {areaFeatures.map((feature) => (
-            <FeatureList
+           {/* {areaFeatures.map((feature) => (
+             <FeatureList
               name={"areaFeature"}
               feature={feature}
               featureState={areaFeatures}
