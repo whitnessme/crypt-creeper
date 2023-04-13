@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Radio from "./Radio";
 import "./feature.css";
-import { createFeature } from "../../store/feature";
+import { createFeature, grabFeatures } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
 function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setShowErrors }) {
@@ -13,6 +13,16 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
   const [currentFeatures, setCurrentFeatures] = useState([]);
 
   const [showFeatures, setShowFeatures] = useState("Area");
+
+  const features = useSelector((state) => state.feature)
+
+  useEffect(() => {
+    dispatch(grabFeatures(selectedHaunt))
+  }, [])
+
+  useEffect(() => {
+    setCurrentFeatures(features[showFeatures])
+  }, [showFeatures])
 
   useEffect(() => {
     const errs = []

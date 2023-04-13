@@ -1,6 +1,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const { AreaFeature, hauntAreaFeatures, Amenities, hauntAmenities, Essential, hauntEssentials } = require('../../db/models')
+const { AreaFeature, hauntAreaFeatures, Amenity, hauntAmenities, Essential, hauntEssentials } = require('../../db/models')
 
 const { Haunt } = require('../../db/models')
 
@@ -8,15 +8,31 @@ const router = express.Router();
 
 // Get All Feature for a Haunt
 router.get('/:hauntId', asyncHandler(async (req, res) => {
-    const { hauntId } = req.params.hauntId
+    console.log("hello")
+    const { hauntId } = req.params
     const area = await AreaFeature.findAll({
-        where: {hauntId}
+        include: [{
+            model: Haunt,
+            where: {
+                id: hauntId
+            }
+        }]
     })
     const essentials = await Essential.findAll({
-        where: {hauntId}
+        include: [{
+            model: Haunt,
+            where: {
+                id: hauntId
+            }
+        }]
     })
-    const amenities = await Amenities.findAll({
-        where: {hauntId}
+    const amenities = await Amenity.findAll({
+        include: [{
+            model: Haunt,
+            where: {
+                id: hauntId
+            }
+        }]
     })
     // return an object with 3 keys
     res.json({area, essentials, amenities})
