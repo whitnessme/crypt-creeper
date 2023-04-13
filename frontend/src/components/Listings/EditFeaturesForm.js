@@ -5,20 +5,31 @@ import "./feature.css";
 import { createFeature } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
 
-function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
+function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setShowErrors }) {
   const dispatch = useDispatch();
 
   const [iconValue, setIconValue] = useState('');
   const [inputField, setInputField] = useState('');
+  const [currentFeatures, setCurrentFeatures] = useState([]);
 
   const [showFeatures, setShowFeatures] = useState("Area");
 
-  const hauntId = selectedHaunt.id
+  useEffect(() => {
+    const errs = []
+    if (!iconValue) {
+      errs.push("Please select an icon.")
+    }
+    if (!inputField || inputField.length < 5) {
+      errs.push("Please describe the feature with at least 5 characters.")
+    }
+    setErrors(errs)
+  }, [inputField, iconValue])
 
   const handleAddClickArea = async (e) => {
     e.preventDefault()
+    setShowErrors(true)
     if (!errors.length) {
-      await dispatch(createFeature({ name: inputField, icon: iconValue }, hauntId, "area"))
+      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt, "area"))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -26,8 +37,13 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
           setErrors(data.errors);
           console.log(errors)
         }});
-        setInputField('');
-        setIconValue('')
+        if (!errors.length) {
+          setCurrentFeatures([...currentFeatures, {icon: iconValue, name: inputField}])
+          setInputField('');
+          setIconValue('')
+          setShowErrors(false)
+
+        }
     }
   };
 
@@ -47,14 +63,6 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
     Contents = (
       <div>
         <h4>{showFeatures} Features:</h4>
-        {(errors.length > 0) && (
-          <div className="feature-errors">
-            {errors.map(e => (
-              <p>{e}</p>
-            ))}
-          </div>
-        )}
-        
         <div className="all-icon">
             <p className="subtext">
               Please let seekers know what type of place they're staying at, if there's bedding available, and how many guests are allowed!
@@ -62,8 +70,8 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
           <p>Select an icon:</p>
           <div className="section-container">
             <div className="icon-labels-left">
-            <h6>Structures:</h6> 
-            <h6>Guests:</h6> 
+              <p className="subtext">Structures:</p> 
+              <p className="subtext">Guests:</p> 
             </div>
             <div className="sub-section-container">
               <div className="icon-section">
@@ -103,16 +111,26 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors }) {
             <input
               onChange={(e) => setInputField(e.target.value)}
               type="text"
-              value={inputField.name}
+              value={inputField}
               placeholder='Describe the feature'
-            >
-              {inputField.name}
-            </input>
+            />
             <button onClick={handleAddClickArea} className="add-feature">
               Add
             </button>
           </div>
         </div>
+        <h6>Added {showFeatures} Features:</h6>
+          {currentFeatures.length === 0 && (
+            <p id="no-features">Add some features above to see them here!</p>
+          )}
+        <ul className="current-features">
+          {currentFeatures.map(feature => (
+              <li className="feature-li">
+                <div dangerouslySetInnerHTML={{__html: feature.icon}}></div>
+                <p>{feature.name}</p>
+              </li>
+          ))}
+        </ul>
       </div>
     );
   }
