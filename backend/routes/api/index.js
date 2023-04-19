@@ -11,7 +11,7 @@ router.use('/users', usersRouter);
 
 router.use('/haunts', hauntsRouter);
 
-router.use('/areaFeatures', featuresRouter);
+router.use('/features', featuresRouter);
 
 router.use('/bookings', bookingsRouter);
 

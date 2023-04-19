@@ -11,11 +11,14 @@
 .form-container {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     height: auto;
-    /* max-height: 80vh; */
+    max-height: 90vh;
     overflow-wrap: normal;
     width: 40vw;
+    min-width: 500px;
     padding: 20px;
+    overflow-y: auto;
 }
 
 h2, h5 {

@@ -1,38 +1,67 @@
 import { csrfFetch } from "./csrf";
 
-const CREATE_AREA_FEATURE = 'feature/addAreaFeature'
+const GET_ALL_FEATURES = 'features/getALL'
+const CREATE_FEATURE = 'features/addAreaFeature'
 
-export const createAreaFeature = newAreaFeature => {
+export const getAllFeatures = features => {
     return {
-        type: CREATE_AREA_FEATURE,
-        newAreaFeature
+        type: GET_ALL_FEATURES,
+        features
+    }
+}
+
+export const addFeature = (newAreaFeature, featureType) => {
+    return {
+        type: CREATE_FEATURE,
+        newAreaFeature,
+        featureType
     };
 };
 
 // Thunk Creators
 
-export const createNewAreaFeature = ({feature, hauntId}) => async (dispatch, getState) => {
-    const res = await csrfFetch(`/api/areaFeatures/${hauntId}`, {
+export const grabFeatures = (hauntId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/features/${hauntId}`)
+    if (res.ok) {
+        const features = await res.json()
+        dispatch(getAllFeatures(features))
+    }
+}
+
+export const createFeature = (feature, hauntId, type) => async (dispatch, getState) => {
+    const res = await csrfFetch(`/api/features/${hauntId}/${type}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(feature)
     })
  
     if(res.ok) {
-        const newAreaFeature = await res.json()
-        dispatch(createAreaFeature(newAreaFeature))
+        const newFeature = await res.json()
+        dispatch(addFeature(newFeature, type))
     };
 };
 
+// Normalizing Data Helper Function
+const normalize = function(array, obj) {
+    array.forEach(ele => {
+        obj[ele.id] = ele
+    })
+}
+
 // Reducer
 
-const initialState = {};
+const initialState = {"area": {}, "essentials": {}, "amenities": {}};
 
 const featureReducer = (state = initialState, action) => {
-    let newState;
+    let newState = {"area": {}, "essentials": {}, "amenities": {}}
     switch(action.type) {
-        case CREATE_AREA_FEATURE:
-            newState = {...state, [action.newAreaFeature.id]: action.newAreaFeature}
+        case GET_ALL_FEATURES:
+            normalize(action.features.area, newState.area)
+            normalize(action.features.essentials, newState.essentials)
+            normalize(action.features.amenities, newState.amenities)
+            return newState;
+        case CREATE_FEATURE:
+            newState = {...state, [action.featureType]: {...state.area, [action.newAreaFeature.id]: action.newAreaFeature}}
             return newState;
         default:
             return state; 

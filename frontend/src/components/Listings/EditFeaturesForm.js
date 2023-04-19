@@ -1,122 +1,162 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import FeatureList from "./FeatureList";
+import { useDispatch, useSelector } from "react-redux";
 import Radio from "./Radio";
 import "./feature.css";
-import { createNewAreaFeature } from "../../store/feature";
+import { createFeature, grabFeatures } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
+import IconList from "./IconList";
 
-function EditFeaturesForm({ selectedHaunt }) {
+function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setShowErrors }) {
   const dispatch = useDispatch();
-  const [areaFeatures, setAreaFeatures] = useState([]);
-  const [essentials, setEssentials] = useState([]);
-  const [amentities, setAmentities] = useState([]);
 
   const [iconValue, setIconValue] = useState('');
   const [inputField, setInputField] = useState('');
+  const [currentFeatures, setCurrentFeatures] = useState([]);
 
   const [showFeatures, setShowFeatures] = useState("Area");
 
-  const hauntId = selectedHaunt.id
-
-  const handleAddClickArea = (e) => {
-    e.preventDefault()
-    setAreaFeatures([{ name: inputField, icon: iconValue }]);
-    setInputField('');
-    setIconValue('')
-  };
+  const features = useSelector((state) => state.feature)
 
   useEffect(() => {
-    if(selectedHaunt && areaFeatures.length != selectedHaunt.AreaFeatures.length) {
-      areaFeatures.forEach((feature) => dispatch(createNewAreaFeature({feature, hauntId})))
+
+    dispatch(grabFeatures(selectedHaunt.id))
+
+  }, [])
+
+  useEffect(() => {
+    setCurrentFeatures(Object.values(features[showFeatures.toLowerCase()]))
+
+  }, [showFeatures, features])
+
+  useEffect(() => {
+    const errs = []
+    if (!iconValue) {
+      errs.push("Please select an icon.")
     }
-  }, [dispatch, areaFeatures])
+    if (!inputField || inputField.length < 5) {
+      errs.push("Please describe the feature with at least 5 characters.")
+    }
+    setErrors(errs)
+  }, [inputField, iconValue])
 
-  let Contents;
+  const handleAddClickArea = async (e) => {
+    e.preventDefault()
+    setShowErrors(true)
+    if (!errors.length) {
+      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt.id, showFeatures.toLowerCase()))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          if (data.errors)
+          setErrors(data.errors);
+          console.log(errors)
+        }});
+        if (!errors.length) {
+          setCurrentFeatures([...currentFeatures, {icon: iconValue, name: inputField}])
+          setInputField('');
+          setIconValue('')
+          setShowErrors(false)
 
-  // if (showFeatures === 'Ess') {
-  //   Contents= (
-  //     <div>
+        }
+    }
+  };
 
-  //     <h4>Under construction</h4>
-  //     </div>
-  //     )
-  // }
+
+  let iconListContents;
+  let iconListLabels;
 
   if (showFeatures === "Area") {
-    Contents = (
-      <div>
-        <h4>Add an Area Feature:</h4>
+    iconListContents = areaIcons;
+    iconListLabels = ["Structures", "Guests"];
+  } else if (showFeatures === "Essentials") {
+    iconListContents = essentialIcons;
+    iconListLabels = ["Restroom", "Pets", "Other"];
+  } else if (showFeatures === "Amenities") {
+    iconListContents = amenitiesIcons;
+    iconListLabels = ["Consumables", "Other"];
+
+  }
+
+
+  return (
+    <>
+      <div className="all-features-div">
+        <div className="feature-show-buttons">
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Area");
+          }}
+          className="show-button show-feature">
+            Area Features
+          </button>
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Essentials");
+          }}
+          className="show-button show-feature">
+            Essentials
+          </button>
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Amenities");
+          }}
+          className="show-button show-feature">
+            Amenities
+          </button>
+        </div>
+        <div>
+        <h4>{showFeatures} Features:</h4>
         <div className="all-icon">
             <p className="subtext">
               Please let seekers know what type of place they're staying at, if there's bedding available, and how many guests are allowed!
             </p>
           <p>Select an icon:</p>
-          <div className="icon-section">
-            {areaIcons[0].map((icon) => (
-              <Radio
-              key={`${icon}`}
-              i="0"
-              iconValue={iconValue}
-              icon={icon}
-              setIconValue={setIconValue}
-              />
+          <div className="section-container">
+            <div className="icon-labels-left">
+              {iconListLabels.map(label => (
+                <p className="subtext">{label}:</p> 
               ))}
-          </div>
-          <div className="icon-section">
-              {/* <h6>GUESTS:</h6> */}
-            {areaIcons[1].map((icon) => (
-              <Radio
-                key={`${icon}`}
-                i="1"
+            </div>
+            <div className="sub-section-container">
+              {iconListContents.map((icons, idx) => (
+                <IconList
+                key={`iconlist-${idx}`}
+                icons={icons}
                 iconValue={iconValue}
-                icon={icon}
                 setIconValue={setIconValue}
-                required
-              />
-            ))}
+                idx={idx}
+                />
+              ))}
+            </div>
           </div>
-          {/* {areaFeatures.map((feature) => (
-            <FeatureList
-              name={"areaFeature"}
-              feature={feature}
-              featureState={areaFeatures}
-              setFeatureState={setAreaFeatures}
-            />
-          ))} */}
           <div className={`feature-input-div`}>
             <input
               onChange={(e) => setInputField(e.target.value)}
               type="text"
-              value={inputField.name}
+              value={inputField}
               placeholder='Describe the feature'
-              required
-            >
-              {inputField.name}
-            </input>
+            />
             <button onClick={handleAddClickArea} className="add-feature">
               Add
             </button>
           </div>
         </div>
+        <h6>Current {showFeatures} Features:</h6>
+        <ul className="current-features">
+          {currentFeatures?.length === 0 && (
+            <p id="no-features">Add some features above to see them here!</p>
+          )}
+          {currentFeatures?.map(feature => (
+              <li key={feature.name} className="feature-li">
+                <div dangerouslySetInnerHTML={{__html: feature.icon}}></div>
+                <p>{feature.name}</p>
+              </li>
+          ))}
+        </ul>
       </div>
-    );
-  }
-  return (
-    <>
-      <div className="all-features-div">
-        <div className="feature-show-buttons">
-          <button onClick={e => setShowFeatures("Area")} className="show-button show-feature">
-            Area Feature
-          </button>
-          <button className="show-button show-feature">
-            Coming Soon
-          </button>
-          <button className="show-button show-feature">
-            Coming Soon
-          </button>
-        </div>
-        {Contents}
       </div>
     </>
   );

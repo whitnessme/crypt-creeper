@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
 import {
   createNewBooking,
   getBookingsByUser,
@@ -14,13 +13,12 @@ const MomentRange = require("moment-range");
 
 function HauntBookingInfo({ haunt, hauntId }) {
   const dispatch = useDispatch();
-  // const history = useHistory();
+
   const moment = MomentRange.extendMoment(Moment);
 
   const [errors, setErrors] = useState(["default"]);
   const [showStart, setShowStart] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
 
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -56,7 +54,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
       (feature) =>
       feature?.name.includes("adults") || feature.name.includes("guests")
       );
-      console.log("Occu", occupancy)
 
     return occupancy.length ? occupancy[0].name : "Up to 5 guests";
   };
@@ -65,7 +62,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
 
   const findNumOfGuestOptions = () => {
     let guests = findOccupancy();
-    console.log(guests)
     let nums = guests?.split(" ").filter((word) => parseInt(word, 10));
 
     if (parseInt(nums[0]) > parseInt(nums[1])) nums.splice(1, 1)
@@ -95,7 +91,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
   const [numOfGuests, setNumOfGuests] = useState(numOptions[0]);
   const [success, setSuccess] = useState(false)
 
-  // if (!haunt) return null;
 
   const months = {
     "01": "Jan",
@@ -153,7 +148,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
     return result;
   };
 
-  (alreadyBookedDays());
 
   const handleSubmit = async (e) => {
     let payload;
@@ -161,7 +155,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
     setErrors(["default"]);
     if (!sessionUser) {
       setErrors(["Please log in to book"]);
-      // history.push('/login')
     } else if (checkIfIntersect()) {
       setErrors(["Invalid range, intersects with other bookings"]);
     } else {
@@ -185,7 +178,6 @@ function HauntBookingInfo({ haunt, hauntId }) {
         dispatch(getBookingsByHaunt(hauntId));
         setShowStart(false)
         setShowEnd(false)
-        // history.push(`/trips/${sessionUser.id}`)
       }
     }
   };

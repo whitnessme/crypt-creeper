@@ -184,6 +184,7 @@ textarea {
     height: 150px;
     width: 280px;
     padding: 10px;
+    resize: none;
 }
 
 .dungeon-icon:hover ~ .add-help {

@@ -135,13 +135,13 @@ const hauntReducer = (state = initialState, action) => {
     let entries;
     switch(action.type) {
         case LOAD_HAUNTS:
-            newState = {...state}
+            newState = {}
             entries = {}
             action.haunts.forEach(haunt => entries[haunt.id] = haunt)
             newState.entries = entries;
             return newState;
         case LOAD_HAUNTS_BY_HOST:
-            newState = {...state}
+            newState = {}
             entries = {}
             action.hostHaunts.forEach(haunt => entries[haunt.id] = haunt)
             newState.entries = entries;
@@ -164,7 +164,7 @@ const hauntReducer = (state = initialState, action) => {
             return newState;
         case DELETE_HAUNT:
             newState = {...state};
-            delete newState[action.hauntId]
+            delete newState.entries[action.hauntId]
             return newState;
         default:
             return state;
