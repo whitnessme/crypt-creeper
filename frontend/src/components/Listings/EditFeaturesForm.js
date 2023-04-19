@@ -4,6 +4,7 @@ import Radio from "./Radio";
 import "./feature.css";
 import { createFeature, grabFeatures } from "../../store/feature";
 import { amenitiesIcons, areaIcons, essentialIcons } from "./info-listing";
+import IconList from "./IconList";
 
 function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setShowErrors }) {
   const dispatch = useDispatch();
@@ -17,11 +18,15 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
   const features = useSelector((state) => state.feature)
 
   useEffect(() => {
+
     dispatch(grabFeatures(selectedHaunt))
+
   }, [])
 
   useEffect(() => {
-    setCurrentFeatures(features[showFeatures])
+
+    setCurrentFeatures(Object.values(features[showFeatures.toLowerCase()]))
+
   }, [showFeatures])
 
   useEffect(() => {
@@ -39,7 +44,7 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
     e.preventDefault()
     setShowErrors(true)
     if (!errors.length) {
-      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt, "area"))
+      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt, showFeatures.toLowerCase()))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -58,20 +63,52 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
   };
 
 
-  let Contents;
-
-  // if (showFeatures === 'Ess') {
-  //   Contents= (
-  //     <div>
-
-  //     <h4>Under construction</h4>
-  //     </div>
-  //     )
-  // }
+  let iconListContents;
+  let iconListLabels;
 
   if (showFeatures === "Area") {
-    Contents = (
-      <div>
+    iconListContents = areaIcons;
+    iconListLabels = ["Structures", "Guests"];
+  } else if (showFeatures === "Essentials") {
+    iconListContents = essentialIcons;
+    iconListLabels = ["Restroom", "Pets", "Other"];
+  } else if (showFeatures === "Amenities") {
+    iconListContents = amenitiesIcons;
+    iconListLabels = ["Consumables", "Other"];
+
+  }
+
+
+  return (
+    <>
+      <div className="all-features-div">
+        <div className="feature-show-buttons">
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Area");
+          }}
+          className="show-button show-feature">
+            Area Features
+          </button>
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Essentials");
+          }}
+          className="show-button show-feature">
+            Essentials
+          </button>
+          <button
+          onClick={e => {
+            e.preventDefault();
+            setShowFeatures("Amenities");
+          }}
+          className="show-button show-feature">
+            Amenities
+          </button>
+        </div>
+        <div>
         <h4>{showFeatures} Features:</h4>
         <div className="all-icon">
             <p className="subtext">
@@ -80,43 +117,22 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
           <p>Select an icon:</p>
           <div className="section-container">
             <div className="icon-labels-left">
-              <p className="subtext">Structures:</p> 
-              <p className="subtext">Guests:</p> 
+              {iconListLabels.map(label => (
+                <p className="subtext">{label}:</p> 
+              ))}
             </div>
             <div className="sub-section-container">
-              <div className="icon-section">
-                {areaIcons[0].map((icon, i) => (
-                  <Radio
-                  key={`${icon}`}
-                  i={`0${i}`}
-                  iconValue={iconValue}
-                  icon={icon}
-                  setIconValue={setIconValue}
-                  />
-                  ))}
-              </div>
-              <div className="icon-section">
-                {areaIcons[1].map((icon, i) => (
-                  <Radio
-                  key={`${icon}`}
-                  i={`1${i}`}
-                  iconValue={iconValue}
-                  icon={icon}
-                  setIconValue={setIconValue}
-                  required
-                  />
-                  ))}
-              </div>
+              {iconListContents.map((icons, idx) => (
+                <IconList
+                key={`iconlist-${idx}`}
+                icons={icons}
+                iconValue={iconValue}
+                setIconValue={setIconValue}
+                idx={idx}
+                />
+              ))}
             </div>
           </div>
-           {/* {areaFeatures.map((feature) => (
-             <FeatureList
-              name={"areaFeature"}
-              feature={feature}
-              featureState={areaFeatures}
-              setFeatureState={setAreaFeatures}
-            />
-          ))} */}
           <div className={`feature-input-div`}>
             <input
               onChange={(e) => setInputField(e.target.value)}
@@ -130,35 +146,18 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
           </div>
         </div>
         <h6>Added {showFeatures} Features:</h6>
-          {currentFeatures.length === 0 && (
+          {currentFeatures?.length === 0 && (
             <p id="no-features">Add some features above to see them here!</p>
           )}
         <ul className="current-features">
-          {currentFeatures.map(feature => (
-              <li className="feature-li">
+          {currentFeatures?.map(feature => (
+              <li key={feature.name} className="feature-li">
                 <div dangerouslySetInnerHTML={{__html: feature.icon}}></div>
                 <p>{feature.name}</p>
               </li>
           ))}
         </ul>
       </div>
-    );
-  }
-  return (
-    <>
-      <div className="all-features-div">
-        <div className="feature-show-buttons">
-          <button onClick={e => setShowFeatures("Area")} className="show-button show-feature">
-            Area Feature
-          </button>
-          <button className="show-button show-feature">
-            Coming Soon
-          </button>
-          <button className="show-button show-feature">
-            Coming Soon
-          </button>
-        </div>
-        {Contents}
       </div>
     </>
   );
