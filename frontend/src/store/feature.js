@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_FEATURES = 'features/getALL'
-const CREATE_AREA_FEATURE = 'features/addAreaFeature'
+const CREATE_FEATURE = 'features/addAreaFeature'
 
 export const getAllFeatures = features => {
     return {
@@ -10,10 +10,11 @@ export const getAllFeatures = features => {
     }
 }
 
-export const createAreaFeature = newAreaFeature => {
+export const addFeature = (newAreaFeature, featureType) => {
     return {
-        type: CREATE_AREA_FEATURE,
-        newAreaFeature
+        type: CREATE_FEATURE,
+        newAreaFeature,
+        featureType
     };
 };
 
@@ -35,8 +36,8 @@ export const createFeature = (feature, hauntId, type) => async (dispatch, getSta
     })
  
     if(res.ok) {
-        const newAreaFeature = await res.json()
-        dispatch(createAreaFeature(newAreaFeature))
+        const newFeature = await res.json()
+        dispatch(addFeature(newFeature, type))
     };
 };
 
@@ -59,8 +60,8 @@ const featureReducer = (state = initialState, action) => {
             normalize(action.features.essentials, newState.essentials)
             normalize(action.features.amenities, newState.amenities)
             return newState;
-        case CREATE_AREA_FEATURE:
-            newState = {...state, "area": {...state.area, [action.newAreaFeature.id]: action.newAreaFeature}}
+        case CREATE_FEATURE:
+            newState = {...state, [action.featureType]: {...state.area, [action.newAreaFeature.id]: action.newAreaFeature}}
             return newState;
         default:
             return state; 

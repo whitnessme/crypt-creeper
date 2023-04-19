@@ -52,14 +52,14 @@ router.post('/:hauntId/:type', asyncHandler(async function(req, res) {
     if (req.params.type === "essentials") {
         newFeature = await Essential.create({name, icon})
         await hauntEssentials.create({
-            areaFeatureId: newFeature.id,
+            essentialId: newFeature.id,
             hauntId: req.params.hauntId
         })
     }
     if (req.params.type === "amenities") {
         newFeature = await Amenity.create({name, icon})
-        await hauntEssentials.create({
-            areaFeatureId: newFeature.id,
+        await hauntAmenities.create({
+            amenityId: newFeature.id,
             hauntId: req.params.hauntId
         })
     }
