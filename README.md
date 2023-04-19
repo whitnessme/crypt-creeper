@@ -2,7 +2,31 @@
 
 [CryptSeeker](https://crypt-seeker.onrender.com/) is a React/Redux/Express clone of HipCamp, but for those interested in staying in supernatural places. There are some good ole fashioned Haunted Hotels, Cryptid hideaways, mysterious spaces, and otherwise supernatural places! 
 
-### To use this repo:
+## Technologies
+- **Frontend**
+    - React
+    - Redux
+    - Moment.js
+- **Backend**
+    - Express
+    - Sequelize
+    - postgres
+    - bcrypt
+    
+## Features
+- **Regular User Sign-up/Login**
+    - Booking Feature/Trips for staying at a Haunt!
+- **Host User Sign-up/Login**
+    - Booking Feature
+    - Listing a Haunt
+    - Adding features to listing
+        - Area features, Amenities, & Essentials
+
+## Database Schema
+
+![Crypt Seeker Diagram](https://github.com/whitnessme/crypt-seeker/blob/91707decc5bc4c40a18475e904afbdc609a534a5/frontend/public/images/diagram_CS_solo_react.png)
+
+## Run Locally Instructions:
 
 1. Clone this repo
     * `git clone git@github.com:whitnessme/crypt-seeker.git`
@@ -30,7 +54,3 @@
     * `npm start`
     
 10. You may use the demo user or create a new regular user account by clicking on "Sign up" button. If you wish to make a host user click on the "Start Hosting" button.
-
-### Database Schema
-
-![Crypt Seeker Diagram](https://github.com/whitnessme/crypt-seeker/blob/91707decc5bc4c40a18475e904afbdc609a534a5/frontend/public/images/diagram_CS_solo_react.png)
