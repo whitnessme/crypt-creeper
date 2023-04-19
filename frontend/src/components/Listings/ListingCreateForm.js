@@ -13,8 +13,6 @@ function ListingEditForm({ setShowModal }) {
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
-  //   const haunts = useSelector((state) => state.haunt.entries);
-  //   let selectedHaunt = haunts[hauntId];
 
   const [errors, setErrors] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
@@ -74,7 +72,7 @@ function ListingEditForm({ setShowModal }) {
     );
 
     if (newListing) {
-      setSelectedHaunt(newListing.id)
+      setSelectedHaunt(newListing)
       setErrors([])
       setShowErrors(false)
       showFeaturesHideOthers();

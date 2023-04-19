@@ -12,12 +12,14 @@ function ListingEditForm({ hauntId, setShowModal }) {
 
   const sessionUser = useSelector((state) => state.session.user);
   const haunts = useSelector((state) => state.haunt.entries);
-  let selectedHaunt = haunts[hauntId];
 
   const [errors, setErrors] = useState(["default"]);
+  const [showErrors, setShowErrors] = useState(false)
   const [showInfo, setShowInfo] = useState(false);
   const [showSum, setShowSum] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
+  const [selectedHaunt, setSelectedHaunt] = useState(haunts[hauntId]);
+
 
   const showInfoHideOthers = () => {
     setShowInfo(true);
@@ -85,9 +87,9 @@ function ListingEditForm({ hauntId, setShowModal }) {
         <form onSubmit={handleSubmit} className="edit-listing-form">
           <h2>Edit</h2>
           <h5>{selectedHaunt?.name}</h5>
-          {errors && errors != "default" && (
+          {(errors.length > 0 && showErrors) && (
             <ul className="error-list">
-              <button onClick={() => setErrors("default")} className="error-x">
+              <button onClick={() => setErrors([])} className="error-x">
                 X
               </button>
               {errors.map((error, idx) => (
@@ -144,7 +146,7 @@ function ListingEditForm({ hauntId, setShowModal }) {
 
           {showFeatures ? (
             <>
-              <EditFeaturesForm selectedHaunt={selectedHaunt} />
+              <EditFeaturesForm showError={showErrors} setShowErrors={setShowErrors} selectedHaunt={selectedHaunt} errors={errors} setErrors={setErrors} />
               <button
                 className="hide-button"
                 onClick={() => setShowFeatures(false)}

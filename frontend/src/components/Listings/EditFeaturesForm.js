@@ -19,15 +19,14 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
 
   useEffect(() => {
 
-    dispatch(grabFeatures(selectedHaunt))
+    dispatch(grabFeatures(selectedHaunt.id))
 
   }, [])
 
   useEffect(() => {
-
     setCurrentFeatures(Object.values(features[showFeatures.toLowerCase()]))
 
-  }, [showFeatures])
+  }, [showFeatures, features])
 
   useEffect(() => {
     const errs = []
@@ -44,7 +43,7 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
     e.preventDefault()
     setShowErrors(true)
     if (!errors.length) {
-      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt, showFeatures.toLowerCase()))
+      await dispatch(createFeature({ name: inputField, icon: iconValue }, selectedHaunt.id, showFeatures.toLowerCase()))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -145,11 +144,11 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
             </button>
           </div>
         </div>
-        <h6>Added {showFeatures} Features:</h6>
+        <h6>Current {showFeatures} Features:</h6>
+        <ul className="current-features">
           {currentFeatures?.length === 0 && (
             <p id="no-features">Add some features above to see them here!</p>
           )}
-        <ul className="current-features">
           {currentFeatures?.map(feature => (
               <li key={feature.name} className="feature-li">
                 <div dangerouslySetInnerHTML={{__html: feature.icon}}></div>
