@@ -13,14 +13,69 @@
     - postgres
     - bcrypt
     
-## Features
-- **Regular User Sign-up/Login**
-    - Booking Feature/Trips for staying at a Haunt!
-- **Host User Sign-up/Login**
-    - Booking Feature
-    - Listing a Haunt
-    - Adding features to listing
-        - Area features, Amenities, & Essentials
+## Features & Screenshots
+### Landing Page
+---------------------------
+
+![landing page](https://user-images.githubusercontent.com/89945390/233702363-b06c7621-480a-4147-bba0-c5f6e4a1f722.png)
+
+---------------------------
+
+### Haunts List
+---------------------------
+
+![haunts page](https://user-images.githubusercontent.com/89945390/233703717-67184888-8762-4e14-8b10-b795068b42c1.png)
+
+---------------------------
+
+### Login - Demo User & Demo Host
+---------------------------
+
+![login modal](https://user-images.githubusercontent.com/89945390/233703885-7317bb69-35f8-41d6-9092-3cef456a749b.png)
+
+---------------------------
+
+### Signup - Start Hosting
+---------------------------
+
+![signup page](https://user-images.githubusercontent.com/89945390/233704089-c7511e42-e9d7-40e8-a461-0c4d54b6366c.png)
+
+----------------------------
+### Haunt Page
+-------------------------------
+
+![haunt page](https://user-images.githubusercontent.com/89945390/233704352-97a82ca6-603c-4caf-bebb-429a512a3292.png)
+
+--------------------------------
+### Regular User
+#### Booking Feature/Trips for staying at a Haunt!
+
+--------------------------
+![trips page](https://user-images.githubusercontent.com/89945390/233704204-0719e29f-7388-47ae-80c0-647e95fd3e8b.png)
+
+-------------------------
+
+![successfully booked](https://user-images.githubusercontent.com/89945390/233704556-eba0e111-d9b4-4b7c-b52e-200675f92c9f.png)
+
+-----------------------
+    
+### Host User
+#### Listing a Haunt
+----------------------
+
+![listings](https://user-images.githubusercontent.com/89945390/233704749-b012fbf5-5529-40a7-9bd9-8183ac798a94.png)
+
+------------------------
+
+![create a haunt](https://user-images.githubusercontent.com/89945390/233704824-bcab6470-e72c-402d-ad18-c74e85114c3d.png)
+------------------------
+
+#### Adding features to listing - Area features, Amenities, & Essentials
+---------------------
+
+![edit haunt features](https://user-images.githubusercontent.com/89945390/233705507-65bbad5a-f057-479f-a543-c770d0299caf.png)
+
+-------------------------
 
 ## Database Schema
 
