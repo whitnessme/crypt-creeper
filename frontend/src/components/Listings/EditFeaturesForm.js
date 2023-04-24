@@ -25,7 +25,9 @@ function EditFeaturesForm({ selectedHaunt, errors, setErrors, showErrors, setSho
 
   useEffect(() => {
     setCurrentFeatures(Object.values(features[showFeatures.toLowerCase()]))
-
+    console.log("current features", currentFeatures)
+    console.log("features", features)
+    
   }, [showFeatures, features])
 
   useEffect(() => {
