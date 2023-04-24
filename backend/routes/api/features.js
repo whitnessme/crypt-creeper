@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Get All Feature for a Haunt
 router.get('/:hauntId', asyncHandler(async (req, res) => {
-    console.log("hello")
+
     const { hauntId } = req.params
     const area = await AreaFeature.findAll({
         include: [{

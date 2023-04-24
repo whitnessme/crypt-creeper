@@ -108,7 +108,6 @@ export const deleteBooking = (bookingId) => async (dispatch, getState) => {
         headers: {'Content-Type': 'application/json'},
     })
     if (res.ok) {
-        console.log("hello?")
         const deletedHaunt = await res.json();
         await dispatch(remove(bookingId))
         return deletedHaunt
