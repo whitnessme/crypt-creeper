@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_FEATURES = 'features/getALL'
-const CREATE_FEATURE = 'features/addAreaFeature'
+const CREATE_FEATURE = 'features/addNewFeature'
 
 export const getAllFeatures = features => {
     return {
@@ -10,10 +10,10 @@ export const getAllFeatures = features => {
     }
 }
 
-export const addFeature = (newAreaFeature, featureType) => {
+export const addFeature = (newFeature, featureType) => {
     return {
         type: CREATE_FEATURE,
-        newAreaFeature,
+        newFeature,
         featureType
     };
 };
@@ -61,7 +61,7 @@ const featureReducer = (state = initialState, action) => {
             normalize(action.features.amenities, newState.amenities)
             return newState;
         case CREATE_FEATURE:
-            newState = {...state, [action.featureType]: {...state.area, [action.newAreaFeature.id]: action.newAreaFeature}}
+            newState = {...state, [action.featureType]: {...state[action.featureType], [action.newFeature.id]: action.newFeature}}
             return newState;
         default:
             return state; 

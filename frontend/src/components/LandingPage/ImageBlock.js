@@ -1,10 +1,16 @@
 import { Link, useHistory} from 'react-router-dom';
 import ImageBlockCaption from "./ImageBlockCaption";
 
+
 function ImageBlock({ hauntId, bookingId, go, trip, url, classNames, caption, buttonText, buttonLink, caption0Class, caption1Class, listing, booking }) {
     let history = useHistory();
     let redirect;
     let relativeLink;
+
+    if (!url) {
+        url = 'https://i.imgur.com/9usWvqw.png'
+    }
+
     if(listing) {
         relativeLink = `/listings/host/${hauntId}`
         redirect = () => {

@@ -66,7 +66,6 @@ function ListingEditForm({ hauntId, setShowModal }) {
     };
     const result = await dispatch(updateHaunt(payload, selectedHaunt.id)).catch(
       async (res) => {
-        console.log(res);
         const data = await res.json();
         if (data && data.errors) {
           if (data.errors) setErrors(data.errors);
